@@ -1,0 +1,48 @@
+{
+  "name": "soda-angular",
+  "description": "Socrata SODA client for Angular",
+  "version": "0.0.1",
+  "author": {
+    "name": "Dave Sutherland",
+    "email": "dave@daveography.ca",
+    "url": "https://github.com/Daveography"
+  },
+  "homepage": "https://github.com/Daveography/soda-angular",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Daveography/soda-angular.git"
+  },
+  "keywords": [
+    "socrata",
+    "soda",
+    "angular",
+    "open data"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "jasmine-ts",
+    "lint": "tslint -p ./",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint"
+  },
+  "files": [
+    "dist/**"
+  ],
+  "dependencies": {
+    "@angular/common": "~7.1.0",
+    "@angular/core": "~7.1.0",
+    "rxjs": "~6.3.3",
+    "zone.js": "~0.8.26"
+  },
+  "devDependencies": {
+    "@types/jasmine": "^3.4.0",
+    "jasmine": "^3.4.0",
+    "jasmine-core": "^3.4.0",
+    "jasmine-ts": "^0.3.0",
+    "ts-node": "^7.0.1",
+    "tslib": "^1.9.0",
+    "tslint": "~5.11.0",
+    "typescript": "~3.1.6"
+  }
+}
