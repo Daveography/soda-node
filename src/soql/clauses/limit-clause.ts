@@ -16,6 +16,10 @@ export class LimitClause implements IClause {
   }
 
   public toString(): string {
-    return `$limit=${this.MaxRows}`;
+    if (this.MaxRows > 0) {
+      return `$limit=${this.MaxRows}`;
+    }
+
+    return "";
   }
 }

@@ -6,7 +6,11 @@ export class WhereClause extends WhereGroup {
     const components = super.getComponents();
 
     if (components.length > 0) {
-      return `$where=${components.join(" ")}`;
+      const joinedComponents = components.map(x => x.toString())
+        .map(x => encodeURIComponent(x))
+        .join(" ");
+
+      return `$where=${joinedComponents}`;
     }
 
     return "";

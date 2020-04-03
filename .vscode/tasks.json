@@ -7,7 +7,9 @@
       "type": "npm",
       "script": "test",
       "group": "test",
-      "problemMatcher": []
+      "problemMatcher": [
+        "$jasmine"
+      ]
     },
     {
       "type": "npm",
@@ -20,7 +22,9 @@
       "type": "npm",
       "script": "build",
       "group": "build",
-      "problemMatcher": []
+      "problemMatcher": [
+        "$tsc-watch"
+      ]
     },
     {
       "type": "npm",

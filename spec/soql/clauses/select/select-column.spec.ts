@@ -1,41 +1,41 @@
 import { SelectColumn } from "../../../../src/soql/clauses/select/select-column";
 
-describe('Select Columns', () => {
+describe("Select Columns", () => {
 
-  it('should create basic column', () => {
-    let columnName = 'my_column';
-    let columnObj = new SelectColumn(columnName);
+  it("should create basic column", () => {
+    const columnName = "my_column";
+    const columnObj = new SelectColumn(columnName);
     expect(columnObj.toString()).toEqual(columnName);
   });
 
-  it('should create basic column with alias', () => {
-    let columnName = 'my_column';
-    let alias = 'the_column';
-    let columnObj = new SelectColumn(columnName, alias);
-    expect(columnObj.toString()).toEqual(columnName + ' AS ' + alias);
+  it("should create basic column with alias", () => {
+    const columnName = "my_column";
+    const alias = "the_column";
+    const columnObj = new SelectColumn(columnName, alias);
+    expect(columnObj.toString()).toEqual(columnName + " AS " + alias);
   });
-  
-  it('should not allow empty column name', () => {
-    let createFunc = function () { new SelectColumn('') };
+
+  it("should not allow empty column name", () => {
+    const createFunc = () => new SelectColumn("");
     expect(createFunc).toThrow();
   });
 
-  it('should not allow null column name', () => {
-    let createFunc = function () { new SelectColumn(null) };
+  it("should not allow null column name", () => {
+    const createFunc = () => new SelectColumn(null);
     expect(createFunc).toThrow();
   });
-  
-  it('should ignore null alias', () => {
-    let columnName = 'my_column';
-    let alias = null;
-    let columnObj = new SelectColumn(columnName, alias);
+
+  it("should ignore null alias", () => {
+    const columnName = "my_column";
+    const alias = null;
+    const columnObj = new SelectColumn(columnName, alias);
     expect(columnObj.toString()).toEqual(columnName);
   });
 
-  it('should ignore empty alias', () => {
-    let columnName = 'my_column';
-    let alias = '';
-    let columnObj = new SelectColumn(columnName, alias);
+  it("should ignore empty alias", () => {
+    const columnName = "my_column";
+    const alias = "";
+    const columnObj = new SelectColumn(columnName, alias);
     expect(columnObj.toString()).toEqual(columnName);
   });
 });

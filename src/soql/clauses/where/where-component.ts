@@ -1,3 +1,4 @@
-export abstract class IWhereComponent {
-  public abstract toString(): string;
+import { IClause } from "../clause";
+
+export abstract class IWhereComponent extends IClause {
 }

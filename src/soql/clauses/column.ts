@@ -1,4 +1,22 @@
+// TODO: Add generic type to track column value type
 export class Column {
+  public static of<Type>(param: (type: Type) => any): Column {
+    const varExtractor = new RegExp("return (.*);");
+    const matches = varExtractor.exec(param + "");
+
+    if (matches === null) {
+        throw new Error(`Cannot find return type for param (value: ${param})`);
+    }
+
+    const returnValue = matches[1];
+    const splits = returnValue.split(".");
+    splits.shift();
+
+    const columnName = splits.join().replace(",", "/");
+
+    return new Column(columnName);
+  }
+
   public readonly Name: string;
 
   constructor(private name: string) {

@@ -1,7 +1,7 @@
 {
   "name": "soda-angular",
   "description": "Socrata SODA client for Angular",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "author": {
     "name": "Dave Sutherland",
     "email": "dave@daveography.ca",
@@ -16,6 +16,7 @@
   "keywords": [
     "socrata",
     "soda",
+    "soql",
     "angular",
     "open data"
   ],
