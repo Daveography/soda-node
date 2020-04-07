@@ -56,7 +56,7 @@ export class PermitsComponent implements OnInit {
 
   ngOnInit() {
     this.context.developmentPermits
-      .getAll()
+      .where(permit => permit.permit_date).greaterThan()
       .subscribe(permits => this.Permits = permits);
   }
 }

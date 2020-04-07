@@ -1,7 +1,7 @@
 export class Column {
   public static of<Type>(param: (type: Type) => any): Column {
-    const varExtractor = new RegExp("return (.*);");
-    const matches = varExtractor.exec(param + "");
+    const varExtractor = new RegExp(/x => (.*)/);
+    const matches = varExtractor.exec(param.toString());
 
     if (matches === null) {
         throw new Error(`Cannot find return type for param (value: ${param})`);
