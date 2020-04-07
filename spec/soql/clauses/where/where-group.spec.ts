@@ -4,7 +4,7 @@ import { Operator } from "../../../../src/soql-query-builder/clauses/where/opera
 import { WhereFilter } from "../../../../src/soql-query-builder/clauses/where/where-filter";
 import { WhereGroup } from "../../../../src/soql-query-builder/clauses/where/where-group";
 import { WhereOperator } from "../../../../src/soql-query-builder/clauses/where/where-operator";
-import { WhereStringValue } from "../../../../src/soql-query-builder/clauses/where/where-string-value";
+import { WhereValue } from "../../../../src/soql-query-builder/clauses/where/where-value";
 
 describe("Where Groups", () => {
 
@@ -19,7 +19,7 @@ describe("Where Groups", () => {
       new WhereFilter(
         new Column("col1"),
         Comparitor.Equals,
-        new WhereStringValue("test"),
+        new WhereValue("test"),
       ),
     );
     expect(decodeURIComponent(groupObj.toString()))
@@ -32,13 +32,13 @@ describe("Where Groups", () => {
       new WhereFilter(
         new Column("col1"),
         Comparitor.Equals,
-        new WhereStringValue("test"),
+        new WhereValue("test"),
       ),
       new WhereOperator(Operator.And),
       new WhereFilter(
         new Column("col2"),
         Comparitor.Equals,
-        new WhereStringValue("hello world"),
+        new WhereValue("hello world"),
       ),
     );
     expect(decodeURIComponent(groupObj.toString()))
@@ -50,7 +50,7 @@ describe("Where Groups", () => {
     groupObj.add(new WhereFilter(
       new Column("col1"),
       Comparitor.Equals,
-      new WhereStringValue("test"),
+      new WhereValue("test"),
     ));
     expect(decodeURIComponent(groupObj.toString()))
       .toEqual("(NOT col1 = 'test')");
@@ -62,13 +62,13 @@ describe("Where Groups", () => {
       new WhereFilter(
         new Column("col1"),
         Comparitor.Equals,
-        new WhereStringValue("test"),
+        new WhereValue("test"),
       ),
       new WhereOperator(Operator.And),
       new WhereFilter(
         new Column("col2"),
         Comparitor.Equals,
-        new WhereStringValue("hello world"),
+        new WhereValue("hello world"),
       ),
       );
     expect(decodeURIComponent(groupObj.toString()))
@@ -81,20 +81,20 @@ describe("Where Groups", () => {
       new WhereFilter(
         new Column("col1"),
         Comparitor.Equals,
-        new WhereStringValue("test"),
+        new WhereValue("test"),
       ),
       new WhereOperator(Operator.And),
       new WhereGroup(
         new WhereFilter(
           new Column("col2"),
           Comparitor.Equals,
-          new WhereStringValue("hello world"),
+          new WhereValue("hello world"),
         ),
         new WhereOperator(Operator.Or),
         new WhereFilter(
           new Column("col2"),
           Comparitor.Equals,
-          new WhereStringValue("hello planet"),
+          new WhereValue("hello planet"),
         ),
       ),
     );

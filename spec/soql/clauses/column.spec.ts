@@ -27,6 +27,7 @@ describe("Column", () => {
     interface ITestInterface {
       id: number;
       title: string;
+      published: Date;
     }
 
     let result = Column.of<ITestInterface>(x => x.id);
@@ -34,5 +35,8 @@ describe("Column", () => {
 
     result = Column.of<ITestInterface>(x => x.title);
     expect(result.Name).toEqual("title");
+
+    result = Column.of<ITestInterface>(x => x.published);
+    expect(result.Name).toEqual("published");
   });
 });

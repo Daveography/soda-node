@@ -1,4 +1,3 @@
-// TODO: Add generic type to track column value type
 export class Column {
   public static of<Type>(param: (type: Type) => any): Column {
     const varExtractor = new RegExp("return (.*);");

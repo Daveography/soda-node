@@ -1,12 +1,12 @@
 import { WhereClause, WhereFilter } from '../soql-query-builder';
 import { Column } from "../soql-query-builder/clauses/column";
 import { Comparitor } from "../soql-query-builder/clauses/where/comparitor";
-import { WhereStringValue } from "../soql-query-builder/clauses/where/where-string-value";
+import { WhereValue } from "../soql-query-builder/clauses/where/where-value";
 import { IQueryable } from './iqueryable';
 import { IWhereFilter } from './iwherefilter';
 import { SoqlQuery } from './soql-query';
 
-export class SoqlWhereFilter<TEntity> implements IWhereFilter<TEntity> {
+export class SoqlWhereFilter<TEntity, TValue> implements IWhereFilter<TEntity, TValue> {
 
   public constructor(private readonly query: SoqlQuery<TEntity>, private readonly column: Column) {
     if (!query) {
@@ -17,30 +17,30 @@ export class SoqlWhereFilter<TEntity> implements IWhereFilter<TEntity> {
     }
   }
 
-  public equals(value: string): IQueryable<TEntity> {
+  public equals(value: TValue): IQueryable<TEntity> {
     if (value === null) {
       throw new Error("value must be provided");
     }
 
-    const clause = new WhereClause(new WhereFilter(this.column, Comparitor.Equals, new WhereStringValue(value)));
+    const clause = new WhereClause(new WhereFilter(this.column, Comparitor.Equals, new WhereValue(value)));
     return this.query.addClause(clause);
   }
 
-  public greaterThan(value: string): IQueryable<TEntity> {
+  public greaterThan(value: TValue): IQueryable<TEntity> {
     if (value === null) {
       throw new Error("value must be provided");
     }
 
-    const clause = new WhereClause(new WhereFilter(this.column, Comparitor.GreaterThan, new WhereStringValue(value)));
+    const clause = new WhereClause(new WhereFilter(this.column, Comparitor.GreaterThan, new WhereValue(value)));
     return this.query.addClause(clause);
   }
 
-  public lessThan(value: string): IQueryable<TEntity> {
+  public lessThan(value: TValue): IQueryable<TEntity> {
     if (value === null) {
       throw new Error("value must be provided");
     }
 
-    const clause = new WhereClause(new WhereFilter(this.column, Comparitor.LessThan, new WhereStringValue(value)));
+    const clause = new WhereClause(new WhereFilter(this.column, Comparitor.LessThan, new WhereValue(value)));
     return this.query.addClause(clause);
   }
 

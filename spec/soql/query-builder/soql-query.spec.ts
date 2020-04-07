@@ -41,7 +41,7 @@ describe("Soql Query", () => {
 
   it("should generate complex query with multiple clauses", () => {
     const query = new SoqlQuery<ITestInterface>(mockResource)
-      .where(x => x.id).equals("001")
+      .where(x => x.id).equals(1)
       .limit(10)
       .offset(20)
       .select(x => x.id)
@@ -50,6 +50,6 @@ describe("Soql Query", () => {
     const generatedQuery = (query as SoqlQuery<ITestInterface>).toString();
 
     expect(decodeURIComponent(generatedQuery.toString()))
-      .toEqual("?$where=id = '001'&$limit=10&$offset=20&$select=id&$select=title");
+      .toEqual("?$where=id = '1'&$limit=10&$offset=20&$select=id&$select=title");
   });
 });

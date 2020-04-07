@@ -26,7 +26,7 @@ export class SoqlQuery<TEntity> implements IQueryable<TEntity> {
     return this.addClause(new SelectClause(Column.of(column)));
   }
 
-  public where<TValue>(column: (type: TEntity) => TValue): IWhereFilter<TEntity> {
+  public where<TValue>(column: (type: TEntity) => TValue): IWhereFilter<TEntity, TValue> {
     return new SoqlWhereFilter(this, Column.of(column));
   }
 

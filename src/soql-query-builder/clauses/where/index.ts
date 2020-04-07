@@ -5,5 +5,4 @@ export * from "./where-component";
 export * from "./where-filter";
 export * from "./where-group";
 export * from "./where-operator";
-export * from "./where-string-value";
 export * from "./where-value";

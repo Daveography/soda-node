@@ -30,7 +30,7 @@ export class SodaResource<TEntity> implements ISodaResource<TEntity>, IQueryable
     return this.createQuery().select(column);
   }
 
-  public where<TValue>(column: (type: TEntity) => TValue): IWhereFilter<TEntity> {
+  public where<TValue>(column: (type: TEntity) => TValue): IWhereFilter<TEntity, TValue> {
     return this.createQuery().where(column);
   }
 

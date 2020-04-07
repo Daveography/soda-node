@@ -16,24 +16,24 @@ describe("Where Filter Builder", () => {
   const query = new SoqlQuery<ITestInterface>(mockResource);
 
   it("should throw if query is null", () => {
-    const createFunc = () => new SoqlWhereFilter<ITestInterface>(null, column);
+    const createFunc = () => new SoqlWhereFilter<ITestInterface, number>(null, column);
     expect(createFunc).toThrow();
   });
 
   it("should throw if column is null", () => {
-    const createFunc = () => new SoqlWhereFilter<ITestInterface>(query, null);
+    const createFunc = () => new SoqlWhereFilter<ITestInterface, unknown>(query, null);
     expect(createFunc).toThrow();
   });
 
   it("should generate simple where equals query", () => {
-    const generatedQuery = query.where(x => x.id).equals("001").toString();
+    const generatedQuery = query.where(x => x.id).equals(1).toString();
 
     expect(decodeURIComponent(generatedQuery.toString()))
-      .toEqual("?$where=id = '001'");
+      .toEqual("?$where=id = '1'");
   });
 
   it("should throw if equals is null", () => {
-    const builder = new SoqlWhereFilter<ITestInterface>(query, column);
+    const builder = new SoqlWhereFilter<ITestInterface, number>(query, column);
 
     const equalsFunc = () => builder.equals(null);
     expect(equalsFunc).toThrow();
