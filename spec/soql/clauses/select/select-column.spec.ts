@@ -1,4 +1,4 @@
-import { SelectColumn } from "../../../../src/soql/clauses/select/select-column";
+import { SelectColumn } from "../../../../src/soql-query-builder/clauses/select/select-column";
 
 describe("Select Columns", () => {
 

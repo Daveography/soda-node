@@ -1,4 +1,4 @@
-import { LimitClause } from "../../../src/soql/clauses/limit-clause";
+import { LimitClause } from "../../../src/soql-query-builder/clauses/limit-clause";
 
 describe("Limit Clause", () => {
 

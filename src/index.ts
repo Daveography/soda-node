@@ -4,7 +4,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { SodaClient } from './client';
 
 export * from "./client";
-export * from "./soql";
+export * from "./soql-query";
 
 @NgModule({
   imports: [CommonModule, HttpClientModule],

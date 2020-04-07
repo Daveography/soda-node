@@ -1,6 +1,8 @@
-import { Column } from "../../../src/soql/clauses";
-import { InternalSoqlQueryBuilder } from "../../../src/soql/query-builder/internal-soql-query-builder";
-import { InternalWhereFilterBuilder } from "../../../src/soql/query-builder/internal-where-filter-builder";
+import { createMock } from 'ts-auto-mock';
+import { ISodaResource } from "../../../src/client";
+import { Column } from "../../../src/soql-query-builder/clauses";
+import { SoqlQuery } from "../../../src/soql-query/soql-query";
+import { SoqlWhereFilter } from "../../../src/soql-query/soql-where-filter";
 
 describe("Where Filter Builder", () => {
   interface ITestInterface {
@@ -8,58 +10,47 @@ describe("Where Filter Builder", () => {
     title: string;
   }
 
+  const mockResource: ISodaResource<ITestInterface> = createMock<ISodaResource<ITestInterface>>();
+
   const column = Column.of<ITestInterface>(x => x.id);
+  const query = new SoqlQuery<ITestInterface>(mockResource);
 
   it("should throw if query is null", () => {
-    const createFunc = () => new InternalWhereFilterBuilder<ITestInterface>(null, column);
+    const createFunc = () => new SoqlWhereFilter<ITestInterface>(null, column);
     expect(createFunc).toThrow();
   });
 
   it("should throw if column is null", () => {
-    const query = new InternalSoqlQueryBuilder<ITestInterface>();
-    const createFunc = () => new InternalWhereFilterBuilder<ITestInterface>(query, null);
+    const createFunc = () => new SoqlWhereFilter<ITestInterface>(query, null);
     expect(createFunc).toThrow();
   });
 
   it("should generate simple where equals query", () => {
-    const query = new InternalSoqlQueryBuilder<ITestInterface>();
-    const builder = new InternalWhereFilterBuilder<ITestInterface>(query, column);
-    builder.equals("001");
+    const generatedQuery = query.where(x => x.id).equals("001").toString();
 
-    const clause = (builder as InternalWhereFilterBuilder<ITestInterface>).getWhereClause();
-
-    expect(decodeURIComponent(clause.toString()))
-      .toEqual("$where=id = '001'");
+    expect(decodeURIComponent(generatedQuery.toString()))
+      .toEqual("?$where=id = '001'");
   });
 
   it("should throw if equals is null", () => {
-    const query = new InternalSoqlQueryBuilder<ITestInterface>();
-    const builder = new InternalWhereFilterBuilder<ITestInterface>(query, column);
+    const builder = new SoqlWhereFilter<ITestInterface>(query, column);
 
     const equalsFunc = () => builder.equals(null);
     expect(equalsFunc).toThrow();
   });
 
   it("should generate simple where is not null query", () => {
-    const query = new InternalSoqlQueryBuilder<ITestInterface>();
-    const builder = new InternalWhereFilterBuilder<ITestInterface>(query, column);
-    builder.isNotNull();
+    const generatedQuery = query.where(x => x.id).isNotNull().toString();
 
-    const clause = (builder as InternalWhereFilterBuilder<ITestInterface>).getWhereClause();
-
-    expect(decodeURIComponent(clause.toString()))
-      .toEqual("$where=id IS NOT NULL");
+    expect(decodeURIComponent(generatedQuery))
+      .toEqual("?$where=id IS NOT NULL");
   });
 
   it("should generate simple where is null query", () => {
-    const query = new InternalSoqlQueryBuilder<ITestInterface>();
-    const builder = new InternalWhereFilterBuilder<ITestInterface>(query, column);
-    builder.isNull();
+    const generatedQuery = query.where(x => x.id).isNull().toString();
 
-    const clause = (builder as InternalWhereFilterBuilder<ITestInterface>).getWhereClause();
-
-    expect(decodeURIComponent(clause.toString()))
-      .toEqual("$where=id IS NULL");
+    expect(decodeURIComponent(generatedQuery))
+      .toEqual("?$where=id IS NULL");
   });
 
 });

@@ -1,6 +1,6 @@
 import { IClause } from "./clauses/clause";
 
-export class SoqlQuery {
+export class SoqlQueryBuilder {
   public readonly Clauses: IClause[];
 
   constructor(...params: IClause[]) {

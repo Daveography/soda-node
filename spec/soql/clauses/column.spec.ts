@@ -1,4 +1,4 @@
-import { Column } from "../../../src/soql/clauses/column";
+import { Column } from "../../../src/soql-query-builder/clauses/column";
 
 describe("Column", () => {
 

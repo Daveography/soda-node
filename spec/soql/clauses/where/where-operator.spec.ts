@@ -1,5 +1,5 @@
-import { Operator } from "../../../../src/soql/clauses/where/operator";
-import { WhereOperator } from "../../../../src/soql/clauses/where/where-operator";
+import { Operator } from "../../../../src/soql-query-builder/clauses/where/operator";
+import { WhereOperator } from "../../../../src/soql-query-builder/clauses/where/where-operator";
 
 describe("Where Operators", () => {
 

@@ -1,11 +1,11 @@
-import { Column } from "../../../../src/soql/clauses/column";
-import { Comparitor } from "../../../../src/soql/clauses/where/comparitor";
-import { Operator } from "../../../../src/soql/clauses/where/operator";
-import { WhereClause } from "../../../../src/soql/clauses/where/where-clause";
-import { WhereFilter } from "../../../../src/soql/clauses/where/where-filter";
-import { WhereGroup } from "../../../../src/soql/clauses/where/where-group";
-import { WhereOperator } from "../../../../src/soql/clauses/where/where-operator";
-import { WhereStringValue } from "../../../../src/soql/clauses/where/where-string-value";
+import { Column } from "../../../../src/soql-query-builder/clauses/column";
+import { Comparitor } from "../../../../src/soql-query-builder/clauses/where/comparitor";
+import { Operator } from "../../../../src/soql-query-builder/clauses/where/operator";
+import { WhereClause } from "../../../../src/soql-query-builder/clauses/where/where-clause";
+import { WhereFilter } from "../../../../src/soql-query-builder/clauses/where/where-filter";
+import { WhereGroup } from "../../../../src/soql-query-builder/clauses/where/where-group";
+import { WhereOperator } from "../../../../src/soql-query-builder/clauses/where/where-operator";
+import { WhereStringValue } from "../../../../src/soql-query-builder/clauses/where/where-string-value";
 
 describe("Where Clauses", () => {
 

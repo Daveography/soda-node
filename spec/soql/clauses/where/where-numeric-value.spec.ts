@@ -1,4 +1,4 @@
-import { WhereNumericValue } from "../../../../src/soql/clauses/where/where-numeric-value";
+import { WhereNumericValue } from "../../../../src/soql-query-builder/clauses/where/where-numeric-value";
 
 describe("Where Numeric Values", () => {
 

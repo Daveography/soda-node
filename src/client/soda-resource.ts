@@ -1,7 +1,7 @@
 import { Observable } from "rxjs";
-import { InternalSoqlQueryBuilder } from "../soql/query-builder/internal-soql-query-builder";
-import { ISoqlQueryBuilder } from "../soql/query-builder/soql-query-builder";
-import { WhereFilterBuilder } from "../soql/query-builder/where-filter-builder";
+import { IQueryable } from '../soql-query/iqueryable';
+import { IWhereFilter } from '../soql-query/iwherefilter';
+import { SoqlQuery } from '../soql-query/soql-query';
 import { SodaClient } from "./soda-client";
 import { SodaContext } from "./soda-context";
 import { SodaResourceId } from "./soda-resource-id";
@@ -9,41 +9,40 @@ import { SodaResourceId } from "./soda-resource-id";
 export interface ISodaResource<TEntity> {
   id: SodaResourceId;
   context: SodaContext;
+  client: SodaClient;
   getResourceUrl(): string;
-  getAll(): Observable<TEntity[]>;
 }
 
-export class SodaResource<TEntity> implements ISodaResource<TEntity>, ISoqlQueryBuilder<TEntity> {
-  private readonly queryBuilder: InternalSoqlQueryBuilder<TEntity>;
+export class SodaResource<TEntity> implements ISodaResource<TEntity>, IQueryable<TEntity> {
 
-  constructor(readonly id: SodaResourceId, readonly context: SodaContext, readonly client: SodaClient) {
-    this.queryBuilder = new InternalSoqlQueryBuilder();
+  constructor(public readonly id: SodaResourceId, public readonly context: SodaContext, public readonly client: SodaClient) {
   }
 
   public getResourceUrl(): string {
     return `${this.context.host}resource/${this.id}.json`;
   }
 
-  public getAll(): Observable<TEntity[]> {
+  public toArray(): Observable<TEntity[]> {
     return this.client.getResource(this);
   }
 
-  public select<TValue>(column: (type: TEntity) => TValue): this {
-    this.queryBuilder.select(column);
-    return this;
+  public select<TValue>(column: (type: TEntity) => TValue): IQueryable<TEntity> {
+    return this.createQuery().select(column);
   }
 
-  public where<TValue>(column: (type: TEntity) => TValue): WhereFilterBuilder<TEntity> {
-    return this.where(column);
+  public where<TValue>(column: (type: TEntity) => TValue): IWhereFilter<TEntity> {
+    return this.createQuery().where(column);
   }
 
-  public limit(records: number): this {
-    this.queryBuilder.limit(records);
-    return this;
+  public limit(records: number): IQueryable<TEntity> {
+    return this.createQuery().limit(records);
   }
 
-  public offset(records: number): this {
-    this.queryBuilder.offset(records);
-    return this;
+  public offset(records: number): IQueryable<TEntity> {
+    return this.createQuery().offset(records);
+  }
+
+  private createQuery(): SoqlQuery<TEntity> {
+    return new SoqlQuery(this)
   }
 }

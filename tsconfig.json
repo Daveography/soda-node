@@ -17,6 +17,11 @@
     "lib": [
       "es2018",
       "dom"
+    ],
+    "plugins": [
+      {
+        "transform": "ts-auto-mock/transformer"
+      }
     ]
   },
   "exclude": [

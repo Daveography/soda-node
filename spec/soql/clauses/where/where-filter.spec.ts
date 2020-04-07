@@ -1,7 +1,7 @@
-import { Column } from "../../../../src/soql/clauses/column";
-import { Comparitor } from "../../../../src/soql/clauses/where/comparitor";
-import { WhereFilter } from "../../../../src/soql/clauses/where/where-filter";
-import { WhereStringValue } from "../../../../src/soql/clauses/where/where-string-value";
+import { Column } from "../../../../src/soql-query-builder/clauses/column";
+import { Comparitor } from "../../../../src/soql-query-builder/clauses/where/comparitor";
+import { WhereFilter } from "../../../../src/soql-query-builder/clauses/where/where-filter";
+import { WhereStringValue } from "../../../../src/soql-query-builder/clauses/where/where-string-value";
 
 describe("Where Filters", () => {
 
