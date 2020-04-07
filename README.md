@@ -56,7 +56,9 @@ export class PermitsComponent implements OnInit {
 
   ngOnInit() {
     this.context.developmentPermits
-      .where(permit => permit.permit_date).greaterThan()
+      .where(permit => permit.permit_date)
+      .greaterThan(new FloatingTimestamp("04/23/1982 GMT"))
+      .toArray()
       .subscribe(permits => this.Permits = permits);
   }
 }
@@ -65,7 +67,6 @@ export class PermitsComponent implements OnInit {
 ## Notes
 * This is a work in progress, watch this repository for updates.
 * Context/Resource creation is subject to change in future releases
-* Query building is coming soon
 
 ## License
 
