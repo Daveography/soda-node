@@ -1,3 +1,4 @@
+import { FloatingTimestamp } from "../../../src/datatypes/floating-timestamp";
 import { Column } from "../../../src/soql-query-builder/clauses/column";
 
 describe("Column", () => {
@@ -27,7 +28,7 @@ describe("Column", () => {
     interface ITestInterface {
       id: number;
       title: string;
-      published: Date;
+      published: FloatingTimestamp;
     }
 
     let result = Column.of<ITestInterface>(x => x.id);

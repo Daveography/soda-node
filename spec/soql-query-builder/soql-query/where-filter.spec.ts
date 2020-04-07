@@ -1,13 +1,15 @@
 import { createMock } from 'ts-auto-mock';
 import { ISodaResource } from "../../../src/client";
+import { FloatingTimestamp } from "../../../src/datatypes/floating-timestamp";
 import { Column } from "../../../src/soql-query-builder/clauses";
 import { SoqlQuery } from "../../../src/soql-query/soql-query";
 import { SoqlWhereFilter } from "../../../src/soql-query/soql-where-filter";
 
-describe("Where Filter Builder", () => {
+describe("Where Filter", () => {
   interface ITestInterface {
     id: number;
     title: string;
+    published: FloatingTimestamp;
   }
 
   const mockResource: ISodaResource<ITestInterface> = createMock<ISodaResource<ITestInterface>>();
@@ -52,5 +54,13 @@ describe("Where Filter Builder", () => {
     expect(decodeURIComponent(generatedQuery))
       .toEqual("?$where=id IS NULL");
   });
+
+  it("should create grater than where filter with FloatingTimestamp value", () => {
+    const generatedQuery = query.where(x => x.published).greaterThan(new FloatingTimestamp("04/23/1982 GMT")).toString();
+
+    expect(decodeURIComponent(generatedQuery))
+      .toEqual("?$where=published > '1982-04-23T00:00:00.000Z'");
+  });
+
 
 });
