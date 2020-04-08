@@ -13,7 +13,7 @@ export class SodaClient {
   constructor(private http: HttpClient) { }
 
   public getResource<TEntity>(resource: ISodaResource<TEntity>, query?: IQueryable<TEntity> | SoqlQueryBuilder): Observable<TEntity[]> {
-    let getQuery = resource.url;
+    let getQuery = resource.getUrl();
 
     if (query) {
       getQuery += query.toString();

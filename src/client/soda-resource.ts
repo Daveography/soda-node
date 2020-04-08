@@ -11,7 +11,7 @@ export interface ISodaResource<TEntity> {
   id: SodaResourceId;
   context: SodaContext;
   client: SodaClient;
-  url: string;
+  getUrl(): string;
   observable(): Observable<TEntity[]>;
   get(query: SoqlQueryBuilder): Observable<TEntity[]>;
 }
@@ -24,7 +24,7 @@ export class SodaResource<TEntity> implements ISodaResource<TEntity>, IQueryable
     public readonly client: SodaClient
   ) { }
 
-  public get url(): string {
+  public getUrl(): string {
     return `${this.context.host}resource/${this.id}.json`;
   }
 
