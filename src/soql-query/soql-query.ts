@@ -38,7 +38,7 @@ export class SoqlQuery<TEntity> implements IQueryable<TEntity> {
     return this.addClause(new OffsetClause(records));
   }
 
-  public toArray(): Observable<TEntity[]> {
+  public observable(): Observable<TEntity[]> {
     return this.sodaResource.client.getResource(this.sodaResource, this);
   }
 

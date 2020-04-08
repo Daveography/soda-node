@@ -6,6 +6,6 @@ export interface IQueryable<TEntity> {
   where<TValue>(column: (type: TEntity) => TValue): IWhereFilter<TEntity, TValue>;
   limit(records: number): IQueryable<TEntity>;
   offset(records: number): IQueryable<TEntity>;
-  toArray(): Observable<TEntity[]>;
+  observable(): Observable<TEntity[]>;
   toString(): string;
 }

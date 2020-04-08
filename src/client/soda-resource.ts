@@ -1,4 +1,5 @@
 import { Observable } from "rxjs";
+import { SoqlQueryBuilder } from '../soql-query-builder';
 import { IQueryable } from '../soql-query/iqueryable';
 import { IWhereFilter } from '../soql-query/iwherefilter';
 import { SoqlQuery } from '../soql-query/soql-query';
@@ -10,20 +11,29 @@ export interface ISodaResource<TEntity> {
   id: SodaResourceId;
   context: SodaContext;
   client: SodaClient;
-  getResourceUrl(): string;
+  url: string;
+  observable(): Observable<TEntity[]>;
+  get(query: SoqlQueryBuilder): Observable<TEntity[]>;
 }
 
 export class SodaResource<TEntity> implements ISodaResource<TEntity>, IQueryable<TEntity> {
 
-  constructor(public readonly id: SodaResourceId, public readonly context: SodaContext, public readonly client: SodaClient) {
-  }
+  constructor(
+    public readonly id: SodaResourceId,
+    public readonly context: SodaContext,
+    public readonly client: SodaClient
+  ) { }
 
-  public getResourceUrl(): string {
+  public get url(): string {
     return `${this.context.host}resource/${this.id}.json`;
   }
 
-  public toArray(): Observable<TEntity[]> {
+  public observable(): Observable<TEntity[]> {
     return this.client.getResource(this);
+  }
+
+  public get(query: SoqlQueryBuilder): Observable<TEntity[]> {
+    return this.client.getResource(this, query);
   }
 
   public select<TValue>(column: (type: TEntity) => TValue): IQueryable<TEntity> {
@@ -43,6 +53,6 @@ export class SodaResource<TEntity> implements ISodaResource<TEntity>, IQueryable
   }
 
   private createQuery(): SoqlQuery<TEntity> {
-    return new SoqlQuery(this)
+    return new SoqlQuery(this);
   }
 }
