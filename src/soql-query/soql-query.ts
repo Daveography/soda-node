@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { ISodaResource } from '../client';
-import { IClause, SelectClause, WhereClause } from "../soql-query-builder/clauses";
+import { IClause, SelectClause, WhereFilter } from "../soql-query-builder/clauses";
 import { Column } from "../soql-query-builder/clauses/column";
 import { LimitClause } from "../soql-query-builder/clauses/limit-clause";
 import { OffsetClause } from "../soql-query-builder/clauses/offset-clause";
@@ -48,6 +48,11 @@ export class SoqlQuery<TEntity> implements IQueryable<TEntity> {
 
   public addClause(newClause: IClause): SoqlQuery<TEntity> {
     const newBuilder = this.queryBuilder.addClause(newClause);
+    return new SoqlQuery<TEntity>(this.sodaResource, newBuilder);
+  }
+
+  public addFilter<TValue>(filter: WhereFilter<TValue>): SoqlQuery<TEntity> {
+    const newBuilder = this.queryBuilder.addFilter(filter);
     return new SoqlQuery<TEntity>(this.sodaResource, newBuilder);
   }
 }

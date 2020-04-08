@@ -49,7 +49,16 @@ describe("SoqlQuery", () => {
 
     const generatedQuery = (query as SoqlQuery<ITestInterface>).toString();
 
-    expect(decodeURIComponent(generatedQuery.toString()))
+    expect(generatedQuery.toString())
       .toEqual("?$where=id = '1'&$limit=10&$offset=20&$select=id&$select=title");
+  });
+
+  it("should combine mutliple where queries", () => {
+    const query = new SoqlQuery<ITestInterface>(mockResource)
+      .where(x => x.id).equals(1)
+      .where(x => x.title).equals("some text");
+
+    expect(query.toString())
+      .toEqual("?$where=id = '1' AND title = 'some text'");
   });
 });
