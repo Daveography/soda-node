@@ -1,8 +1,8 @@
 import { createMock } from 'ts-auto-mock';
-import { ISodaResource } from "../../../src/client/soda-resource";
-import { SoqlQuery } from "../../../src/soql-query/soql-query";
+import { ISodaResource } from "../../src/client/soda-resource";
+import { SoqlQuery } from "../../src/soql-query/soql-query";
 
-describe("Soql Query", () => {
+describe("SoqlQuery", () => {
   interface ITestInterface {
     id: number;
     title: string;

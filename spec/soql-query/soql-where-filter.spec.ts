@@ -1,11 +1,11 @@
 import { createMock } from 'ts-auto-mock';
-import { ISodaResource } from "../../../src/client";
-import { FloatingTimestamp } from "../../../src/datatypes/floating-timestamp";
-import { Column } from "../../../src/soql-query-builder/clauses";
-import { SoqlQuery } from "../../../src/soql-query/soql-query";
-import { SoqlWhereFilter } from "../../../src/soql-query/soql-where-filter";
+import { ISodaResource } from "../../src/client";
+import { FloatingTimestamp } from "../../src/datatypes/floating-timestamp";
+import { Column } from "../../src/soql-query-builder/clauses";
+import { SoqlQuery } from "../../src/soql-query/soql-query";
+import { SoqlWhereFilter } from "../../src/soql-query/soql-where-filter";
 
-describe("Where Filter", () => {
+describe("SoqlWhereFilter", () => {
   interface ITestInterface {
     id: number;
     title: string;
