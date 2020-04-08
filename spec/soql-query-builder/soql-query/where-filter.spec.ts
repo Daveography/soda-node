@@ -59,7 +59,7 @@ describe("Where Filter", () => {
     const generatedQuery = query.where(x => x.published).greaterThan(new FloatingTimestamp("04/23/1982 GMT")).toString();
 
     expect(decodeURIComponent(generatedQuery))
-      .toEqual("?$where=published > '1982-04-23T00:00:00.000Z'");
+      .toEqual("?$where=published > '1982-04-23T00:00:00.000'");
   });
 
 

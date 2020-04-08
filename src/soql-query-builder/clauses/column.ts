@@ -1,6 +1,6 @@
 export class Column {
   public static of<Type>(param: (type: Type) => any): Column {
-    const varExtractor = new RegExp(/x => (.*)/);
+    const varExtractor = new RegExp(/\w* => (.*)/);
     const matches = varExtractor.exec(param.toString());
 
     if (matches === null) {

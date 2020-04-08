@@ -44,7 +44,7 @@ describe("Where Filters", () => {
       new WhereValue(now),
     );
     expect(decodeURIComponent(filterObj.toString()))
-      .toEqual("col1 > '1982-04-23T00:00:00.000Z'");
+      .toEqual("col1 > '1982-04-23T00:00:00.000'");
   });
 
   it("should create is null where filter", () => {
