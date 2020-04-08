@@ -12,7 +12,7 @@ describe("Where Filters", () => {
       Comparitor.Equals,
       new WhereValue("test"),
       );
-    expect(decodeURIComponent(filterObj.toString()))
+    expect(filterObj.toString())
       .toEqual("col1 = 'test'");
   });
 
@@ -22,7 +22,7 @@ describe("Where Filters", () => {
       Comparitor.GreaterThan,
       new WhereValue("3.0"),
     );
-    expect(decodeURIComponent(filterObj.toString()))
+    expect(filterObj.toString())
       .toEqual("col1 > '3.0'");
   });
 
@@ -32,7 +32,7 @@ describe("Where Filters", () => {
       Comparitor.LessThan,
       new WhereValue(3.1),
     );
-    expect(decodeURIComponent(filterObj.toString()))
+    expect(filterObj.toString())
       .toEqual("col1 < '3.1'");
   });
 
@@ -43,7 +43,7 @@ describe("Where Filters", () => {
       Comparitor.GreaterThan,
       new WhereValue(now),
     );
-    expect(decodeURIComponent(filterObj.toString()))
+    expect(filterObj.toString())
       .toEqual("col1 > '1982-04-23T00:00:00.000'");
   });
 
@@ -52,7 +52,7 @@ describe("Where Filters", () => {
       new Column("col1"),
       Comparitor.IsNull,
     );
-    expect(decodeURIComponent(filterObj.toString()))
+    expect(filterObj.toString())
       .toEqual("col1 IS NULL");
   });
 
@@ -61,7 +61,7 @@ describe("Where Filters", () => {
       new Column("col1"),
       Comparitor.IsNotNull,
     );
-    expect(decodeURIComponent(filterObj.toString()))
+    expect(filterObj.toString())
       .toEqual("col1 IS NOT NULL");
   });
 

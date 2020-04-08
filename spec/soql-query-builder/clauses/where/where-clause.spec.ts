@@ -23,7 +23,7 @@ describe("Where Clauses", () => {
         new WhereValue("test"),
       ),
     );
-    expect(decodeURIComponent(groupObj.toString()))
+    expect(groupObj.toString())
       .toEqual("$where=NOT col1 = 'test'");
   });
 
@@ -42,7 +42,7 @@ describe("Where Clauses", () => {
         new WhereValue("hello world"),
       ),
     );
-    expect(decodeURIComponent(groupObj.toString()))
+    expect(groupObj.toString())
       .toEqual("$where=NOT col1 = 'test' AND col2 = 'hello world'");
   });
 
@@ -53,7 +53,7 @@ describe("Where Clauses", () => {
       Comparitor.Equals,
       new WhereValue("test"),
     ));
-    expect(decodeURIComponent(groupObj.toString()))
+    expect(groupObj.toString())
       .toEqual("$where=NOT col1 = 'test'");
   });
 
@@ -72,7 +72,7 @@ describe("Where Clauses", () => {
         new WhereValue("hello world"),
       ),
     );
-    expect(decodeURIComponent(groupObj.toString()))
+    expect(groupObj.toString())
       .toEqual("$where=col1 = 'test' AND col2 = 'hello world'");
   });
 
@@ -99,7 +99,7 @@ describe("Where Clauses", () => {
         ),
       ),
     );
-    expect(decodeURIComponent(groupObj.toString()))
+    expect(groupObj.toString())
       .toEqual("$where=col1 = 'test' AND (col2 = 'hello world' OR col2 = 'hello planet')");
   });
 
@@ -132,7 +132,7 @@ describe("Where Clauses", () => {
         ),
       ),
     );
-    expect(decodeURIComponent(groupObj.toString()))
+    expect(groupObj.toString())
       .toEqual("$where=col1 = 'test' AND (col2 = 'hello world' OR (col3 = 'test1' OR col3 = 'test2'))");
   });
 });

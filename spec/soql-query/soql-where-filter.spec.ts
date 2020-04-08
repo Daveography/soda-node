@@ -30,7 +30,7 @@ describe("SoqlWhereFilter", () => {
   it("should generate simple where equals query", () => {
     const generatedQuery = query.where(x => x.id).equals(1).toString();
 
-    expect(decodeURIComponent(generatedQuery.toString()))
+    expect(generatedQuery.toString())
       .toEqual("?$where=id = '1'");
   });
 
@@ -44,21 +44,21 @@ describe("SoqlWhereFilter", () => {
   it("should generate simple where is not null query", () => {
     const generatedQuery = query.where(x => x.id).isNotNull().toString();
 
-    expect(decodeURIComponent(generatedQuery))
+    expect(generatedQuery)
       .toEqual("?$where=id IS NOT NULL");
   });
 
   it("should generate simple where is null query", () => {
     const generatedQuery = query.where(x => x.id).isNull().toString();
 
-    expect(decodeURIComponent(generatedQuery))
+    expect(generatedQuery)
       .toEqual("?$where=id IS NULL");
   });
 
   it("should create grater than where filter with FloatingTimestamp value", () => {
     const generatedQuery = query.where(x => x.published).greaterThan(new FloatingTimestamp("04/23/1982 GMT")).toString();
 
-    expect(decodeURIComponent(generatedQuery))
+    expect(generatedQuery)
       .toEqual("?$where=published > '1982-04-23T00:00:00.000'");
   });
 

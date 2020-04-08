@@ -22,7 +22,7 @@ describe("Where Groups", () => {
         new WhereValue("test"),
       ),
     );
-    expect(decodeURIComponent(groupObj.toString()))
+    expect(groupObj.toString())
       .toEqual("(NOT col1 = 'test')");
   });
 
@@ -41,7 +41,7 @@ describe("Where Groups", () => {
         new WhereValue("hello world"),
       ),
     );
-    expect(decodeURIComponent(groupObj.toString()))
+    expect(groupObj.toString())
       .toEqual("(NOT col1 = 'test' AND col2 = 'hello world')");
   });
 
@@ -52,7 +52,7 @@ describe("Where Groups", () => {
       Comparitor.Equals,
       new WhereValue("test"),
     ));
-    expect(decodeURIComponent(groupObj.toString()))
+    expect(groupObj.toString())
       .toEqual("(NOT col1 = 'test')");
   });
 
@@ -71,7 +71,7 @@ describe("Where Groups", () => {
         new WhereValue("hello world"),
       ),
       );
-    expect(decodeURIComponent(groupObj.toString()))
+    expect(groupObj.toString())
       .toEqual("(col1 = 'test' AND col2 = 'hello world')");
   });
 
@@ -98,7 +98,7 @@ describe("Where Groups", () => {
         ),
       ),
     );
-    expect(decodeURIComponent(groupObj.toString()))
+    expect(groupObj.toString())
       .toEqual("(col1 = 'test' AND (col2 = 'hello world' OR col2 = 'hello planet'))");
   });
 });
