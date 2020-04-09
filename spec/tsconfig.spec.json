@@ -3,6 +3,8 @@
   "compilerOptions": {
     "baseUrl": "../",
     "outDir": "dist/spec",
+    "module": "CommonJS",
+    "target": "ES2015",
     "types": [
       "jasmine",
       "node"
