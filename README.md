@@ -55,9 +55,9 @@ export class PermitsComponent implements OnInit {
   ngOnInit() {
     this.context.developmentPermits
       .where(p => p.permit_type)
-        .equals("Major Development Permit")
+        .equals('Major Development Permit')
       .where(p => p.permit_date)
-        .greaterThan(new FloatingTimestamp("04/23/1982 GMT"))
+        .greaterThan(new FloatingTimestamp('04/23/1982 GMT'))
       .observable()
       .subscribe(permits => this.Permits = permits);
   }
@@ -67,16 +67,16 @@ export class PermitsComponent implements OnInit {
 Can also use query builders for more control:
 
 ```js
-const permitTypeCol = new Column("permit_type");
-const permitValueCol = new Column("permit_value");
-const permitClassCol = new Column("permit_class");
+const permitTypeCol = new Column('permit_type');
+const permitValueCol = new Column('permit_value');
+const permitClassCol = new Column('permit_class');
 
 const query = new SoqlQueryBuilder(
   new WhereClause(
     new WhereFilter(
       permitTypeCol,
       Comparitor.Equals,
-      new WhereValue("Major Development Permit"),
+      new WhereValue('Major Development Permit'),
     ),
     new WhereOperator(Operator.And),
     new WhereGroup(
@@ -90,7 +90,7 @@ const query = new SoqlQueryBuilder(
         new WhereFilter(
           permitClassCol,
           Comparitor.Equals,
-          new WhereValue("Class B"),
+          new WhereValue('Class B'),
         )
       )
     )
