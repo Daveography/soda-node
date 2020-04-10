@@ -21,7 +21,7 @@
     "open data"
   ],
   "scripts": {
-    "build": "tsc && cpx \"{package(!-lock).json,README.md,LICENSE}\" dist",
+    "build": "tsc && cpx \"{README.md,LICENSE}\" dist && cpx package.json dist",
     "test": "ts-node --project spec/tsconfig.spec.json node_modules/jasmine/bin/jasmine",
     "lint": "tslint -p ./",
     "prepare": "npm run build && npm test && npm run lint",
