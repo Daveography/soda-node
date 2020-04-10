@@ -1,7 +1,7 @@
 {
   "name": "soda-angular",
   "description": "Socrata SODA client for Angular",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "author": {
     "name": "Dave Sutherland",
     "email": "dave@daveography.ca",
@@ -21,7 +21,7 @@
     "open data"
   ],
   "scripts": {
-    "build": "tsc && cpx package.json dist",
+    "build": "tsc && cpx \"{package(!-lock).json,README.md,LICENSE}\" dist",
     "test": "ts-node --project spec/tsconfig.spec.json node_modules/jasmine/bin/jasmine",
     "lint": "tslint -p ./",
     "prepare": "npm run build && npm test && npm run lint",
