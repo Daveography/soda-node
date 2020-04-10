@@ -9,6 +9,23 @@ npm install soda-angular --save
 
 ## Usage
 
+Add the `SodaClientModule` to your module imports:
+
+```js
+import { SodaClientModule } from 'soda-angular';
+
+...
+
+@NgModule({
+  ...
+  imports: [
+    ...
+    SodaClientModule.forRoot()
+  ]
+})
+export class AppModule { }
+```
+
 Extend `SodaContext` with your own service context, providing the URL to the Socrata service of your choice.
 
 Create your `SodaResource` objects with a dataset model to access specific datasets:
