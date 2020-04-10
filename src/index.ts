@@ -8,14 +8,16 @@ export * from "./datatypes";
 export * from "./soql-query";
 
 @NgModule({
-  providers: [SodaClient],
   imports: [CommonModule, HttpClientModule],
   exports: [HttpClientModule]
 })
 export class SodaClientModule {
   static forRoot(): ModuleWithProviders<SodaClientModule> {
     return {
-      ngModule: SodaClientModule
+      ngModule: SodaClientModule,
+      providers: [
+        SodaClient
+      ],
     };
   }
 }
