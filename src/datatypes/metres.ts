@@ -1,0 +1,1 @@
+export class Meters extends Number {}

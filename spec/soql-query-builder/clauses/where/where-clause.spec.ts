@@ -1,5 +1,7 @@
+import { Location } from "../../../../src/datatypes/location";
 import { Column } from "../../../../src/soql-query-builder/clauses/column";
 import { Comparitor } from "../../../../src/soql-query-builder/clauses/where/comparitor";
+import { WithinCircle } from "../../../../src/soql-query-builder/clauses/where/functions/within-circle";
 import { Operator } from "../../../../src/soql-query-builder/clauses/where/operator";
 import { WhereClause } from "../../../../src/soql-query-builder/clauses/where/where-clause";
 import { WhereFilter } from "../../../../src/soql-query-builder/clauses/where/where-filter";
@@ -134,5 +136,35 @@ describe("Where Clauses", () => {
     );
     expect(groupObj.toString())
       .toEqual("$where=col1 = 'test' AND (col2 = 'hello world' OR (col3 = 'test1' OR col3 = 'test2'))");
+  });
+
+  it("should create a function clause", () => {
+    const groupObj = new WhereClause(
+      new WithinCircle(
+        new Column("col1"),
+        new Location(53.528525, -113.501720),
+        500,
+        )
+    );
+    expect(groupObj.toString())
+      .toEqual("$where=within_circle(col1, 53.528525, -113.501720, 500)");
+  });
+
+  it("should create a compound clause with function", () => {
+    const groupObj = new WhereClause(
+      new WhereFilter(
+        new Column("col1"),
+        Comparitor.Equals,
+        new WhereValue("test"),
+      ),
+      new WhereOperator(Operator.Or),
+      new WithinCircle(
+        new Column("col2"),
+        new Location(57.981640, -3.944209),
+        2000,
+      ),
+    );
+    expect(groupObj.toString())
+      .toEqual("$where=col1 = 'test' OR within_circle(col2, 57.981640, -3.944209, 2000)");
   });
 });
