@@ -9,7 +9,7 @@ npm install soda-angular --save
 
 ## Usage
 
-Add the `SodaClientModule` to your module imports:
+1. Add the `SodaClientModule` to your module imports:
 
 ```js
 import { SodaClientModule } from 'soda-angular';
@@ -26,9 +26,43 @@ import { SodaClientModule } from 'soda-angular';
 export class AppModule { }
 ```
 
-Extend `SodaContext` with your own service context, providing the URL to the Socrata service of your choice.
+2. Create models for your dataset(s):
 
-Create your `SodaResource` objects with a dataset model to access specific datasets:
+```js
+import { FloatingTimestamp } from 'soda-angular/datatypes';
+
+export interface DevelopmentPermit {
+  city_file_number: string;
+  permit_type: string;
+  permit_class: string;
+  permit_date: FloatingTimestamp;
+  status: string;
+  description_of_development: string;
+  address: string;
+  legal_description: string;
+  neighbourhood_id: number;
+  neighbourhood: string;
+  zoning: string;
+  location: string;
+}
+
+export interface BuildingPermit {
+  row_id: string;
+  permit_number: string;
+  permit_date: FloatingTimestamp;
+  address: string;
+  legal_description: string;
+  neighbourhood: string;
+  job_description: string;
+  building_type: string;
+  construction_value: number;
+  zoning: string;
+  location: string;
+}
+```
+
+3. Extend `SodaContext` with your own service context, providing the URL to the Socrata service of your choice,
+and create your `SodaResource` objects with a dataset model to access specific datasets:
 
 ```js
 @Injectable({
@@ -56,7 +90,7 @@ export class OdpContext extends SodaContext {
 }
 ```
 
-Inject your Context into your component, and query against it using fluent querying:
+4. Inject your Context into your component, and query against it using fluent querying:
 
 ```js
 @Component({
