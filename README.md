@@ -29,7 +29,7 @@ export class AppModule { }
 2. Create models for your dataset(s):
 
 ```js
-import { FloatingTimestamp } from 'soda-angular/datatypes';
+import { FloatingTimestamp, Location } from 'soda-angular/datatypes';
 
 export interface DevelopmentPermit {
   city_file_number: string;
