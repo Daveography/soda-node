@@ -43,7 +43,7 @@ export interface DevelopmentPermit {
   neighbourhood_id: number;
   neighbourhood: string;
   zoning: string;
-  location: string;
+  location: Location;
 }
 
 export interface BuildingPermit {
@@ -57,7 +57,7 @@ export interface BuildingPermit {
   building_type: string;
   construction_value: number;
   zoning: string;
-  location: string;
+  location: Location;
 }
 ```
 
@@ -109,6 +109,8 @@ export class PermitsComponent implements OnInit {
         .equals('Major Development Permit')
       .where(p => p.permit_date)
         .greaterThan(new FloatingTimestamp('04/23/1982 GMT'))
+      .whereLocation(p => p.location)
+        .withinCircle(new Location(53.540959, -113.493819, 2000))
       .observable()
       .subscribe(permits => this.Permits = permits);
   }
@@ -158,7 +160,7 @@ this.context.developmentPermits
 * This is a work in progress, watch this repository for updates.
 * Context/Resource creation is subject to change in future releases.
 * Fluent querying only currently does AND queries; OR coming soon.
-* Support for additional column datatypes is coming.
+* Support for additional column datatypes and functions are coming.
 * Support for additional operators is coming.
 
 ## License

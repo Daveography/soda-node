@@ -1,7 +1,7 @@
 import { IClause } from '.';
-import { Operator, WhereClause, WhereFilter, WhereOperator } from './clauses';
-import { SoqlQueryBuilder } from './soql-query-builder';
 import { ArrayUtils } from '../utilities/array-utils';
+import { IWhereComponent, Operator, WhereClause, WhereFilter, WhereOperator } from './clauses';
+import { SoqlQueryBuilder } from './soql-query-builder';
 
 export class ImmutableSoqlQueryBuilder {
 
@@ -16,7 +16,7 @@ export class ImmutableSoqlQueryBuilder {
     return new ImmutableSoqlQueryBuilder(newBuilder);
   }
 
-  addFilter<TValue>(filter: WhereFilter<TValue>): ImmutableSoqlQueryBuilder {
+  addFilter<TValue>(filter: WhereFilter<TValue> | IWhereComponent): ImmutableSoqlQueryBuilder {
     const [whereClauses, otherClauses] = ArrayUtils.partition(this.builder.Clauses, this.isWhereClause);
 
     // Ensure only one WhereClause exists

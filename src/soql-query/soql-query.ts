@@ -1,12 +1,12 @@
 import { Observable } from 'rxjs';
 import { ISodaResource } from '../client';
-import { IClause, SelectClause, WhereFilter } from "../soql-query-builder/clauses";
-import { Column } from "../soql-query-builder/clauses/column";
-import { LimitClause } from "../soql-query-builder/clauses/limit-clause";
-import { OffsetClause } from "../soql-query-builder/clauses/offset-clause";
+import { Location } from '../datatypes/location';
+import { Column, IClause, IWhereComponent, LimitClause, OffsetClause, SelectClause, WhereFilter } from "../soql-query-builder/clauses";
 import { ImmutableSoqlQueryBuilder } from '../soql-query-builder/immutable-soql-query-builder';
+import { ILocationFilter } from './ilocationfilter';
 import { IQueryable } from './iqueryable';
 import { IWhereFilter } from './iwherefilter';
+import { SoqlLocationFilter } from './soql-location-filter';
 import { SoqlWhereFilter } from './soql-where-filter';
 
 export class SoqlQuery<TEntity> implements IQueryable<TEntity> {
@@ -30,6 +30,11 @@ export class SoqlQuery<TEntity> implements IQueryable<TEntity> {
     return new SoqlWhereFilter(this, Column.of(column));
   }
 
+  // TODO: If TypeScript ever allows type guards on generics, create an overload where() instead
+  public whereLocation(column: (type: TEntity) => Location): ILocationFilter<TEntity> {
+    return new SoqlLocationFilter(this, Column.of(column));
+  }
+
   public limit(records: number): IQueryable<TEntity> {
     return this.addClause(new LimitClause(records));
   }
@@ -51,7 +56,7 @@ export class SoqlQuery<TEntity> implements IQueryable<TEntity> {
     return new SoqlQuery<TEntity>(this.sodaResource, newBuilder);
   }
 
-  public addFilter<TValue>(filter: WhereFilter<TValue>): SoqlQuery<TEntity> {
+  public addFilter<TValue>(filter: WhereFilter<TValue> | IWhereComponent): SoqlQuery<TEntity> {
     const newBuilder = this.queryBuilder.addFilter(filter);
     return new SoqlQuery<TEntity>(this.sodaResource, newBuilder);
   }

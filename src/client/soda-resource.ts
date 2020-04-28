@@ -1,7 +1,9 @@
 import { Observable } from "rxjs";
+import { ILocationFilter } from 'src/soql-query/ilocationfilter';
+import { IQueryable } from 'src/soql-query/iqueryable';
+import { IWhereFilter } from 'src/soql-query/iwherefilter';
+import { Location } from '../datatypes/location';
 import { SoqlQueryBuilder } from '../soql-query-builder';
-import { IQueryable } from '../soql-query/iqueryable';
-import { IWhereFilter } from '../soql-query/iwherefilter';
 import { SoqlQuery } from '../soql-query/soql-query';
 import { SodaClient } from "./soda-client";
 import { SodaContext } from "./soda-context";
@@ -43,6 +45,9 @@ export class SodaResource<TEntity> implements ISodaResource<TEntity>, IQueryable
   public where<TValue>(column: (type: TEntity) => TValue): IWhereFilter<TEntity, TValue> {
     return this.createQuery().where(column);
   }
+
+  public whereLocation(column: (type: TEntity) => Location): ILocationFilter<TEntity> {
+    return this.createQuery().whereLocation(column);}
 
   public limit(records: number): IQueryable<TEntity> {
     return this.createQuery().limit(records);

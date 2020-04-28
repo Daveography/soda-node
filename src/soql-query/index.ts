@@ -1,1 +1,1 @@
-export * from "./soql-where-filter";
+export * from "./soql-query";
