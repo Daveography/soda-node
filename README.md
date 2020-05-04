@@ -61,20 +61,22 @@ export interface BuildingPermit {
 }
 ```
 
-3. Extend `SodaContext` with your own service context, providing the URL to the Socrata service of your choice,
+3. Extend `SodaContext` with your own service context.
+Provide the URL to the Socrata service of your choice via the @SodaHost decorator,
 and create your `SodaResource` objects with a dataset model to access specific datasets:
 
 ```js
 @Injectable({
   providedIn: 'root',
 })
+@SodaHost('https://data.edmonton.ca/')
 export class OdpContext extends SodaContext {
   public readonly developmentPermits: SodaResource<DevelopmentPermit>;
   public readonly buildingPermits: SodaResource<BuildingPermit>;
 
   constructor(private sodaClient: SodaClient) {
-    super(new SodaHost('https://data.edmonton.ca/'));
-
+    super();
+    
     this.developmentPermits = new SodaResource<DevelopmentPermit>(
       new SodaResourceId('8b78-2kux'),
       this,
@@ -158,7 +160,7 @@ this.context.developmentPermits
 
 ## Notes
 * This is a work in progress, watch this repository for updates.
-* Context/Resource creation is subject to change in future releases.
+* Resource creation is subject to change in future releases.
 * Fluent querying only currently does AND queries; OR coming soon.
 * Support for additional column datatypes and functions are coming.
 * Support for additional operators is coming.

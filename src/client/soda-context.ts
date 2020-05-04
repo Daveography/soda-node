@@ -1,5 +1,5 @@
-import { SodaHost } from "./soda-host";
+import { SodaHostUrl } from "./soda-host-url";
 
 export abstract class SodaContext {
-  constructor(readonly host: SodaHost) { }
+  readonly Host: SodaHostUrl;
 }
