@@ -74,7 +74,7 @@ export class OdpContext extends SodaContext {
   public readonly developmentPermits: SodaResource<DevelopmentPermit>;
   public readonly buildingPermits: SodaResource<BuildingPermit>;
 
-  constructor(private sodaClient: SodaClient) {
+  constructor(sodaClient: SodaClient) {
     super();
     
     this.developmentPermits = new SodaResource<DevelopmentPermit>(
