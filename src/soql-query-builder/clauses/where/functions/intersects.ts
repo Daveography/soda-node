@@ -1,8 +1,7 @@
-import { Location } from '../../../../datatypes/location';
-import { Column } from '../../column';
-import { IWhereComponent } from '../where-component';
 import { Geometry } from 'geojson';
 import { WellKnownType } from '../../../../datatypes/well-known-type';
+import { Column } from '../../column';
+import { IWhereComponent } from '../where-component';
 
 export class Intersects implements IWhereComponent {
   public readonly Column: Column;
