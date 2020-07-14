@@ -1,5 +1,5 @@
 import { Geometry, MultiPolygon, Point } from 'geojson';
-import { WithinPolygon } from 'src/soql-query-builder/clauses/where/functions/within-polygon';
+import { WithinPolygon } from '../soql-query-builder/clauses/where/functions/within-polygon';
 import { Meters } from '../datatypes/metres';
 import { Column } from '../soql-query-builder/clauses/column';
 import { Intersects } from '../soql-query-builder/clauses/where/functions/intersects';

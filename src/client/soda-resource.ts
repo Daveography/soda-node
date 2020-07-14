@@ -1,4 +1,6 @@
+import { Geometry } from 'geojson';
 import { Observable } from "rxjs";
+import { IGeometryFilter } from '../soql-query/igeometryfilter';
 import { Location } from '../datatypes/location';
 import { SoqlQueryBuilder } from '../soql-query-builder';
 import { ILocationFilter } from '../soql-query/ilocationfilter';
@@ -47,7 +49,12 @@ export class SodaResource<TEntity> implements ISodaResource<TEntity>, IQueryable
   }
 
   public whereLocation(column: (type: TEntity) => Location): ILocationFilter<TEntity> {
-    return this.createQuery().whereLocation(column);}
+    return this.createQuery().whereLocation(column);
+  }
+
+  public whereGeometry(column: (type: TEntity) => Geometry): IGeometryFilter<TEntity> {
+    return this.createQuery().whereGeometry(column);
+  }
 
   public limit(records: number): IQueryable<TEntity> {
     return this.createQuery().limit(records);
