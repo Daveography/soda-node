@@ -1,11 +1,14 @@
+import { Geometry } from 'geojson';
 import { Observable } from 'rxjs';
 import { ISodaResource } from '../client';
 import { Location } from '../datatypes/location';
 import { Column, IClause, IWhereComponent, LimitClause, OffsetClause, SelectClause, WhereFilter } from "../soql-query-builder/clauses";
 import { ImmutableSoqlQueryBuilder } from '../soql-query-builder/immutable-soql-query-builder';
+import { IGeometryFilter } from './igeometryfilter';
 import { ILocationFilter } from './ilocationfilter';
 import { IQueryable } from './iqueryable';
 import { IWhereFilter } from './iwherefilter';
+import { SoqlGeometryFilter } from './soql-geometry-filter';
 import { SoqlLocationFilter } from './soql-location-filter';
 import { SoqlWhereFilter } from './soql-where-filter';
 
@@ -33,6 +36,11 @@ export class SoqlQuery<TEntity> implements IQueryable<TEntity> {
   // TODO: If TypeScript ever allows type guards on generics, create an overload where() instead
   public whereLocation(column: (type: TEntity) => Location): ILocationFilter<TEntity> {
     return new SoqlLocationFilter(this, Column.of(column));
+  }
+
+  // TODO: If TypeScript ever allows type guards on generics, create an overload where() instead
+  public whereGeometry(column: (type: TEntity) => Geometry): IGeometryFilter<TEntity> {
+    return new SoqlGeometryFilter(this, Column.of(column));
   }
 
   public limit(records: number): IQueryable<TEntity> {
