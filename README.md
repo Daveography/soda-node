@@ -7,6 +7,11 @@ Socrata SODA client for Angular
 npm install soda-angular --save
 ```
 
+Also install these dev dependencies:
+```bash
+npm install geojson @types/geojson --save-dev
+```
+
 ## Usage
 
 1. Add the `SodaClientModule` to your module imports:
@@ -122,7 +127,7 @@ export class PermitsComponent implements OnInit {
 Geometry type queries:
 
 ```js
-import { MultiPolygon } from 'geojson';
+import { MultiPolygon, Point } from 'geojson';
 import { GeoJSONUtils } from 'soda-angular/utilities';
 
 export interface LegalParcel {
