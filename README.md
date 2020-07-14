@@ -112,10 +112,89 @@ export class PermitsComponent implements OnInit {
       .where(p => p.permit_date)
         .greaterThan(new FloatingTimestamp('04/23/1982 GMT'))
       .whereLocation(p => p.location)
-        .withinCircle(new Location(53.540959, -113.493819, 2000))
+        .withinCircle(new Location(53.540959, -113.493819), 2000))
       .observable()
       .subscribe(permits => this.Permits = permits);
   }
+}
+```
+
+Geometry type queries:
+
+```js
+import { MultiPolygon } from 'geojson';
+import { GeoJSONUtils } from 'soda-angular/utilities';
+
+export interface LegalParcel {
+  id: string;
+  latlon: Point;
+  geometry: MultiPolygon;
+};
+
+this.context.legalParcels
+  .whereGeomery(p => p.geometry)
+    .intersects(GeoJSONUtils.point(-71.099290, -31.518292));
+
+this.context.legalParcels
+  .whereGeomery(p => p.geometry)
+    .intersects(GeoJSONUtils.polygon(
+      [
+        -113.599831726514,
+        53.458273089013
+      ],
+      [
+        -113.600049996812,
+        53.45827360864
+      ],
+      [
+        -113.600052949158,
+        53.457932503403
+      ],
+      [
+        -113.599845224387,
+        53.457931995732
+      ],
+      [
+        -113.599834691275,
+        53.457931970341
+      ],
+      [
+        -113.599831726514,
+        53.458273089013
+      ]
+  ));
+}
+
+this.context.legalParcels
+  .whereGeomery(p => p.latlon)
+    .withinPolygon(GeoJSONUtils.multipolygon(
+      [
+        [
+          -113.599831726514,
+          53.458273089013
+        ],
+        [
+          -113.600049996812,
+          53.45827360864
+        ],
+        [
+          -113.600052949158,
+          53.457932503403
+        ],
+        [
+          -113.599845224387,
+          53.457931995732
+        ],
+        [
+          -113.599834691275,
+          53.457931970341
+        ],
+        [
+          -113.599831726514,
+          53.458273089013
+        ]
+      ]
+  ));
 }
 ```
 

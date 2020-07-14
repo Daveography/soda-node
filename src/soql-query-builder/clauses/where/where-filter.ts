@@ -19,10 +19,10 @@ export class WhereFilter<T> implements IWhereComponent {
   }
 
   public toString(): string {
-    let clause = `${this.Column.toString()} ${this.Comparitor.toString()}`;
+    let clause = `${this.Column} ${this.Comparitor}`;
 
     if (!Comparitor.isCheckingNull(this.Comparitor)) {
-      clause += ` ${this.Value.toString()}`;
+      clause += ` ${this.Value}`;
     }
 
     return clause;
