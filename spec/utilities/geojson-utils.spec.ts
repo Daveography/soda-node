@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { GeoJSONUtils } from "../../src/utilities/geojson-utils";
 
 describe("GeoJSONUtils", () => {

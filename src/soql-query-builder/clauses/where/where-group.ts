@@ -7,7 +7,7 @@ export class WhereGroup implements IWhereComponent {
     this.Components = components;
   }
 
-  public add(...components: IWhereComponent[]) {
+  public add(...components: IWhereComponent[]): void {
     this.Components.push(...components);
   }
 

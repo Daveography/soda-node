@@ -34,7 +34,7 @@ export class ImmutableSoqlQueryBuilder {
     return this.addClause(new WhereClause(filter));
   }
 
-  toString() {
+  toString(): string {
     return this.builder.toString();
   }
 

@@ -1,5 +1,7 @@
+import { ColumnType } from './column-types';
+
 export class Column {
-  public static of<Type>(param: (type: Type) => any): Column {
+  public static of<Type>(param: (type: Type) => ColumnType): Column {
     const varExtractor = new RegExp(/\w* => (.*)/);
     const matches = varExtractor.exec(param.toString());
 

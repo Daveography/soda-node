@@ -1,5 +1,6 @@
 import { Geometry } from 'geojson';
 import { Observable } from "rxjs";
+import { ColumnType } from 'src/soql-query-builder/clauses/column-types';
 import { Location } from '../datatypes/location';
 import { SoqlQueryBuilder } from '../soql-query-builder';
 import { IGeometryFilter } from '../soql-query/igeometryfilter';
@@ -18,7 +19,7 @@ export class SodaResource<TEntity> implements ISodaResource<TEntity>, IQueryable
   public readonly Context: SodaContext;
 
   constructor(
-    TDatasetClass: new (...args: any[]) => TEntity,
+    TDatasetClass: new (...args: unknown[]) => TEntity,
     context: SodaContext
   ) {
       const resourceIdMetadata = Reflect.getMetadata(resourceMetadataKey, TDatasetClass) as SodaResourceId
@@ -43,11 +44,11 @@ export class SodaResource<TEntity> implements ISodaResource<TEntity>, IQueryable
     return this.Context.Client.getResource(this, query);
   }
 
-  public select<TValue>(column: (type: TEntity) => TValue): IQueryable<TEntity> {
+  public select<TValue extends ColumnType>(column: (type: TEntity) => TValue): IQueryable<TEntity> {
     return this.createQuery().select(column);
   }
 
-  public where<TValue>(column: (type: TEntity) => TValue): IWhereFilter<TEntity, TValue> {
+  public where<TValue extends ColumnType>(column: (type: TEntity) => TValue): IWhereFilter<TEntity, TValue> {
     return this.createQuery().where(column);
   }
 

@@ -1,5 +1,6 @@
 import { Geometry } from 'geojson';
 import { Observable } from 'rxjs';
+import { ColumnType } from 'src/soql-query-builder/clauses/column-types';
 import { ISodaResource } from '../client/isodaresource';
 import { Location } from '../datatypes/location';
 import { Column, IClause, IWhereComponent, LimitClause, OffsetClause, SelectClause, WhereFilter } from "../soql-query-builder/clauses";
@@ -25,11 +26,11 @@ export class SoqlQuery<TEntity> implements IQueryable<TEntity> {
   }
 
   // TODO: Add overload to accept multiple columns as parameters
-  public select<TValue>(column: (type: TEntity) => TValue): IQueryable<TEntity> {
+  public select<TValue extends ColumnType>(column: (type: TEntity) => TValue): IQueryable<TEntity> {
     return this.addClause(new SelectClause(Column.of(column)));
   }
 
-  public where<TValue>(column: (type: TEntity) => TValue): IWhereFilter<TEntity, TValue> {
+  public where<TValue extends ColumnType>(column: (type: TEntity) => TValue): IWhereFilter<TEntity, TValue> {
     return new SoqlWhereFilter(this, Column.of(column));
   }
 

@@ -8,7 +8,7 @@ export class SelectClause implements IClause {
     this.Columns = columns;
   }
 
-  public add(...columns: Column[]) {
+  public add(...columns: Column[]): void {
     this.Columns.push(...columns);
   }
 
