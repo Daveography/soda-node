@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { SoqlQueryBuilder } from '../soql-query-builder';
 import { IQueryable } from '../soql-query/iqueryable';
-import { ISodaResource } from "./soda-resource";
+import { ISodaResource } from "./isodaresource";
 
 @Injectable({
   providedIn: "root",

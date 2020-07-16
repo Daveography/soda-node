@@ -1,6 +1,6 @@
 import { Polygon } from 'geojson';
 import { createMock } from 'ts-auto-mock';
-import { ISodaResource } from "../../src/client";
+import { ISodaResource } from "../../src/client/isodaresource";
 import { IQueryable } from '../../src/soql-query/iqueryable';
 import { SoqlQuery } from "../../src/soql-query/soql-query";
 import { GeoJSONUtils } from '../../src/utilities/geojson-utils';

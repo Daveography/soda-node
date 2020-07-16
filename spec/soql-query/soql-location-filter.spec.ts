@@ -1,5 +1,5 @@
 import { createMock } from 'ts-auto-mock';
-import { ISodaResource } from "../../src/client";
+import { ISodaResource } from "../../src/client/isodaresource";
 import { Location } from "../../src/datatypes/location";
 import { SoqlQuery } from "../../src/soql-query/soql-query";
 import { IQueryable } from '../../src/soql-query/iqueryable';

@@ -1,5 +1,5 @@
 import { createMock } from 'ts-auto-mock';
-import { ISodaResource } from "../../src/client/soda-resource";
+import { ISodaResource } from "../../src/client/isodaresource";
 import { SoqlQuery } from "../../src/soql-query/soql-query";
 
 describe("SoqlQuery", () => {

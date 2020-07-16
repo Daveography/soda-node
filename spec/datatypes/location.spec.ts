@@ -1,5 +1,4 @@
 import { Location } from "../../src/datatypes/location";
-import { Coordinate } from "../../src/datatypes/coordinate";
 
 describe("Location", () => {
 

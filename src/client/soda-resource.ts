@@ -7,17 +7,10 @@ import { ILocationFilter } from '../soql-query/ilocationfilter';
 import { IQueryable } from '../soql-query/iqueryable';
 import { IWhereFilter } from '../soql-query/iwherefilter';
 import { SoqlQuery } from '../soql-query/soql-query';
+import { ISodaResource } from './isodaresource';
 import { SodaContext } from "./soda-context";
 import { resourceMetadataKey } from './soda-dataset-decorator';
 import { SodaResourceId } from "./soda-resource-id";
-
-export interface ISodaResource<TEntity> {
-  Id: SodaResourceId;
-  Context: SodaContext;
-  getUrl(): string;
-  observable(): Observable<TEntity[]>;
-  get(query: SoqlQueryBuilder): Observable<TEntity[]>;
-}
 
 export class SodaResource<TEntity> implements ISodaResource<TEntity>, IQueryable<TEntity> {
 

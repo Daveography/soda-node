@@ -1,6 +1,6 @@
 import { Geometry } from 'geojson';
 import { Observable } from 'rxjs';
-import { ISodaResource } from '../client';
+import { ISodaResource } from '../client/isodaresource';
 import { Location } from '../datatypes/location';
 import { Column, IClause, IWhereComponent, LimitClause, OffsetClause, SelectClause, WhereFilter } from "../soql-query-builder/clauses";
 import { ImmutableSoqlQueryBuilder } from '../soql-query-builder/immutable-soql-query-builder';

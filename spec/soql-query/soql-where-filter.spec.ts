@@ -1,5 +1,5 @@
 import { createMock } from 'ts-auto-mock';
-import { ISodaResource } from "../../src/client";
+import { ISodaResource } from "../../src/client/isodaresource";
 import { FloatingTimestamp } from "../../src/datatypes/floating-timestamp";
 import { Column } from "../../src/soql-query-builder/clauses";
 import { SoqlQuery } from "../../src/soql-query/soql-query";
