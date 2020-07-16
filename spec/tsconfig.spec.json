@@ -1,8 +1,6 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "../",
-    "outDir": "dist/spec",
     "module": "CommonJS",
     "target": "ES2015",
     "types": [
@@ -11,6 +9,6 @@
     ]
   },
   "include": [
-    "**/*.spec.ts"
+    "spec/**/*.spec.ts"
   ]
 }
