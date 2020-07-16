@@ -34,6 +34,7 @@
   "type": "module",
   "dependencies": {
     "geojson": "^0.5.0",
+    "reflect-metadata": "^0.1.13",
     "terraformer-wkt-parser": "^1.2.1"
   },
   "peerDependencies": {
@@ -41,6 +42,7 @@
     "@angular/core": ">=7",
     "@types/geojson": ">=7946",
     "geojson": ">=0.5",
+    "reflect-metadata": ">=0.1",
     "rxjs": ">=6",
     "terraformer-wkt-parser": ">=1.2"
   },

@@ -31,12 +31,14 @@ import { SodaClientModule } from 'soda-angular';
 export class AppModule { }
 ```
 
-2. Create models for your dataset(s):
+2. Create models for your dataset(s), decoated with a `@SodaDataset` that provides the dataset id:
 
 ```js
-import { FloatingTimestamp, Location } from 'soda-angular/datatypes';
+import { FloatingTimestamp, Location } from 'soda-angular';
+import { SodaDataset } from 'soda-angular';
 
-export interface DevelopmentPermit {
+@SodaDataset('8b78-2kux')
+export class DevelopmentPermit {
   city_file_number: string;
   permit_type: string;
   permit_class: string;
@@ -51,7 +53,8 @@ export interface DevelopmentPermit {
   location: Location;
 }
 
-export interface BuildingPermit {
+@SodaDataset('rwuh-apwg')
+export class BuildingPermit {
   row_id: string;
   permit_number: string;
   permit_date: FloatingTimestamp;
@@ -67,10 +70,13 @@ export interface BuildingPermit {
 ```
 
 3. Extend `SodaContext` with your own service context.
-Provide the URL to the Socrata service of your choice via the @SodaHost decorator,
-and create your `SodaResource` objects with a dataset model to access specific datasets:
+Provide the URL to the Socrata service of your choice via the `@SodaHost` decorator,
+and create your `SodaResource` objects with a dataset models:
 
 ```js
+import { Injectable } from '@angular/core';
+import { SodaClient, SodaContext, SodaHost, SodaResource } from 'soda-angular';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -80,19 +86,10 @@ export class OdpContext extends SodaContext {
   public readonly buildingPermits: SodaResource<BuildingPermit>;
 
   constructor(sodaClient: SodaClient) {
-    super();
+    super(sodaClient);
     
-    this.developmentPermits = new SodaResource<DevelopmentPermit>(
-      new SodaResourceId('8b78-2kux'),
-      this,
-      sodaClient
-    );
-
-    this.buildingPermits = new SodaResource<BuildingPermit>(
-      new SodaResourceId('rwuh-apwg'),
-      this,
-      sodaClient
-    );
+    this.developmentPermits = new SodaResource(DevelopmentPermit, this);
+    this.buildingPermits = new SodaResource(BuildingPermit, this);
   }
 }
 ```
@@ -100,6 +97,9 @@ export class OdpContext extends SodaContext {
 4. Inject your Context into your component, and query against it using fluent querying:
 
 ```js
+import { Component, OnInit } from '@angular/core';
+import { FloatingTimestamp, Location } from 'soda-angular';
+
 @Component({
   selector: 'permits',
   templateUrl: './permits.component.html',
@@ -116,21 +116,35 @@ export class PermitsComponent implements OnInit {
         .equals('Major Development Permit')
       .where(p => p.permit_date)
         .greaterThan(new FloatingTimestamp('04/23/1982 GMT'))
-      .whereLocation(p => p.location)
-        .withinCircle(new Location(53.540959, -113.493819), 2000))
       .observable()
       .subscribe(permits => this.Permits = permits);
   }
 }
 ```
 
-Geometry type queries:
+### Location type queries:
+
+```js
+this.context.developmentPermits
+  .whereLocation(p => p.location)
+    .withinCircle(new Location(53.540959, -113.493819), 2000));
+
+this.context.buildingPermits
+  .whereLocation(p => p.location)
+    .withinBox(
+      new Location(46.883198, -96.798216),
+      new Location(46.873169, -96.785139)
+    ));
+```
+
+### Geometry type queries:
 
 ```js
 import { MultiPolygon, Point } from 'geojson';
-import { GeoJSONUtils } from 'soda-angular/utilities';
+import { GeoJSONUtils } from 'soda-angular';
 
-export interface LegalParcel {
+@SodaDataset('kk4c-7pcv')
+export class LegalParcel {
   id: string;
   latlon: Point;
   geometry: MultiPolygon;
@@ -167,8 +181,7 @@ this.context.legalParcels
         -113.599831726514,
         53.458273089013
       ]
-  ));
-}
+    ));
 
 this.context.legalParcels
   .whereGeomery(p => p.latlon)
@@ -199,11 +212,12 @@ this.context.legalParcels
           53.458273089013
         ]
       ]
-  ));
-}
+    ));
 ```
 
-Can also use query builders for more control:
+### Query builders
+
+You can also use query builders for more control (including OR queries):
 
 ```js
 const permitTypeCol = new Column('permit_type');
@@ -244,10 +258,14 @@ this.context.developmentPermits
 
 ## Notes
 * This is a work in progress, watch this repository for updates.
-* Resource creation is subject to change in future releases.
 * Fluent querying only currently does AND queries; OR coming soon.
-* Support for additional column datatypes and functions are coming.
+* Support for select-based functions are coming.
 * Support for additional operators is coming.
+
+## Additional Reading
+
+* [Socrata Developers](https://dev.socrata.com/)
+* [yeg-dev-dashboard](https://github.com/Daveography/yeg-dev-dashboard) (Example project)
 
 ## License
 

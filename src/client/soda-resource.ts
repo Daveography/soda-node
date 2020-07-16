@@ -1,20 +1,19 @@
 import { Geometry } from 'geojson';
 import { Observable } from "rxjs";
-import { IGeometryFilter } from '../soql-query/igeometryfilter';
 import { Location } from '../datatypes/location';
 import { SoqlQueryBuilder } from '../soql-query-builder';
+import { IGeometryFilter } from '../soql-query/igeometryfilter';
 import { ILocationFilter } from '../soql-query/ilocationfilter';
 import { IQueryable } from '../soql-query/iqueryable';
 import { IWhereFilter } from '../soql-query/iwherefilter';
 import { SoqlQuery } from '../soql-query/soql-query';
-import { SodaClient } from "./soda-client";
 import { SodaContext } from "./soda-context";
+import { resourceMetadataKey } from './soda-dataset-decorator';
 import { SodaResourceId } from "./soda-resource-id";
 
 export interface ISodaResource<TEntity> {
-  id: SodaResourceId;
-  context: SodaContext;
-  client: SodaClient;
+  Id: SodaResourceId;
+  Context: SodaContext;
   getUrl(): string;
   observable(): Observable<TEntity[]>;
   get(query: SoqlQueryBuilder): Observable<TEntity[]>;
@@ -22,22 +21,33 @@ export interface ISodaResource<TEntity> {
 
 export class SodaResource<TEntity> implements ISodaResource<TEntity>, IQueryable<TEntity> {
 
+  public readonly Id: SodaResourceId;
+  public readonly Context: SodaContext;
+
   constructor(
-    public readonly id: SodaResourceId,
-    public readonly context: SodaContext,
-    public readonly client: SodaClient
-  ) { }
+    TDatasetClass: new (...args: any[]) => TEntity,
+    context: SodaContext
+  ) {
+      const resourceIdMetadata = Reflect.getMetadata(resourceMetadataKey, TDatasetClass) as SodaResourceId
+
+      if (!resourceIdMetadata) {
+        throw new Error(`Class '${TDatasetClass.name}' must have a SodaDatasetId decorator`);
+      }
+
+      this.Id = resourceIdMetadata;
+      this.Context = context;
+  }
 
   public getUrl(): string {
-    return `${this.context.Host}resource/${this.id}.json`;
+    return `${this.Context.Host}resource/${this.Id}.json`;
   }
 
   public observable(): Observable<TEntity[]> {
-    return this.client.getResource(this);
+    return this.Context.Client.getResource(this);
   }
 
   public get(query: SoqlQueryBuilder): Observable<TEntity[]> {
-    return this.client.getResource(this, query);
+    return this.Context.Client.getResource(this, query);
   }
 
   public select<TValue>(column: (type: TEntity) => TValue): IQueryable<TEntity> {

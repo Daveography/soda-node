@@ -1,11 +1,12 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { SodaClient } from './client';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 export * from "./client";
 export * from "./datatypes";
 export * from "./soql-query";
+export * from "./utilities";
 
 @NgModule({
   imports: [CommonModule, HttpClientModule],

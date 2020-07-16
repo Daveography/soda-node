@@ -52,7 +52,7 @@ export class SoqlQuery<TEntity> implements IQueryable<TEntity> {
   }
 
   public observable(): Observable<TEntity[]> {
-    return this.sodaResource.client.getResource(this.sodaResource, this);
+    return this.sodaResource.Context.Client.getResource(this.sodaResource, this);
   }
 
   public toString(): string {
