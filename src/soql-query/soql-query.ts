@@ -1,9 +1,9 @@
 import { Geometry } from 'geojson';
 import { Observable } from 'rxjs';
-import { ColumnType } from 'src/soql-query-builder/clauses/column-types';
 import { ISodaResource } from '../client/isodaresource';
 import { Location } from '../datatypes/location';
 import { Column, IClause, IWhereComponent, LimitClause, OffsetClause, SelectClause, WhereFilter } from "../soql-query-builder/clauses";
+import { ColumnType } from '../soql-query-builder/clauses/column-types';
 import { ImmutableSoqlQueryBuilder } from '../soql-query-builder/immutable-soql-query-builder';
 import { IGeometryFilter } from './igeometryfilter';
 import { ILocationFilter } from './ilocationfilter';

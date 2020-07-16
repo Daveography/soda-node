@@ -2,7 +2,7 @@
   "compileOnSave": true,
   "compilerOptions": {
     "baseUrl": "./",
-    "outDir": "./dist",
+    "outDir": "./out",
     "sourceMap": false,
     "declaration": true,
     "module": "ES6",
@@ -25,11 +25,9 @@
       }
     ]
   },
-  "include": [
-    "src/**/*.ts"
-  ],
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "out"
   ]
 }

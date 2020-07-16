@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { SoqlQueryBuilder } from 'src/soql-query-builder';
+import { SoqlQueryBuilder } from '../soql-query-builder';
 import { SodaContext } from '.';
 import { SodaResourceId } from './soda-resource-id';
 
