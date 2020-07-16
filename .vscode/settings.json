@@ -1,9 +1,9 @@
 {
-  "jasmineExplorer.nodeArgv": [
-    "-r",
-    "ts-node/register"
-  ],
-  "jasmineExplorer.env": {
-    "TS_NODE_COMPILER_OPTIONS": "{\"module\":\"commonjs\"}"
-  }
+    "jasmineExplorer.env": {
+        "TS_NODE_COMPILER_OPTIONS": "{\"module\":\"commonjs\"}"
+    },
+    "jasmineExplorer.nodeArgv": [
+        "-r",
+        "ts-node/register"
+    ]
 }
