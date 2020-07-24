@@ -22,7 +22,7 @@
   ],
   "scripts": {
     "clean": "rd /q /s out",
-    "build": "tsc && cpx \"{README.md,LICENSE}\" dist && cpx package.json dist",
+    "build": "tsc",
     "test": "ts-node --project spec/tsconfig.spec.json node_modules/jasmine/bin/jasmine",
     "lint": "eslint .",
     "prepare": "npm run clean && npm run build && npm test && npm run lint",
