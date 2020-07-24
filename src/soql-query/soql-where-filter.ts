@@ -2,13 +2,13 @@ import { WhereFilter } from '../soql-query-builder';
 import { Column } from "../soql-query-builder/clauses/column";
 import { Comparitor } from "../soql-query-builder/clauses/where/comparitor";
 import { WhereValue } from "../soql-query-builder/clauses/where/where-value";
+import { IInternalQuery } from './iinternalquery';
 import { IQueryable } from './iqueryable';
 import { IWhereFilter } from './iwherefilter';
-import { SoqlQuery } from './soql-query';
 
 export class SoqlWhereFilter<TEntity, TValue> implements IWhereFilter<TEntity, TValue> {
 
-  public constructor(private readonly query: SoqlQuery<TEntity>, private readonly column: Column) {
+  public constructor(private readonly query: IInternalQuery<TEntity>, private readonly column: Column) {
     if (!query) {
       throw new Error("queryBuilder must be provided");
     }

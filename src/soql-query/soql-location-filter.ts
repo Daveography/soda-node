@@ -3,13 +3,13 @@ import { Meters } from '../datatypes/metres';
 import { Column } from '../soql-query-builder/clauses/column';
 import { WithinBox } from '../soql-query-builder/clauses/where/functions/within-box';
 import { WithinCircle } from '../soql-query-builder/clauses/where/functions/within-circle';
+import { IInternalQuery } from './iinternalquery';
 import { ILocationFilter } from './ilocationfilter';
 import { IQueryable } from './iqueryable';
-import { SoqlQuery } from './soql-query';
 
 export class SoqlLocationFilter<TEntity> implements ILocationFilter<TEntity> {
 
-  public constructor(protected readonly query: SoqlQuery<TEntity>, protected readonly column: Column) {
+  public constructor(protected readonly query: IInternalQuery<TEntity>, protected readonly column: Column) {
     if (!query) {
       throw new Error("queryBuilder must be provided");
     }
