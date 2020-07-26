@@ -11,6 +11,10 @@ export class WhereGroup implements IWhereComponent {
     this.Components.push(...components);
   }
 
+  public isEmpty(): boolean {
+    return this.Components.length === 0;
+  }
+
   public toString(): string {
     if (this.Components && this.Components.length > 0) {
       return `(${this.Components.join(" ")})`;

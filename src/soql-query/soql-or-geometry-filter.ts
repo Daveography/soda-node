@@ -5,11 +5,13 @@ import { Intersects } from '../soql-query-builder/clauses/where/functions/inters
 import { WithinBox } from '../soql-query-builder/clauses/where/functions/within-box';
 import { WithinCircle } from '../soql-query-builder/clauses/where/functions/within-circle';
 import { WithinPolygon } from '../soql-query-builder/clauses/where/functions/within-polygon';
+import { Operator } from '../soql-query-builder/clauses/where/operator';
+import { WhereOperator } from '../soql-query-builder/clauses/where/where-operator';
 import { IFilteredQueryable } from './ifilteredqueryable';
 import { IGeometryFilter } from './igeometryfilter';
 import { IInternalQuery } from './iinternalquery';
 
-export class SoqlGeometryFilter<TEntity> implements IGeometryFilter<TEntity> {
+export class SoqlOrGeometryFilter<TEntity> implements IGeometryFilter<TEntity> {
 
   public constructor(protected readonly query: IInternalQuery<TEntity>, protected readonly column: Column) {
     if (!query) {
@@ -26,7 +28,7 @@ export class SoqlGeometryFilter<TEntity> implements IGeometryFilter<TEntity> {
     }
 
     const filter = new Intersects(this.column, geometry);
-    return this.query.addFilter(filter);
+    return this.query.addFilter(new WhereOperator(Operator.Or), filter);
   }
 
   public withinCircle(point: Point, radius: Meters): IFilteredQueryable<TEntity> {
@@ -38,7 +40,7 @@ export class SoqlGeometryFilter<TEntity> implements IGeometryFilter<TEntity> {
     }
 
     const filter = new WithinCircle(this.column, point, radius);
-    return this.query.addFilter(filter);
+    return this.query.addFilter(new WhereOperator(Operator.Or), filter);
   }
 
   public withinBox(start: Point, end: Point): IFilteredQueryable<TEntity> {
@@ -50,7 +52,7 @@ export class SoqlGeometryFilter<TEntity> implements IGeometryFilter<TEntity> {
     }
 
     const filter = new WithinBox(this.column, start, end);
-    return this.query.addFilter(filter);
+    return this.query.addFilter(new WhereOperator(Operator.Or), filter);
   }
 
   public withinPolygon(multiPolygon: MultiPolygon): IFilteredQueryable<TEntity> {
@@ -59,6 +61,6 @@ export class SoqlGeometryFilter<TEntity> implements IGeometryFilter<TEntity> {
     }
 
     const filter = new WithinPolygon(this.column, multiPolygon);
-    return this.query.addFilter(filter);
+    return this.query.addFilter(new WhereOperator(Operator.Or), filter);
   }
 }

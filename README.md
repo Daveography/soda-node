@@ -67,6 +67,15 @@ export class BuildingPermit {
   zoning: string;
   location: Location;
 }
+
+@SodaDataset('kk4c-7pcv')
+export class LegalParcel {
+  id: number;
+  latitude: number;
+  longitude: number;
+  area: number;
+  geometry: MultiPolygon;
+}
 ```
 
 3. Extend `SodaContext` with your own service context.
@@ -106,7 +115,8 @@ import { FloatingTimestamp, Location } from 'soda-angular';
   styleUrls: ['./permits.component.css']
 })
 export class PermitsComponent implements OnInit {
-  public Permits: DevelopmentPermit[];
+  public DevelopmentPermits: DevelopmentPermit[];
+  public BuildingPermits: BuildingPermit[];
 
   constructor(private context: OdpContext) { }
 
@@ -114,10 +124,20 @@ export class PermitsComponent implements OnInit {
     this.context.developmentPermits
       .where(p => p.permit_type)
         .equals('Major Development Permit')
-      .where(p => p.permit_date)
-        .greaterThan(new FloatingTimestamp('04/23/1982 GMT'))
+      .and(p => p.permit_date)
+        .greaterThan(new FloatingTimestamp('04/23/2020 GMT'))
       .observable()
-      .subscribe(permits => this.Permits = permits);
+      .subscribe(permits => this.DevelopmentPermits = permits);
+
+    this.context.buildingPermits
+      .where(p => p.permit_date)
+        .greaterThan(new FloatingTimestamp('04/23/2020 GMT'))
+      .and(p => p.neighbourhood)
+        .equals('DOWNTOWN')
+      .or(p => p.neighbourhood)
+        .equals('OLIVER')
+      .observable()
+      .subscribe(permits => this.BuildingPermits = permits);
   }
 }
 ```
@@ -126,11 +146,11 @@ export class PermitsComponent implements OnInit {
 
 ```js
 this.context.developmentPermits
-  .whereLocation(p => p.location)
+  .location(p => p.location)
     .withinCircle(new Location(53.540959, -113.493819), 2000));
 
 this.context.buildingPermits
-  .whereLocation(p => p.location)
+  .location(p => p.location)
     .withinBox(
       new Location(46.883198, -96.798216),
       new Location(46.873169, -96.785139)
@@ -143,19 +163,12 @@ this.context.buildingPermits
 import { MultiPolygon, Point } from 'geojson';
 import { GeoJSONUtils } from 'soda-angular';
 
-@SodaDataset('kk4c-7pcv')
-export class LegalParcel {
-  id: string;
-  latlon: Point;
-  geometry: MultiPolygon;
-};
-
 this.context.legalParcels
-  .whereGeomery(p => p.geometry)
+  .geomery(p => p.geometry)
     .intersects(GeoJSONUtils.point(-71.099290, -31.518292));
 
 this.context.legalParcels
-  .whereGeomery(p => p.geometry)
+  .geomery(p => p.geometry)
     .intersects(GeoJSONUtils.polygon(
       [
         -113.599831726514,
@@ -184,7 +197,7 @@ this.context.legalParcels
     ));
 
 this.context.legalParcels
-  .whereGeomery(p => p.latlon)
+  .geomery(p => p.latlon)
     .withinPolygon(GeoJSONUtils.multipolygon(
       [
         [
@@ -258,9 +271,9 @@ this.context.developmentPermits
 
 ## Notes
 * This is a work in progress, watch this repository for updates.
-* Fluent querying only currently does AND queries; OR coming soon.
+* Heavily inspired by Entity Framework.
+* Filter grouping coming soon and negation (NOT) are coming soon.
 * Support for select-based functions are coming.
-* Support for additional operators is coming.
 
 ## Additional Reading
 

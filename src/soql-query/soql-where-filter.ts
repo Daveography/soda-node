@@ -2,13 +2,13 @@ import { WhereFilter } from '../soql-query-builder';
 import { Column } from "../soql-query-builder/clauses/column";
 import { Comparitor } from "../soql-query-builder/clauses/where/comparitor";
 import { WhereValue } from "../soql-query-builder/clauses/where/where-value";
+import { IFilteredQueryable } from './ifilteredqueryable';
 import { IInternalQuery } from './iinternalquery';
-import { IQueryable } from './iqueryable';
 import { IWhereFilter } from './iwherefilter';
 
 export class SoqlWhereFilter<TEntity, TValue> implements IWhereFilter<TEntity, TValue> {
 
-  public constructor(private readonly query: IInternalQuery<TEntity>, private readonly column: Column) {
+  public constructor(protected readonly query: IInternalQuery<TEntity>, protected readonly column: Column) {
     if (!query) {
       throw new Error("queryBuilder must be provided");
     }
@@ -17,7 +17,7 @@ export class SoqlWhereFilter<TEntity, TValue> implements IWhereFilter<TEntity, T
     }
   }
 
-  public equals(value: TValue): IQueryable<TEntity> {
+  public equals(value: TValue): IFilteredQueryable<TEntity> {
     if (value === null) {
       throw new Error("value must be provided");
     }
@@ -26,7 +26,7 @@ export class SoqlWhereFilter<TEntity, TValue> implements IWhereFilter<TEntity, T
     return this.query.addFilter(filter);
   }
 
-  public greaterThan(value: TValue): IQueryable<TEntity> {
+  public greaterThan(value: TValue): IFilteredQueryable<TEntity> {
     if (value === null) {
       throw new Error("value must be provided");
     }
@@ -35,7 +35,7 @@ export class SoqlWhereFilter<TEntity, TValue> implements IWhereFilter<TEntity, T
     return this.query.addFilter(filter);
   }
 
-  public lessThan(value: TValue): IQueryable<TEntity> {
+  public lessThan(value: TValue): IFilteredQueryable<TEntity> {
     if (value === null) {
       throw new Error("value must be provided");
     }
@@ -44,12 +44,12 @@ export class SoqlWhereFilter<TEntity, TValue> implements IWhereFilter<TEntity, T
     return this.query.addFilter(filter);
   }
 
-  public isNull(): IQueryable<TEntity> {
+  public isNull(): IFilteredQueryable<TEntity> {
     const filter = new WhereFilter(this.column, Comparitor.IsNull);
     return this.query.addFilter(filter);
   }
 
-  public isNotNull(): IQueryable<TEntity> {
+  public isNotNull(): IFilteredQueryable<TEntity> {
     const filter = new WhereFilter(this.column, Comparitor.IsNotNull);
     return this.query.addFilter(filter);
   }

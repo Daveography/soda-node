@@ -1,9 +1,9 @@
-import { IQueryable } from './iqueryable';
+import { IFilteredQueryable } from './ifilteredqueryable';
 
 export interface IWhereFilter<TEntity, TValue> {
-  equals(value: TValue): IQueryable<TEntity>;
-  greaterThan(value: TValue): IQueryable<TEntity>;
-  lessThan(value: TValue): IQueryable<TEntity>;
-  isNull(): IQueryable<TEntity>;
-  isNotNull(): IQueryable<TEntity>;
+  equals(value: TValue): IFilteredQueryable<TEntity>;
+  greaterThan(value: TValue): IFilteredQueryable<TEntity>;
+  lessThan(value: TValue): IFilteredQueryable<TEntity>;
+  isNull(): IFilteredQueryable<TEntity>;
+  isNotNull(): IFilteredQueryable<TEntity>;
 }

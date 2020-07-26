@@ -1,20 +1,62 @@
+import { ArrayUtils } from '../utilities/array-utils';
+import { WhereClause } from './clauses';
 import { IClause } from "./clauses/clause";
 
 export class SoqlQueryBuilder {
-  public readonly Clauses: IClause[];
+  private clauses: IClause[];
+  private whereClause: WhereClause;
 
-  constructor(...params: IClause[]) {
-    this.Clauses = params;
+  public get Clauses(): IClause[] { return this.clauses };
+  public get WhereClause(): WhereClause { return this.whereClause };
+
+  constructor(...clauses: IClause[]) {
+    [this.clauses, this.whereClause] = this.splitClauses(clauses);
   }
 
   public toString(): string {
-    if (this.Clauses && this.Clauses.length > 0) {
-      const clauses = this.Clauses.map(x => x.toString())
+    let clauses = this.Clauses;
+
+    if (!this.WhereClause.isEmpty()) {
+      clauses = [...clauses, this.WhereClause];
+    }
+
+    if (clauses && clauses.length > 0) {
+      const clauseString = clauses.map(x => x.toString())
         .join("&");
 
-      return `?${clauses}`;
+      return `?${clauseString}`;
     }
 
     return "";
   }
+
+  public clone(): SoqlQueryBuilder {
+    const newBuilder = new SoqlQueryBuilder();
+    newBuilder.clauses = [...this.clauses];
+    newBuilder.whereClause = new WhereClause(...this.whereClause.Components);
+    return newBuilder;
+  }
+
+  private splitClauses(clauses: IClause[]): [IClause[], WhereClause] {
+    let otherClauses: IClause[];
+    let whereClause: WhereClause;
+
+    if (clauses && clauses.length > 0) {
+      const [whereClauses, remainingClauses] = ArrayUtils.partition(clauses, this.isWhereClause);
+
+      whereClause = new WhereClause(
+        ...whereClauses.flatMap(clause => (clause as WhereClause).Components)
+      );
+
+      otherClauses = remainingClauses;
+    }
+    else {
+      otherClauses = new Array<IClause>();
+      whereClause = new WhereClause();
+    }
+
+    return [otherClauses, whereClause];
+  }
+
+  private isWhereClause = (clause: IClause): clause is WhereClause => clause instanceof WhereClause;
 }

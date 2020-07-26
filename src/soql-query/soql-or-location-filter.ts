@@ -6,8 +6,10 @@ import { WithinCircle } from '../soql-query-builder/clauses/where/functions/with
 import { IFilteredQueryable } from './ifilteredqueryable';
 import { IInternalQuery } from './iinternalquery';
 import { ILocationFilter } from './ilocationfilter';
+import { WhereOperator } from '../soql-query-builder/clauses/where/where-operator';
+import { Operator } from '../soql-query-builder/clauses/where/operator';
 
-export class SoqlLocationFilter<TEntity> implements ILocationFilter<TEntity> {
+export class SoqlOrLocationFilter<TEntity> implements ILocationFilter<TEntity> {
 
   public constructor(protected readonly query: IInternalQuery<TEntity>, protected readonly column: Column) {
     if (!query) {
@@ -27,7 +29,7 @@ export class SoqlLocationFilter<TEntity> implements ILocationFilter<TEntity> {
     }
 
     const filter = new WithinCircle(this.column, location, radius);
-    return this.query.addFilter(filter);
+    return this.query.addFilter(new WhereOperator(Operator.Or), filter);
   }
 
   public withinBox(start: Location, end: Location): IFilteredQueryable<TEntity> {
@@ -39,6 +41,6 @@ export class SoqlLocationFilter<TEntity> implements ILocationFilter<TEntity> {
     }
 
     const filter = new WithinBox(this.column, start, end);
-    return this.query.addFilter(filter);
+    return this.query.addFilter(new WhereOperator(Operator.Or), filter);
   }
 }

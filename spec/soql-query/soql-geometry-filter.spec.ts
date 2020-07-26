@@ -18,7 +18,7 @@ describe("SoqlGeometryFilter", () => {
   it("should generate simple function query", () => {
     const point = GeoJSONUtils.point(-71.099290, -31.518292);
 
-    const generatedQuery = query.whereGeometry(x => x.geometry)
+    const generatedQuery = query.geometry(x => x.geometry)
       .intersects(point)
       .toString();
 

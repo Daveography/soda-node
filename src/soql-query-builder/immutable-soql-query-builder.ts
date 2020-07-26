@@ -1,6 +1,5 @@
 import { IClause } from '.';
-import { ArrayUtils } from '../utilities/array-utils';
-import { IWhereComponent, Operator, WhereClause, WhereFilter, WhereOperator } from './clauses';
+import { IWhereComponent } from './clauses';
 import { SoqlQueryBuilder } from './soql-query-builder';
 
 export class ImmutableSoqlQueryBuilder {
@@ -11,32 +10,23 @@ export class ImmutableSoqlQueryBuilder {
     }
   }
 
-  addClause(clause: IClause): ImmutableSoqlQueryBuilder {
-    const newBuilder = new SoqlQueryBuilder(...this.builder.Clauses, clause);
+  public addClause(clause: IClause): ImmutableSoqlQueryBuilder {
+    const newBuilder = this.builder.clone();
+    newBuilder.Clauses.push(clause);
     return new ImmutableSoqlQueryBuilder(newBuilder);
   }
 
-  addFilter<TValue>(filter: WhereFilter<TValue> | IWhereComponent): ImmutableSoqlQueryBuilder {
-    const [whereClauses, otherClauses] = ArrayUtils.partition(this.builder.Clauses, this.isWhereClause);
-
-    // Ensure only one WhereClause exists
-    if (whereClauses.length > 0) {
-      const newWhereClause = new WhereClause(
-        ...whereClauses.flatMap(clause => (clause as WhereClause).Components),
-        new WhereOperator(Operator.And),
-        filter
-      );
-
-      const newBuilder = new SoqlQueryBuilder(...otherClauses, newWhereClause);
-      return new ImmutableSoqlQueryBuilder(newBuilder);
-    }
-
-    return this.addClause(new WhereClause(filter));
+  public addFilter(...filter: IWhereComponent[]): ImmutableSoqlQueryBuilder {
+    const newBuilder = this.builder.clone();
+    newBuilder.WhereClause.add(...filter);
+    return new ImmutableSoqlQueryBuilder(newBuilder);
   }
 
-  toString(): string {
+  public toString(): string {
     return this.builder.toString();
   }
 
-  private isWhereClause = (clause: IClause): clause is WhereClause => clause instanceof WhereClause;
+  public hasFilters(): boolean {
+    return !this.builder.WhereClause.isEmpty();
+  }
 }

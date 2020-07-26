@@ -3,6 +3,7 @@ import { Observable } from "rxjs";
 import { Location } from '../datatypes/location';
 import { SoqlQueryBuilder } from '../soql-query-builder';
 import { ColumnType } from '../soql-query-builder/clauses/column-types';
+import { DataSetColumn } from '../soql-query/dataset-column';
 import { IGeometryFilter } from '../soql-query/igeometryfilter';
 import { ILocationFilter } from '../soql-query/ilocationfilter';
 import { IQueryable } from '../soql-query/iqueryable';
@@ -44,20 +45,20 @@ export class SodaResource<TEntity> implements ISodaResource<TEntity>, IQueryable
     return this.Context.Client.getResource(this, query);
   }
 
-  public select<TValue extends ColumnType>(column: (type: TEntity) => TValue): IQueryable<TEntity> {
+  public select<TValue extends ColumnType>(column: DataSetColumn<TEntity, TValue>): IQueryable<TEntity> {
     return this.createQuery().select(column);
   }
 
-  public where<TValue extends ColumnType>(column: (type: TEntity) => TValue): IWhereFilter<TEntity, TValue> {
+  public where<TValue extends ColumnType>(column: DataSetColumn<TEntity, TValue>): IWhereFilter<TEntity, TValue> {
     return this.createQuery().where(column);
   }
 
-  public whereLocation(column: (type: TEntity) => Location): ILocationFilter<TEntity> {
-    return this.createQuery().whereLocation(column);
+  public location(column: (type: TEntity) => Location): ILocationFilter<TEntity> {
+    return this.createQuery().location(column);
   }
 
-  public whereGeometry(column: (type: TEntity) => Geometry): IGeometryFilter<TEntity> {
-    return this.createQuery().whereGeometry(column);
+  public geometry(column: (type: TEntity) => Geometry): IGeometryFilter<TEntity> {
+    return this.createQuery().geometry(column);
   }
 
   public limit(records: number): IQueryable<TEntity> {

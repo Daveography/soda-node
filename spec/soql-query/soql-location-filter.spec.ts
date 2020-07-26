@@ -15,7 +15,7 @@ describe("SoqlLocationFilter", () => {
   const query: IQueryable<ITestInterface> = new SoqlQuery<ITestInterface>(mockResource);
 
   it("should generate simple function query", () => {
-    const generatedQuery = query.whereLocation(x => x.location)
+    const generatedQuery = query.location(x => x.location)
       .withinCircle(new Location(-31.518292, -71.099290), 5000)
       .toString();
 
