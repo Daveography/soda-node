@@ -1,4 +1,4 @@
-import { Comparitor, Operator, WhereFilter, WhereOperator, WhereValue } from '../../soql-query-builder';
+import { Comparitor, Operator, WhereFilter, WhereOperator, WhereValue } from '../../soql-query';
 import { IFilteredQueryable } from '../ifilteredqueryable';
 import { BasicWhereFilter } from './basic-where-filter';
 

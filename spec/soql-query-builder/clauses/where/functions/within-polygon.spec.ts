@@ -1,5 +1,5 @@
-import { Column } from "../../../../../src/soql-query-builder/clauses/column";
-import { WithinPolygon } from "../../../../../src/soql-query-builder/clauses/where/functions/within-polygon";
+import { Column } from "../../../../../src/soql-query/clauses/column";
+import { WithinPolygon } from "../../../../../src/soql-query/clauses/where/functions/within-polygon";
 import { GeoJSONUtils } from "../../../../../src/utilities/geojson-utils";
 
 describe("WithinPolygon Where Filter", () => {

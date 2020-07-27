@@ -1,4 +1,4 @@
-import { IClause, IWhereComponent } from '../soql-query-builder';
+import { IClause, IWhereComponent } from '../soql-query';
 import { IFilteredQueryable } from './ifilteredqueryable';
 import { IQueryable } from './iqueryable';
 

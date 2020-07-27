@@ -1,8 +1,8 @@
 import { Location } from '../../datatypes/location';
 import { Meters } from '../../datatypes/metres';
-import { Column } from '../../soql-query-builder/clauses/column';
-import { WithinBox } from '../../soql-query-builder/clauses/where/functions/within-box';
-import { WithinCircle } from '../../soql-query-builder/clauses/where/functions/within-circle';
+import { Column } from '../../soql-query/clauses/column';
+import { WithinBox } from '../../soql-query/clauses/where/functions/within-box';
+import { WithinCircle } from '../../soql-query/clauses/where/functions/within-circle';
 import { IFilteredQueryable } from '../ifilteredqueryable';
 import { IInternalQuery } from '../iinternalquery';
 import { ILocationFilter } from './ilocationfilter';

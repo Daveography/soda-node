@@ -3,7 +3,7 @@ import { ISodaResource } from "../../../src/client/isodaresource";
 import { FloatingTimestamp } from "../../../src/datatypes/floating-timestamp";
 import { BasicWhereFilter } from "../../../src/fluent-query/filters/basic-where-filter";
 import { FluentQuery } from "../../../src/fluent-query/fluent-query";
-import { Column } from "../../../src/soql-query-builder/clauses";
+import { Column } from "../../../src/soql-query/clauses";
 
 describe("SoqlWhereFilter", () => {
   interface ITestInterface {

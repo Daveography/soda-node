@@ -1,5 +1,5 @@
 import { FloatingTimestamp } from "../../../src/datatypes/floating-timestamp";
-import { Column } from "../../../src/soql-query-builder/clauses/column";
+import { Column } from "../../../src/soql-query/clauses/column";
 
 describe("Column", () => {
 

@@ -1,8 +1,8 @@
 import { FloatingTimestamp } from "../../../../src/datatypes/floating-timestamp";
-import { Column } from "../../../../src/soql-query-builder/clauses/column";
-import { Comparitor } from "../../../../src/soql-query-builder/clauses/where/comparitor";
-import { WhereFilter } from "../../../../src/soql-query-builder/clauses/where/where-filter";
-import { WhereValue } from "../../../../src/soql-query-builder/clauses/where/where-value";
+import { Column } from "../../../../src/soql-query/clauses/column";
+import { Comparitor } from "../../../../src/soql-query/clauses/where/comparitor";
+import { WhereFilter } from "../../../../src/soql-query/clauses/where/where-filter";
+import { WhereValue } from "../../../../src/soql-query/clauses/where/where-value";
 
 describe("Where Filters", () => {
 

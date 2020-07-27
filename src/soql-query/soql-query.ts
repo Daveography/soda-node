@@ -2,7 +2,7 @@ import { ArrayUtils } from '../utilities/array-utils';
 import { WhereClause } from './clauses';
 import { IClause } from "./clauses/clause";
 
-export class SoqlQueryBuilder {
+export class SoqlQuery {
   private clauses: IClause[];
   private whereClause: WhereClause;
 
@@ -30,11 +30,11 @@ export class SoqlQueryBuilder {
     return "";
   }
 
-  public clone(): SoqlQueryBuilder {
-    const newBuilder = new SoqlQueryBuilder();
-    newBuilder.clauses = [...this.clauses];
-    newBuilder.whereClause = new WhereClause(...this.whereClause.Components);
-    return newBuilder;
+  public clone(): SoqlQuery {
+    const newSoqlQuery = new SoqlQuery();
+    newSoqlQuery.clauses = [...this.clauses];
+    newSoqlQuery.whereClause = new WhereClause(...this.whereClause.Components);
+    return newSoqlQuery;
   }
 
   private splitClauses(clauses: IClause[]): [IClause[], WhereClause] {

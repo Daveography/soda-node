@@ -7,8 +7,8 @@ import { ILocationFilter } from '../fluent-query/filters/ilocationfilter';
 import { IWhereFilter } from '../fluent-query/filters/iwherefilter';
 import { FluentQuery } from '../fluent-query/fluent-query';
 import { IQueryable } from '../fluent-query/iqueryable';
-import { SoqlQueryBuilder } from '../soql-query-builder';
-import { ColumnType } from '../soql-query-builder/clauses/column-types';
+import { SoqlQuery } from '../soql-query';
+import { ColumnType } from '../soql-query/clauses/column-types';
 import { ISodaResource } from './isodaresource';
 import { SodaContext } from "./soda-context";
 import { resourceMetadataKey } from './soda-dataset-decorator';
@@ -41,7 +41,7 @@ export class SodaResource<TEntity> implements ISodaResource<TEntity>, IQueryable
     return this.Context.Client.getResource(this);
   }
 
-  public get(query: SoqlQueryBuilder): Observable<TEntity[]> {
+  public get(query: SoqlQuery): Observable<TEntity[]> {
     return this.Context.Client.getResource(this, query);
   }
 

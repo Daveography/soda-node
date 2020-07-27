@@ -1,6 +1,6 @@
-import { Operator, WhereFilter, WhereOperator } from '../../soql-query-builder';
-import { Comparitor } from "../../soql-query-builder/clauses/where/comparitor";
-import { WhereValue } from "../../soql-query-builder/clauses/where/where-value";
+import { Operator, WhereFilter, WhereOperator } from '../../soql-query';
+import { Comparitor } from "../../soql-query/clauses/where/comparitor";
+import { WhereValue } from "../../soql-query/clauses/where/where-value";
 import { IFilteredQueryable } from '../ifilteredqueryable';
 import { BasicWhereFilter } from './basic-where-filter';
 

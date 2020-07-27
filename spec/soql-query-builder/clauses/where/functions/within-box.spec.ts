@@ -1,7 +1,7 @@
 import { Point } from "geojson";
 import { Location } from "../../../../../src/datatypes/location";
-import { Column } from "../../../../../src/soql-query-builder/clauses/column";
-import { WithinBox } from "../../../../../src/soql-query-builder/clauses/where/functions/within-box";
+import { Column } from "../../../../../src/soql-query/clauses/column";
+import { WithinBox } from "../../../../../src/soql-query/clauses/where/functions/within-box";
 
 describe("Within Box Where Filter", () => {
 

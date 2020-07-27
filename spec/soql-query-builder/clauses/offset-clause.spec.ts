@@ -1,4 +1,4 @@
-import { OffsetClause } from "../../../src/soql-query-builder/clauses/offset-clause";
+import { OffsetClause } from "../../../src/soql-query/clauses/offset-clause";
 
 describe("Offset Clause", () => {
 

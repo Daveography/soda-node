@@ -1,4 +1,4 @@
-import { WhereValue } from "../../../../src/soql-query-builder/clauses/where/where-value";
+import { WhereValue } from "../../../../src/soql-query/clauses/where/where-value";
 
 describe("Where String Values", () => {
 

@@ -1,5 +1,5 @@
-import { Column } from "../../../../../src/soql-query-builder/clauses/column";
-import { Intersects } from "../../../../../src/soql-query-builder/clauses/where/functions/intersects";
+import { Column } from "../../../../../src/soql-query/clauses/column";
+import { Intersects } from "../../../../../src/soql-query/clauses/where/functions/intersects";
 import { GeoJSONUtils } from "../../../../../src/utilities/geojson-utils";
 
 describe("Intersects Where Filter", () => {

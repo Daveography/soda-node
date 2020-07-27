@@ -1,13 +1,13 @@
 import { Location } from "../../../../src/datatypes/location";
-import { Column } from "../../../../src/soql-query-builder/clauses/column";
-import { Comparitor } from "../../../../src/soql-query-builder/clauses/where/comparitor";
-import { WithinCircle } from "../../../../src/soql-query-builder/clauses/where/functions/within-circle";
-import { Operator } from "../../../../src/soql-query-builder/clauses/where/operator";
-import { WhereClause } from "../../../../src/soql-query-builder/clauses/where/where-clause";
-import { WhereFilter } from "../../../../src/soql-query-builder/clauses/where/where-filter";
-import { WhereGroup } from "../../../../src/soql-query-builder/clauses/where/where-group";
-import { WhereOperator } from "../../../../src/soql-query-builder/clauses/where/where-operator";
-import { WhereValue } from "../../../../src/soql-query-builder/clauses/where/where-value";
+import { Column } from "../../../../src/soql-query/clauses/column";
+import { Comparitor } from "../../../../src/soql-query/clauses/where/comparitor";
+import { WithinCircle } from "../../../../src/soql-query/clauses/where/functions/within-circle";
+import { Operator } from "../../../../src/soql-query/clauses/where/operator";
+import { WhereClause } from "../../../../src/soql-query/clauses/where/where-clause";
+import { WhereFilter } from "../../../../src/soql-query/clauses/where/where-filter";
+import { WhereGroup } from "../../../../src/soql-query/clauses/where/where-group";
+import { WhereOperator } from "../../../../src/soql-query/clauses/where/where-operator";
+import { WhereValue } from "../../../../src/soql-query/clauses/where/where-value";
 
 describe("Where Clauses", () => {
 

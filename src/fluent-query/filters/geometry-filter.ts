@@ -1,10 +1,10 @@
 import { Geometry, MultiPolygon, Point } from 'geojson';
 import { Meters } from '../../datatypes/metres';
-import { Column } from '../../soql-query-builder/clauses/column';
-import { Intersects } from '../../soql-query-builder/clauses/where/functions/intersects';
-import { WithinBox } from '../../soql-query-builder/clauses/where/functions/within-box';
-import { WithinCircle } from '../../soql-query-builder/clauses/where/functions/within-circle';
-import { WithinPolygon } from '../../soql-query-builder/clauses/where/functions/within-polygon';
+import { Column } from '../../soql-query/clauses/column';
+import { Intersects } from '../../soql-query/clauses/where/functions/intersects';
+import { WithinBox } from '../../soql-query/clauses/where/functions/within-box';
+import { WithinCircle } from '../../soql-query/clauses/where/functions/within-circle';
+import { WithinPolygon } from '../../soql-query/clauses/where/functions/within-polygon';
 import { IFilteredQueryable } from '../ifilteredqueryable';
 import { IInternalQuery } from '../iinternalquery';
 import { IGeometryFilter } from './igeometryfilter';

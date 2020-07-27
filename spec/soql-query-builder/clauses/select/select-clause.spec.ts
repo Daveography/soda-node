@@ -1,5 +1,5 @@
-import { SelectClause } from "../../../../src/soql-query-builder/clauses/select/select-clause";
-import { SelectColumn } from "../../../../src/soql-query-builder/clauses/select/select-column";
+import { SelectClause } from "../../../../src/soql-query/clauses/select/select-clause";
+import { SelectColumn } from "../../../../src/soql-query/clauses/select/select-column";
 
 describe("Select Clause", () => {
 

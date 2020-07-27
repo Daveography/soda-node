@@ -1,7 +1,7 @@
 import { Point } from "geojson";
 import { Location } from "../../../../../src/datatypes/location";
-import { Column } from "../../../../../src/soql-query-builder/clauses/column";
-import { WithinCircle } from "../../../../../src/soql-query-builder/clauses/where/functions/within-circle";
+import { Column } from "../../../../../src/soql-query/clauses/column";
+import { WithinCircle } from "../../../../../src/soql-query/clauses/where/functions/within-circle";
 
 describe("Within Circle Where Filter", () => {
 

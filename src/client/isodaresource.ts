@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
-import { SoqlQueryBuilder } from '../soql-query-builder';
 import { SodaContext } from '.';
+import { SoqlQuery } from '../soql-query';
 import { SodaResourceId } from './soda-resource-id';
 
 export interface ISodaResource<TEntity> {
@@ -8,5 +8,5 @@ export interface ISodaResource<TEntity> {
   Context: SodaContext;
   getUrl(): string;
   observable(): Observable<TEntity[]>;
-  get(query: SoqlQueryBuilder): Observable<TEntity[]>;
+  get(query: SoqlQuery): Observable<TEntity[]>;
 }

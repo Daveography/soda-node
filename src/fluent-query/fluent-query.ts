@@ -2,9 +2,9 @@ import { Geometry } from 'geojson';
 import { Observable } from 'rxjs';
 import { ISodaResource } from '../client/isodaresource';
 import { Location } from '../datatypes/location';
-import { Column, IClause, IWhereComponent, LimitClause, OffsetClause, SelectClause } from "../soql-query-builder/clauses";
-import { ColumnType } from '../soql-query-builder/clauses/column-types';
-import { ImmutableSoqlQueryBuilder } from '../soql-query-builder/immutable-soql-query-builder';
+import { Column, IClause, IWhereComponent, LimitClause, OffsetClause, SelectClause } from "../soql-query/clauses";
+import { ColumnType } from '../soql-query/clauses/column-types';
+import { SoqlQueryBuilder } from '../soql-query/soql-query-builder';
 import { DataSetColumn } from './dataset-column';
 import { AndWhereFilter } from './filters/and-where-filter';
 import { BasicWhereFilter } from './filters/basic-where-filter';
@@ -20,13 +20,13 @@ import { IQueryable } from './iqueryable';
 
 export class FluentQuery<TEntity> implements IQueryable<TEntity>, IInternalQuery<TEntity> {
 
-  constructor(readonly sodaResource: ISodaResource<TEntity>, private readonly queryBuilder?: ImmutableSoqlQueryBuilder) {
+  constructor(readonly sodaResource: ISodaResource<TEntity>, private readonly queryBuilder?: SoqlQueryBuilder) {
     if (!sodaResource) {
       throw new Error("resource must be provided");
     }
 
     if (!queryBuilder) {
-      this.queryBuilder = new ImmutableSoqlQueryBuilder();
+      this.queryBuilder = new SoqlQueryBuilder();
     }
   }
 

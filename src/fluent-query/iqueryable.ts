@@ -1,7 +1,7 @@
 import { Geometry } from 'geojson';
 import { Observable } from 'rxjs';
 import { Location } from '../datatypes/location';
-import { ColumnType } from '../soql-query-builder/clauses/column-types';
+import { ColumnType } from '../soql-query/clauses/column-types';
 import { DataSetColumn } from './dataset-column';
 import { IGeometryFilter } from './filters/igeometryfilter';
 import { ILocationFilter } from './filters/ilocationfilter';

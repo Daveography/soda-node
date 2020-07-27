@@ -1,16 +1,16 @@
-import { LimitClause, OffsetClause, SoqlQueryBuilder, WhereFilter, WhereClause, Column, Comparitor, WhereValue } from "../../src/soql-query-builder";
+import { Column, Comparitor, LimitClause, OffsetClause, SoqlQuery, WhereClause, WhereFilter, WhereValue } from "../../src/soql-query";
 
 describe("SoqlQueryBuilder", () => {
 
   it("should create empty builder with no params", () => {
-    const query = new SoqlQueryBuilder();
+    const query = new SoqlQuery();
 
     expect(query.toString()).toEqual("");
   });
 
   it("should create builder with single clause", () => {
     const clause = new LimitClause(20);
-    const query = new SoqlQueryBuilder(clause);
+    const query = new SoqlQuery(clause);
 
     expect(query.Clauses).toContain(clause);
     expect(query.toString()).toEqual("?$limit=20");
@@ -19,7 +19,7 @@ describe("SoqlQueryBuilder", () => {
   it("should create builder with multiple clauses", () => {
     const limitClause = new LimitClause(20);
     const offsetClause = new OffsetClause(20);
-    const query = new SoqlQueryBuilder(limitClause, offsetClause);
+    const query = new SoqlQuery(limitClause, offsetClause);
 
     expect(query.Clauses).toContain(limitClause);
     expect(query.Clauses).toContain(offsetClause);
@@ -35,7 +35,7 @@ describe("SoqlQueryBuilder", () => {
         new WhereValue("test"),
       ),
     );
-    const query = new SoqlQueryBuilder(limitClause, whereClause);
+    const query = new SoqlQuery(limitClause, whereClause);
 
     expect(query.Clauses).toContain(limitClause);
     expect(query.Clauses).not.toContain(whereClause);
