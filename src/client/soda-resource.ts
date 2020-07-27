@@ -1,14 +1,14 @@
 import { Geometry } from 'geojson';
 import { Observable } from "rxjs";
 import { Location } from '../datatypes/location';
+import { DataSetColumn } from '../fluent-query/dataset-column';
+import { IGeometryFilter } from '../fluent-query/filters/igeometryfilter';
+import { ILocationFilter } from '../fluent-query/filters/ilocationfilter';
+import { IWhereFilter } from '../fluent-query/filters/iwherefilter';
+import { FluentQuery } from '../fluent-query/fluent-query';
+import { IQueryable } from '../fluent-query/iqueryable';
 import { SoqlQueryBuilder } from '../soql-query-builder';
 import { ColumnType } from '../soql-query-builder/clauses/column-types';
-import { DataSetColumn } from '../soql-query/dataset-column';
-import { IGeometryFilter } from '../soql-query/igeometryfilter';
-import { ILocationFilter } from '../soql-query/ilocationfilter';
-import { IQueryable } from '../soql-query/iqueryable';
-import { IWhereFilter } from '../soql-query/iwherefilter';
-import { SoqlQuery } from '../soql-query/soql-query';
 import { ISodaResource } from './isodaresource';
 import { SodaContext } from "./soda-context";
 import { resourceMetadataKey } from './soda-dataset-decorator';
@@ -69,7 +69,7 @@ export class SodaResource<TEntity> implements ISodaResource<TEntity>, IQueryable
     return this.createQuery().offset(records);
   }
 
-  private createQuery(): SoqlQuery<TEntity> {
-    return new SoqlQuery(this);
+  private createQuery(): FluentQuery<TEntity> {
+    return new FluentQuery(this);
   }
 }

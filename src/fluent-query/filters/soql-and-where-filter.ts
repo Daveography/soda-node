@@ -1,5 +1,5 @@
-import { Comparitor, Operator, WhereFilter, WhereOperator, WhereValue } from '../soql-query-builder';
-import { IFilteredQueryable } from './ifilteredqueryable';
+import { Comparitor, Operator, WhereFilter, WhereOperator, WhereValue } from '../../soql-query-builder';
+import { IFilteredQueryable } from '../ifilteredqueryable';
 import { SoqlWhereFilter } from './soql-where-filter';
 
 export class SoqlAndWhereFilter<TEntity, TValue> extends SoqlWhereFilter<TEntity, TValue> {

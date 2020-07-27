@@ -5,7 +5,7 @@ import { SodaClient } from './client';
 
 export * from "./client";
 export * from "./datatypes";
-export * from "./soql-query";
+export * from "./fluent-query";
 export * from "./utilities";
 
 @NgModule({

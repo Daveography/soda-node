@@ -1,9 +1,9 @@
-import { WhereFilter } from '../soql-query-builder';
-import { Column } from "../soql-query-builder/clauses/column";
-import { Comparitor } from "../soql-query-builder/clauses/where/comparitor";
-import { WhereValue } from "../soql-query-builder/clauses/where/where-value";
-import { IFilteredQueryable } from './ifilteredqueryable';
-import { IInternalQuery } from './iinternalquery';
+import { WhereFilter } from '../../soql-query-builder';
+import { Column } from "../../soql-query-builder/clauses/column";
+import { Comparitor } from "../../soql-query-builder/clauses/where/comparitor";
+import { WhereValue } from "../../soql-query-builder/clauses/where/where-value";
+import { IFilteredQueryable } from '../ifilteredqueryable';
+import { IInternalQuery } from '../iinternalquery';
 import { IWhereFilter } from './iwherefilter';
 
 export class SoqlWhereFilter<TEntity, TValue> implements IWhereFilter<TEntity, TValue> {

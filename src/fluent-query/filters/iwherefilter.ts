@@ -1,4 +1,4 @@
-import { IFilteredQueryable } from './ifilteredqueryable';
+import { IFilteredQueryable } from '../ifilteredqueryable';
 
 export interface IWhereFilter<TEntity, TValue> {
   equals(value: TValue): IFilteredQueryable<TEntity>;

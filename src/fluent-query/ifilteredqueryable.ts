@@ -3,10 +3,10 @@ import { Observable } from 'rxjs';
 import { Location } from '../datatypes/location';
 import { ColumnType } from '../soql-query-builder/clauses/column-types';
 import { DataSetColumn } from './dataset-column';
-import { IGeometryFilter } from './igeometryfilter';
-import { ILocationFilter } from './ilocationfilter';
+import { IGeometryFilter } from './filters/igeometryfilter';
+import { ILocationFilter } from './filters/ilocationfilter';
+import { IWhereFilter } from './filters/iwherefilter';
 import { IQueryable } from './iqueryable';
-import { IWhereFilter } from './iwherefilter';
 
 export interface IFilteredQueryable<TEntity> {
   and<TValue extends ColumnType>(column: DataSetColumn<TEntity, TValue>): IWhereFilter<TEntity, TValue>;

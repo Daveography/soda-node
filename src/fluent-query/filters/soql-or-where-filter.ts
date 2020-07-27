@@ -1,7 +1,7 @@
-import { Operator, WhereFilter, WhereOperator } from '../soql-query-builder';
-import { Comparitor } from "../soql-query-builder/clauses/where/comparitor";
-import { WhereValue } from "../soql-query-builder/clauses/where/where-value";
-import { IFilteredQueryable } from './ifilteredqueryable';
+import { Operator, WhereFilter, WhereOperator } from '../../soql-query-builder';
+import { Comparitor } from "../../soql-query-builder/clauses/where/comparitor";
+import { WhereValue } from "../../soql-query-builder/clauses/where/where-value";
+import { IFilteredQueryable } from '../ifilteredqueryable';
 import { SoqlWhereFilter } from './soql-where-filter';
 
 export class SoqlOrWhereFilter<TEntity, TValue> extends SoqlWhereFilter<TEntity, TValue> {

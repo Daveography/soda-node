@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { IQueryable } from '../fluent-query/iqueryable';
 import { SoqlQueryBuilder } from '../soql-query-builder';
-import { IQueryable } from '../soql-query/iqueryable';
 import { ISodaResource } from "./isodaresource";
 
 @Injectable({

@@ -6,19 +6,19 @@ import { Column, IClause, IWhereComponent, LimitClause, OffsetClause, SelectClau
 import { ColumnType } from '../soql-query-builder/clauses/column-types';
 import { ImmutableSoqlQueryBuilder } from '../soql-query-builder/immutable-soql-query-builder';
 import { DataSetColumn } from './dataset-column';
+import { IGeometryFilter } from './filters/igeometryfilter';
+import { ILocationFilter } from './filters/ilocationfilter';
+import { IWhereFilter } from './filters/iwherefilter';
+import { SoqlAndWhereFilter } from './filters/soql-and-where-filter';
+import { SoqlGeometryFilter } from './filters/soql-geometry-filter';
+import { SoqlLocationFilter } from './filters/soql-location-filter';
+import { SoqlOrWhereFilter } from './filters/soql-or-where-filter';
+import { SoqlWhereFilter } from './filters/soql-where-filter';
 import { IFilteredQueryable } from './ifilteredqueryable';
-import { IGeometryFilter } from './igeometryfilter';
 import { IInternalQuery } from './iinternalquery';
-import { ILocationFilter } from './ilocationfilter';
 import { IQueryable } from './iqueryable';
-import { IWhereFilter } from './iwherefilter';
-import { SoqlAndWhereFilter } from './soql-and-where-filter';
-import { SoqlGeometryFilter } from './soql-geometry-filter';
-import { SoqlLocationFilter } from './soql-location-filter';
-import { SoqlOrWhereFilter } from './soql-or-where-filter';
-import { SoqlWhereFilter } from './soql-where-filter';
 
-export class SoqlQuery<TEntity> implements IQueryable<TEntity>, IInternalQuery<TEntity> {
+export class FluentQuery<TEntity> implements IQueryable<TEntity>, IInternalQuery<TEntity> {
 
   constructor(readonly sodaResource: ISodaResource<TEntity>, private readonly queryBuilder?: ImmutableSoqlQueryBuilder) {
     if (!sodaResource) {
@@ -80,12 +80,12 @@ export class SoqlQuery<TEntity> implements IQueryable<TEntity>, IInternalQuery<T
   //region IInternalQuery
   public addClause(newClause: IClause): IQueryable<TEntity> {
     const newBuilder = this.queryBuilder.addClause(newClause);
-    return new SoqlQuery<TEntity>(this.sodaResource, newBuilder);
+    return new FluentQuery<TEntity>(this.sodaResource, newBuilder);
   }
 
   public addFilter(...filter: IWhereComponent[]): IFilteredQueryable<TEntity> {
     const newBuilder = this.queryBuilder.addFilter(...filter);
-    return new SoqlQuery<TEntity>(this.sodaResource, newBuilder);
+    return new FluentQuery<TEntity>(this.sodaResource, newBuilder);
   }
   //endregion
 }

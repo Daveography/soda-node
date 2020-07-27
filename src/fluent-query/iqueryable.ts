@@ -3,9 +3,9 @@ import { Observable } from 'rxjs';
 import { Location } from '../datatypes/location';
 import { ColumnType } from '../soql-query-builder/clauses/column-types';
 import { DataSetColumn } from './dataset-column';
-import { IGeometryFilter } from './igeometryfilter';
-import { ILocationFilter } from './ilocationfilter';
-import { IWhereFilter } from './iwherefilter';
+import { IGeometryFilter } from './filters/igeometryfilter';
+import { ILocationFilter } from './filters/ilocationfilter';
+import { IWhereFilter } from './filters/iwherefilter';
 
 export interface IQueryable<TEntity> {
   select<TValue extends ColumnType>(column: DataSetColumn<TEntity, TValue>): IQueryable<TEntity>;

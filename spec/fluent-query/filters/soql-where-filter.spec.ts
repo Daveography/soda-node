@@ -1,9 +1,9 @@
 import { createMock } from 'ts-auto-mock';
-import { ISodaResource } from "../../src/client/isodaresource";
-import { FloatingTimestamp } from "../../src/datatypes/floating-timestamp";
-import { Column } from "../../src/soql-query-builder/clauses";
-import { SoqlQuery } from "../../src/soql-query/soql-query";
-import { SoqlWhereFilter } from "../../src/soql-query/soql-where-filter";
+import { ISodaResource } from "../../../src/client/isodaresource";
+import { FloatingTimestamp } from "../../../src/datatypes/floating-timestamp";
+import { SoqlWhereFilter } from "../../../src/fluent-query/filters/soql-where-filter";
+import { FluentQuery } from "../../../src/fluent-query/fluent-query";
+import { Column } from "../../../src/soql-query-builder/clauses";
 
 describe("SoqlWhereFilter", () => {
   interface ITestInterface {
@@ -15,7 +15,7 @@ describe("SoqlWhereFilter", () => {
   const mockResource: ISodaResource<ITestInterface> = createMock<ISodaResource<ITestInterface>>();
 
   const column = Column.of<ITestInterface>(x => x.id);
-  const query = new SoqlQuery<ITestInterface>(mockResource);
+  const query = new FluentQuery<ITestInterface>(mockResource);
 
   it("should throw if query is null", () => {
     const createFunc = () => new SoqlWhereFilter<ITestInterface, number>(null, column);

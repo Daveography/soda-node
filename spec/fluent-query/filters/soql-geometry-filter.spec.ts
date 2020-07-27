@@ -1,9 +1,9 @@
 import { Polygon } from 'geojson';
 import { createMock } from 'ts-auto-mock';
-import { ISodaResource } from "../../src/client/isodaresource";
-import { IQueryable } from '../../src/soql-query/iqueryable';
-import { SoqlQuery } from "../../src/soql-query/soql-query";
-import { GeoJSONUtils } from '../../src/utilities/geojson-utils';
+import { ISodaResource } from "../../../src/client/isodaresource";
+import { FluentQuery } from "../../../src/fluent-query/fluent-query";
+import { IQueryable } from '../../../src/fluent-query/iqueryable';
+import { GeoJSONUtils } from '../../../src/utilities/geojson-utils';
 
 describe("SoqlGeometryFilter", () => {
   interface ITestInterface {
@@ -13,7 +13,7 @@ describe("SoqlGeometryFilter", () => {
   }
 
   const mockResource: ISodaResource<ITestInterface> = createMock<ISodaResource<ITestInterface>>();
-  const query: IQueryable<ITestInterface> = new SoqlQuery<ITestInterface>(mockResource);
+  const query: IQueryable<ITestInterface> = new FluentQuery<ITestInterface>(mockResource);
 
   it("should generate simple function query", () => {
     const point = GeoJSONUtils.point(-71.099290, -31.518292);
