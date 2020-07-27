@@ -1,7 +1,7 @@
 import { LimitClause, OffsetClause, SoqlQuery } from "../../src/soql-query";
 import { SoqlQueryBuilder } from "../../src/soql-query/soql-query-builder";
 
-describe("ImmutableSoqlQueryBuilder", () => {
+describe("SoqlQueryBuilder", () => {
 
   it("should create empty builder with no params", () => {
     const iQuery = new SoqlQueryBuilder();

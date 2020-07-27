@@ -4,7 +4,7 @@ import { Location } from "../../../src/datatypes/location";
 import { FluentQuery } from "../../../src/fluent-query/fluent-query";
 import { IQueryable } from '../../../src/fluent-query/iqueryable';
 
-describe("SoqlLocationFilter", () => {
+describe("LocationFilter", () => {
   interface ITestInterface {
     id: number;
     title: string;

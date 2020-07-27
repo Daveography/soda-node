@@ -3,8 +3,9 @@ import { createMock } from 'ts-auto-mock';
 import { ISodaResource } from "../../src/client/isodaresource";
 import { Location } from '../../src/datatypes/location';
 import { FluentQuery } from "../../src/fluent-query/fluent-query";
+import { GeoJSONUtils } from '../../src/utilities/geojson-utils';
 
-describe("SoqlQuery", () => {
+describe("FluentQuery", () => {
   interface ITestInterface {
     id: number;
     title: string;

@@ -5,7 +5,7 @@ import { FluentQuery } from "../../../src/fluent-query/fluent-query";
 import { IQueryable } from '../../../src/fluent-query/iqueryable';
 import { GeoJSONUtils } from '../../../src/utilities/geojson-utils';
 
-describe("SoqlGeometryFilter", () => {
+describe("GeometryFilter", () => {
   interface ITestInterface {
     id: number;
     title: string;
