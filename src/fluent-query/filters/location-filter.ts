@@ -7,7 +7,7 @@ import { IFilteredQueryable } from '../ifilteredqueryable';
 import { IInternalQuery } from '../iinternalquery';
 import { ILocationFilter } from './ilocationfilter';
 
-export class SoqlLocationFilter<TEntity> implements ILocationFilter<TEntity> {
+export class LocationFilter<TEntity> implements ILocationFilter<TEntity> {
 
   public constructor(protected readonly query: IInternalQuery<TEntity>, protected readonly column: Column) {
     if (!query) {

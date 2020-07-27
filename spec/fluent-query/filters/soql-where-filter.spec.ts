@@ -1,7 +1,7 @@
 import { createMock } from 'ts-auto-mock';
 import { ISodaResource } from "../../../src/client/isodaresource";
 import { FloatingTimestamp } from "../../../src/datatypes/floating-timestamp";
-import { SoqlWhereFilter } from "../../../src/fluent-query/filters/soql-where-filter";
+import { BasicWhereFilter } from "../../../src/fluent-query/filters/basic-where-filter";
 import { FluentQuery } from "../../../src/fluent-query/fluent-query";
 import { Column } from "../../../src/soql-query-builder/clauses";
 
@@ -18,12 +18,12 @@ describe("SoqlWhereFilter", () => {
   const query = new FluentQuery<ITestInterface>(mockResource);
 
   it("should throw if query is null", () => {
-    const createFunc = () => new SoqlWhereFilter<ITestInterface, number>(null, column);
+    const createFunc = () => new BasicWhereFilter<ITestInterface, number>(null, column);
     expect(createFunc).toThrow();
   });
 
   it("should throw if column is null", () => {
-    const createFunc = () => new SoqlWhereFilter<ITestInterface, unknown>(query, null);
+    const createFunc = () => new BasicWhereFilter<ITestInterface, unknown>(query, null);
     expect(createFunc).toThrow();
   });
 
@@ -35,7 +35,7 @@ describe("SoqlWhereFilter", () => {
   });
 
   it("should throw if equals is null", () => {
-    const builder = new SoqlWhereFilter<ITestInterface, number>(query, column);
+    const builder = new BasicWhereFilter<ITestInterface, number>(query, column);
 
     const equalsFunc = () => builder.equals(null);
     expect(equalsFunc).toThrow();

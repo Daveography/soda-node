@@ -9,7 +9,7 @@ import { IFilteredQueryable } from '../ifilteredqueryable';
 import { IInternalQuery } from '../iinternalquery';
 import { IGeometryFilter } from './igeometryfilter';
 
-export class SoqlGeometryFilter<TEntity> implements IGeometryFilter<TEntity> {
+export class GeometryFilter<TEntity> implements IGeometryFilter<TEntity> {
 
   public constructor(protected readonly query: IInternalQuery<TEntity>, protected readonly column: Column) {
     if (!query) {

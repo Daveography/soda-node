@@ -6,7 +6,7 @@ import { IFilteredQueryable } from '../ifilteredqueryable';
 import { IInternalQuery } from '../iinternalquery';
 import { IWhereFilter } from './iwherefilter';
 
-export class SoqlWhereFilter<TEntity, TValue> implements IWhereFilter<TEntity, TValue> {
+export class BasicWhereFilter<TEntity, TValue> implements IWhereFilter<TEntity, TValue> {
 
   public constructor(protected readonly query: IInternalQuery<TEntity>, protected readonly column: Column) {
     if (!query) {

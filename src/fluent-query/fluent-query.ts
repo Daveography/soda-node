@@ -6,14 +6,14 @@ import { Column, IClause, IWhereComponent, LimitClause, OffsetClause, SelectClau
 import { ColumnType } from '../soql-query-builder/clauses/column-types';
 import { ImmutableSoqlQueryBuilder } from '../soql-query-builder/immutable-soql-query-builder';
 import { DataSetColumn } from './dataset-column';
+import { AndWhereFilter } from './filters/and-where-filter';
+import { BasicWhereFilter } from './filters/basic-where-filter';
+import { GeometryFilter } from './filters/geometry-filter';
 import { IGeometryFilter } from './filters/igeometryfilter';
 import { ILocationFilter } from './filters/ilocationfilter';
 import { IWhereFilter } from './filters/iwherefilter';
-import { SoqlAndWhereFilter } from './filters/soql-and-where-filter';
-import { SoqlGeometryFilter } from './filters/soql-geometry-filter';
-import { SoqlLocationFilter } from './filters/soql-location-filter';
-import { SoqlOrWhereFilter } from './filters/soql-or-where-filter';
-import { SoqlWhereFilter } from './filters/soql-where-filter';
+import { LocationFilter } from './filters/location-filter';
+import { OrWhereFilter } from './filters/or-where-filter';
 import { IFilteredQueryable } from './ifilteredqueryable';
 import { IInternalQuery } from './iinternalquery';
 import { IQueryable } from './iqueryable';
@@ -37,17 +37,17 @@ export class FluentQuery<TEntity> implements IQueryable<TEntity>, IInternalQuery
   }
 
   public where<TValue extends ColumnType>(column: DataSetColumn<TEntity, TValue>): IWhereFilter<TEntity, TValue> {
-    return new SoqlWhereFilter(this, Column.of(column));
+    return new BasicWhereFilter(this, Column.of(column));
   }
 
   // TODO: If TypeScript ever allows type guards on generics, create an overload where() instead
   public location(column: (type: TEntity) => Location): ILocationFilter<TEntity> {
-    return new SoqlLocationFilter(this, Column.of(column));
+    return new LocationFilter(this, Column.of(column));
   }
 
   // TODO: If TypeScript ever allows type guards on generics, create an overload where() instead
   public geometry(column: (type: TEntity) => Geometry): IGeometryFilter<TEntity> {
-    return new SoqlGeometryFilter(this, Column.of(column));
+    return new GeometryFilter(this, Column.of(column));
   }
 
   public limit(records: number): IQueryable<TEntity> {
@@ -69,11 +69,11 @@ export class FluentQuery<TEntity> implements IQueryable<TEntity>, IInternalQuery
 
   //region IFilteredQueryable
   public and<TValue extends ColumnType>(column: DataSetColumn<TEntity, TValue>): IWhereFilter<TEntity, TValue> {
-    return new SoqlAndWhereFilter(this, Column.of(column));
+    return new AndWhereFilter(this, Column.of(column));
   }
 
   public or<TValue extends ColumnType>(column: DataSetColumn<TEntity, TValue>): IWhereFilter<TEntity, TValue> {
-    return new SoqlOrWhereFilter(this, Column.of(column));
+    return new OrWhereFilter(this, Column.of(column));
   }
   //endregion
 
