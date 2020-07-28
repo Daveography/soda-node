@@ -2,8 +2,9 @@ import { Geometry } from 'geojson';
 import { Observable } from 'rxjs';
 import { ISodaResource } from '../client/isodaresource';
 import { Location } from '../datatypes/location';
-import { Column, IClause, IWhereComponent, LimitClause, OffsetClause, SelectClause } from "../soql-query/clauses";
+import { Column } from "../soql-query/clauses";
 import { ColumnType } from '../soql-query/clauses/column-types';
+import { WhereFilterType } from '../soql-query/clauses/where/where-filters-type';
 import { SoqlQueryBuilder } from '../soql-query/soql-query-builder';
 import { DataSetColumn } from './dataset-column';
 import { AndWhereFilter } from './filters/and-where-filter';
@@ -30,10 +31,10 @@ export class FluentQuery<TEntity> implements IQueryable<TEntity>, IInternalQuery
     }
   }
 
-  //region IQueryable 
-  // TODO: Add overload to accept multiple columns as parameters
+  //region IQueryable
   public select<TValue extends ColumnType>(column: DataSetColumn<TEntity, TValue>): IQueryable<TEntity> {
-    return this.addClause(new SelectClause(Column.of(column)));
+    const newBuilder = this.cloneBuilder().select(Column.of(column));
+    return this.updateQuery(newBuilder);
   }
 
   public where<TValue extends ColumnType>(column: DataSetColumn<TEntity, TValue>): IWhereFilter<TEntity, TValue> {
@@ -51,11 +52,13 @@ export class FluentQuery<TEntity> implements IQueryable<TEntity>, IInternalQuery
   }
 
   public limit(records: number): IQueryable<TEntity> {
-    return this.addClause(new LimitClause(records));
+    const newBuilder = this.cloneBuilder().limit(records);
+    return this.updateQuery(newBuilder);
   }
 
   public offset(records: number): IQueryable<TEntity> {
-    return this.addClause(new OffsetClause(records));
+    const newBuilder = this.cloneBuilder().offset(records);
+    return this.updateQuery(newBuilder);
   }
 
   public observable(): Observable<TEntity[]> {
@@ -63,7 +66,7 @@ export class FluentQuery<TEntity> implements IQueryable<TEntity>, IInternalQuery
   }
 
   public toString(): string {
-    return this.queryBuilder.toString();
+    return this.queryBuilder.getQuery().toString();
   }
   //endregion
 
@@ -78,14 +81,18 @@ export class FluentQuery<TEntity> implements IQueryable<TEntity>, IInternalQuery
   //endregion
 
   //region IInternalQuery
-  public addClause(newClause: IClause): IQueryable<TEntity> {
-    const newBuilder = this.queryBuilder.addClause(newClause);
-    return new FluentQuery<TEntity>(this.sodaResource, newBuilder);
-  }
 
-  public addFilter(...filter: IWhereComponent[]): IFilteredQueryable<TEntity> {
-    const newBuilder = this.queryBuilder.addFilter(...filter);
+  public addFilter(...filters: WhereFilterType[]): IFilteredQueryable<TEntity> {
+    const newBuilder = this.cloneBuilder().filter(...filters);
     return new FluentQuery<TEntity>(this.sodaResource, newBuilder);
   }
   //endregion
+
+  private updateQuery(newBuilder: SoqlQueryBuilder): IQueryable<TEntity> {
+    return new FluentQuery<TEntity>(this.sodaResource, newBuilder);
+  }
+
+  private cloneBuilder() {
+    return this.queryBuilder.clone();
+  }
 }
