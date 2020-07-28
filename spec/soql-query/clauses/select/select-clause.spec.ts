@@ -1,11 +1,17 @@
+import { Column } from '../../../../src/soql-query/clauses/column';
 import { SelectClause } from "../../../../src/soql-query/clauses/select/select-clause";
 import { SelectColumn } from "../../../../src/soql-query/clauses/select/select-column";
 
 describe("Select Clause", () => {
 
-  it("should create empty clause", () => {
-    const clauseObj = new SelectClause();
-    expect(clauseObj.toString()).toEqual("");
+  it("should throw on create empty clause", () => {
+    const createFunc = () => new SelectClause();
+    expect(createFunc).toThrow();
+  });
+
+  it("should throw on create empty clause array", () => {
+    const createFunc = () => new SelectClause(...new Array<Column>());
+    expect(createFunc).toThrow();
   });
 
   it("should create simple clause from constructor", () => {
@@ -24,14 +30,6 @@ describe("Select Clause", () => {
     expect(clauseObj.toString()).toEqual("$select=" + columnName1 + "," + columnName2);
   });
 
-  it("should add a column to clause", () => {
-    const columnName1 = "my_column";
-    const columnName2 = "column2";
-    const clauseObj = new SelectClause(new SelectColumn(columnName1));
-    clauseObj.add(new SelectColumn(columnName2));
-    expect(clauseObj.toString()).toEqual("$select=" + columnName1 + "," + columnName2);
-  });
-
   it("should create clause with alias from constructor", () => {
     const columnName = "my_column";
     const alias = "the_column";
@@ -39,12 +37,13 @@ describe("Select Clause", () => {
     expect(clauseObj.toString()).toEqual("$select=" + columnName + " AS " + alias);
   });
 
-  it("should add a column with alias to clause", () => {
+  it("should throw on attempting to alter columns", () => {
     const columnName1 = "my_column";
     const columnName2 = "column2";
-    const alias = "the_column";
     const clauseObj = new SelectClause(new SelectColumn(columnName1));
-    clauseObj.add(new SelectColumn(columnName2, alias));
-    expect(clauseObj.toString()).toEqual("$select=" + columnName1 + "," + columnName2 + " AS " + alias);
+
+    const pushFunc = () => clauseObj.Columns.push(new SelectColumn(columnName2));
+    
+    expect(pushFunc).toThrow();
   });
 });

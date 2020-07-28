@@ -19,15 +19,6 @@ describe("SoqlQuery", () => {
   it("should create query with multiple clauses", () => {
     const limitClause = new LimitClause(20);
     const offsetClause = new OffsetClause(20);
-    const query = new SoqlQuery(limitClause, offsetClause);
-
-    expect(query.Clauses).toContain(limitClause);
-    expect(query.Clauses).toContain(offsetClause);
-    expect(query.toString()).toEqual("?$limit=20&$offset=20");
-  });
-
-  it("should create query with split where clause", () => {
-    const limitClause = new LimitClause(20);
     const whereClause = new WhereClause(
       new WhereFilter(
         new Column("col1"),
@@ -35,11 +26,12 @@ describe("SoqlQuery", () => {
         new WhereValue("test"),
       ),
     );
-    const query = new SoqlQuery(limitClause, whereClause);
+
+    const query = new SoqlQuery(limitClause, offsetClause, whereClause);
 
     expect(query.Clauses).toContain(limitClause);
-    expect(query.Clauses).not.toContain(whereClause);
-    expect(query.WhereClause).toEqual(whereClause);
-    expect(query.toString()).toEqual("?$limit=20&$where=col1 = 'test'");
+    expect(query.Clauses).toContain(offsetClause);
+    expect(query.Clauses).toContain(whereClause);
+    expect(query.toString()).toEqual("?$limit=20&$offset=20&$where=col1 = 'test'");
   });
 });

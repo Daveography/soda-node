@@ -5,11 +5,12 @@ export class SelectClause implements IClause {
   public readonly Columns: Column[];
 
   constructor(...columns: Column[]) {
+    if (!columns || columns.length === 0) {
+      throw new Error("At least one column must be provided");
+    }
+    
     this.Columns = columns;
-  }
-
-  public add(...columns: Column[]): void {
-    this.Columns.push(...columns);
+    Object.freeze(this.Columns);
   }
 
   public toString(): string {

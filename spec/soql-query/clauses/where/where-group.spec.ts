@@ -20,8 +20,9 @@ describe("Where Groups", () => {
         new Column("col1"),
         Comparitor.Equals,
         new WhereValue("test"),
-      ),
+      )
     );
+
     expect(groupObj.toString())
       .toEqual("(NOT col1 = 'test')");
   });
@@ -39,50 +40,24 @@ describe("Where Groups", () => {
         new Column("col2"),
         Comparitor.Equals,
         new WhereValue("hello world"),
-      ),
+      )
     );
+
     expect(groupObj.toString())
       .toEqual("(NOT col1 = 'test' AND col2 = 'hello world')");
   });
 
-  it("should add a component to the where group", () => {
-    const groupObj = new WhereGroup([new WhereOperator(Operator.Not)]);
-    groupObj.add(new WhereFilter(
-      new Column("col1"),
-      Comparitor.Equals,
-      new WhereValue("test"),
-    ));
-    expect(groupObj.toString())
-      .toEqual("(NOT col1 = 'test')");
-  });
-
-  it("should add components to empty where group", () => {
-    const groupObj = new WhereGroup();
-    groupObj.add(
+  it("should throw on attempting to alter components", () => {
+    const groupObj = new WhereGroup(
       new WhereFilter(
         new Column("col1"),
         Comparitor.Equals,
         new WhereValue("test"),
-      ),
-      new WhereOperator(Operator.And),
-      new WhereFilter(
-        new Column("col2"),
-        Comparitor.Equals,
-        new WhereValue("hello world"),
-      ),
-      );
-    expect(groupObj.toString())
-      .toEqual("(col1 = 'test' AND col2 = 'hello world')");
-  });
+      )
+    );
 
-  it("should add nested group to group", () => {
-    const groupObj = new WhereGroup();
-    groupObj.add(
-      new WhereFilter(
-        new Column("col1"),
-        Comparitor.Equals,
-        new WhereValue("test"),
-      ),
+    const components = groupObj.Components;
+    const pushFunc = () => components.push(
       new WhereOperator(Operator.And),
       new WhereGroup(
         new WhereFilter(
@@ -95,10 +70,10 @@ describe("Where Groups", () => {
           new Column("col2"),
           Comparitor.Equals,
           new WhereValue("hello planet"),
-        ),
-      ),
+        )
+      )
     );
-    expect(groupObj.toString())
-      .toEqual("(col1 = 'test' AND (col2 = 'hello world' OR col2 = 'hello planet'))");
+    
+    expect(pushFunc).toThrow();
   });
 });

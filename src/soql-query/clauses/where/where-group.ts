@@ -5,10 +5,7 @@ export class WhereGroup implements IWhereComponent {
 
   constructor(...components: IWhereComponent[]) {
     this.Components = components;
-  }
-
-  public add(...components: IWhereComponent[]): void {
-    this.Components.push(...components);
+    Object.freeze(this.Components);
   }
 
   public isEmpty(): boolean {
@@ -21,9 +18,5 @@ export class WhereGroup implements IWhereComponent {
     }
 
     return "";
-  }
-
-  protected getComponents(): IWhereComponent[] {
-    return this.Components;
   }
 }

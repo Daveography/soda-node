@@ -3,7 +3,7 @@ import { Column } from "../column";
 export class WhereColumn extends Column {
   public readonly As: string;
 
-  constructor(private columnName: string) {
+  constructor(columnName: string) {
     super(columnName);
   }
 
