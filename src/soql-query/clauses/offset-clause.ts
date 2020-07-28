@@ -3,7 +3,7 @@ import { IClause } from "./clause";
 export class OffsetClause implements IClause {
   public readonly Rows: number;
 
-  constructor(private rows: number) {
+  constructor(rows: number) {
     if (rows < 0) {
       throw new Error("Rows must be 0 or greater");
     }

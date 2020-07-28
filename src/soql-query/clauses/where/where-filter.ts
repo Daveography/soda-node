@@ -8,7 +8,7 @@ export class WhereFilter<T> implements IWhereComponent {
   public readonly Comparitor: Comparitor;
   public readonly Value: WhereValue<T>;
 
-  constructor(private column: Column, private comparitor: Comparitor, private value?: WhereValue<T>) {
+  constructor(column: Column, comparitor: Comparitor, value?: WhereValue<T>) {
     if (value && Comparitor.isCheckingNull(comparitor)) {
       throw new Error("Value must not be provided when using IsNull or IsNotNull comparitor");
     }

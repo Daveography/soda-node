@@ -1,7 +1,7 @@
-export class WhereValue<T> {
-  public readonly Value: T;
+export class WhereValue<TValue> {
+  public readonly Value: TValue;
 
-  constructor(private value: T) {
+  constructor(value: TValue) {
     if (value === null) {
       throw new Error("Value must be provided");
     }

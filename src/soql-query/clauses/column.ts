@@ -20,7 +20,7 @@ export class Column {
 
   public readonly Name: string;
 
-  constructor(private name: string) {
+  constructor(name: string) {
     const validationRegEx = new RegExp(/^\w+$/);
 
     if (!name) {

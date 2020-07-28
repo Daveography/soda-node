@@ -3,7 +3,7 @@ import { Column } from "../column";
 export class SelectColumn extends Column {
   public readonly As: string;
 
-  constructor(private columnName: string, private as?: string) {
+  constructor(columnName: string, as?: string) {
     super(columnName);
 
     if (as) {

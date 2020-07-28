@@ -4,7 +4,7 @@ import { IWhereComponent } from "./where-component";
 export class WhereOperator implements IWhereComponent {
   public readonly Operator: Operator;
 
-  constructor(private operator: Operator) {
+  constructor(operator: Operator) {
     if (!operator) {
       throw new Error("Operator type must be provided");
     }

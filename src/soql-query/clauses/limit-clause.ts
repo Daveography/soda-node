@@ -3,7 +3,7 @@ import { IClause } from "./clause";
 export class LimitClause implements IClause {
   public readonly MaxRows: number;
 
-  constructor(private maxRows: number) {
+  constructor(maxRows: number) {
     if (maxRows <= 0) {
       throw new Error("Max Rows must be 1 or greater");
     }
