@@ -233,39 +233,35 @@ this.context.legalParcels
 You can also use query builders for more control (including OR queries):
 
 ```js
-const permitTypeCol = new Column('permit_type');
-const permitValueCol = new Column('permit_value');
-const permitClassCol = new Column('permit_class');
-
-const query = new SoqlQueryBuilder(
-  new WhereClause(
+const builder = new SoqlQueryBuilder();
+  .filter(
     new WhereFilter(
-      permitTypeCol,
+      new Column('permit_type'),
       Comparitor.Equals,
       new WhereValue('Major Development Permit'),
     ),
     new WhereOperator(Operator.And),
     new WhereGroup(
       new WhereFilter(
-        permitValueCol,
+        new Column('permit_value'),
         Comparitor.GreaterThan,
         new WhereValue(2000000),
       ),
       new WhereOperator(Operator.Or),
       new WhereGroup(
         new WhereFilter(
-          permitClassCol,
+          new Column('permit_class'),
           Comparitor.Equals,
           new WhereValue('Class B'),
         )
       )
     )
-  ),
-  new LimitClause(20)
-);
+  )
+  .offset(20)
+  .limit(20);
 
 this.context.developmentPermits
-  .get(query)
+  .get(builder.getQuery())
   .subscribe(permits => this.Permits = permits);
 ```
 
