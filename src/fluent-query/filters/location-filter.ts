@@ -6,16 +6,25 @@ import { WithinCircle } from '../../soql-query/clauses/where/functions/within-ci
 import { IFilteredQueryable } from '../ifilteredqueryable';
 import { IInternalQuery } from '../iinternalquery';
 import { ILocationFilter } from './ilocationfilter';
+import { WhereOperator } from '../../soql-query/clauses/where/where-operator';
+import { IWhereComponent } from 'src/soql-query';
 
 export class LocationFilter<TEntity> implements ILocationFilter<TEntity> {
+  private prependOperators: WhereOperator[];
 
-  public constructor(protected readonly query: IInternalQuery<TEntity>, protected readonly column: Column) {
+  public constructor(
+    protected readonly query: IInternalQuery<TEntity>,
+    protected readonly column: Column,
+    ...prependOperators: WhereOperator[]
+  ) {
     if (!query) {
       throw new Error("query must be provided");
     }
     if (!column) {
       throw new Error("column must be provided");
     }
+
+    this.prependOperators = prependOperators;
   }
 
   public withinCircle(location: Location, radius: Meters): IFilteredQueryable<TEntity> {
@@ -27,7 +36,7 @@ export class LocationFilter<TEntity> implements ILocationFilter<TEntity> {
     }
 
     const filter = new WithinCircle(this.column, location, radius);
-    return this.query.addFilter(filter);
+    return this.addFilter(filter);
   }
 
   public withinBox(start: Location, end: Location): IFilteredQueryable<TEntity> {
@@ -39,6 +48,10 @@ export class LocationFilter<TEntity> implements ILocationFilter<TEntity> {
     }
 
     const filter = new WithinBox(this.column, start, end);
-    return this.query.addFilter(filter);
+    return this.addFilter(filter);
+  }
+
+  private addFilter(filter: IWhereComponent): IFilteredQueryable<TEntity> {
+    return this.query.addFilter(...this.prependOperators, filter);
   }
 }
