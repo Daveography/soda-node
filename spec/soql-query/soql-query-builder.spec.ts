@@ -1,4 +1,4 @@
-import { Column, LimitClause, OffsetClause, SelectClause, WhereFilter, Comparitor, WhereValue, WhereClause } from "../../src/soql-query";
+import { Column, LimitClause, OffsetClause, SelectClause, WhereFilter, Comparitor, WhereValue, WhereClause, OrderClause, OrderColumn } from "../../src/soql-query";
 import { SoqlQueryBuilder } from "../../src/soql-query/soql-query-builder";
 
 describe("SoqlQueryBuilder", () => {
@@ -214,6 +214,64 @@ describe("SoqlQueryBuilder", () => {
     builder.clearFilters();
 
     expect(builder.WhereClause).toBeUndefined();
+    expect(builder.getQuery().Clauses).not.toContain(expected);
+  });
+  
+  it("should set order clause", () => {
+    const builder = new SoqlQueryBuilder();
+    const col1 = new Column('col1');
+    builder.orderBy(col1);
+
+    const expected = new OrderClause(col1);
+
+    expect(builder.OrderClause).toEqual(expected);
+    expect(builder.getQuery().Clauses).toContain(expected);
+  });
+
+  it("should set order clause with multiple columns", () => {
+    const builder = new SoqlQueryBuilder();
+    const col1 = new Column('col1');
+    const col2 = new OrderColumn('col2', true);
+    builder.orderBy(col1, col2);
+
+    const expected = new OrderClause(col1, col2);
+
+    expect(builder.OrderClause).toEqual(expected);
+    expect(builder.getQuery().Clauses).toContain(expected);
+  });
+
+  it("should append to order clause", () => {
+    const builder = new SoqlQueryBuilder();
+    const col1 = new Column('col1');
+    const col2 = new OrderColumn('col2', true);
+    builder.orderBy(col1);
+
+    const expected = new OrderClause(col1);
+
+    expect(builder.OrderClause).toEqual(expected);
+    expect(builder.getQuery().Clauses).toContain(expected);
+
+    builder.orderBy(col2);
+    const nowExpected = new OrderClause(col1, col2);
+
+    expect(builder.OrderClause).toEqual(nowExpected);
+    expect(builder.getQuery().Clauses).not.toContain(expected);
+    expect(builder.getQuery().Clauses).toContain(nowExpected);
+  });
+
+  it("should clear order clause", () => {
+    const builder = new SoqlQueryBuilder();
+    const col1 = new Column('col1');
+    builder.orderBy(col1);
+
+    const expected = new OrderClause(col1);
+
+    expect(builder.OrderClause).toEqual(expected);
+    expect(builder.getQuery().Clauses).toContain(expected);
+
+    builder.clearOrder();
+
+    expect(builder.OrderClause).toBeUndefined();
     expect(builder.getQuery().Clauses).not.toContain(expected);
   });
 

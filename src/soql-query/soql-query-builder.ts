@@ -1,4 +1,5 @@
 import { Column, IClause, LimitClause, OffsetClause, SelectClause, WhereClause } from './clauses';
+import { OrderClause } from './clauses/order';
 import { WhereFilterType } from './clauses/where/where-filters-type';
 import { SoqlQuery } from './soql-query';
 
@@ -8,11 +9,13 @@ export class SoqlQueryBuilder {
   private offsetClause: OffsetClause;
   private selectClause: SelectClause;
   private whereClause: WhereClause;
+  private orderClause: OrderClause;
 
   public get LimitClause(): LimitClause { return this.limitClause };
   public get OffsetClause(): OffsetClause { return this.offsetClause };
   public get SelectClause(): SelectClause { return this.selectClause };
   public get WhereClause(): WhereClause { return this.whereClause };
+  public get OrderClause(): OrderClause { return this.orderClause };
 
   public limit(maxRows: number): this {
     this.limitClause = new LimitClause(maxRows);
@@ -48,6 +51,16 @@ export class SoqlQueryBuilder {
     return this;
   }
 
+  public orderBy(...columns: Column[]): this {
+    const existingOrder = this.orderClause ? this.orderClause.Columns : [];
+    this.orderClause = new OrderClause(...existingOrder, ...columns);
+    return this;
+  }
+
+  public clearOrder(): void {
+    this.orderClause = undefined;
+  }
+
   public clearFilters(): void {
     this.whereClause = undefined;
   }
@@ -67,6 +80,9 @@ export class SoqlQueryBuilder {
     if (this.offsetClause) {
       clauses.push(this.offsetClause)
     }
+    if (this.orderClause) {
+      clauses.push(this.orderClause)
+    }
     
     return new SoqlQuery(...clauses);
   }
@@ -77,7 +93,7 @@ export class SoqlQueryBuilder {
     newBuilder.selectClause = this.selectClause;
     newBuilder.limitClause = this.limitClause;
     newBuilder.offsetClause = this.offsetClause;
+    newBuilder.orderClause = this.orderClause;
     return newBuilder;
   }
-
 }
