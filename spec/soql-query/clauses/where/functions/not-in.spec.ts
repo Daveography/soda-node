@@ -35,7 +35,7 @@ describe("NotIn Where Filter", () => {
     expect(createFunc).toThrow();
   });
 
-  it("should create in where filter for string values", () => {
+  it("should create not in where filter for string values", () => {
     const filterObj = new NotIn(
       new Column("col1"),
       stringValues
@@ -44,7 +44,7 @@ describe("NotIn Where Filter", () => {
       .toEqual("col1 not in ('RF1', 'RF2', 'RF3')");
   });
 
-  it("should create in where filter for numeric values", () => {
+  it("should create not in where filter for numeric values", () => {
     const filterObj = new NotIn(
       new Column("col1"),
       numericValues
@@ -53,7 +53,7 @@ describe("NotIn Where Filter", () => {
       .toEqual("col1 not in ('123', '456', '789')");
   });
 
-  it("should create in where filter for floating timestamp values", () => {
+  it("should create not in where filter for floating timestamp values", () => {
     const filterObj = new NotIn(
       new Column("col1"),
       floatingTimestampValues
