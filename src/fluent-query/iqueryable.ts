@@ -14,6 +14,7 @@ export interface IQueryable<TEntity> {
   geometry(column: (type: TEntity) => Geometry): IGeometryFilter<TEntity>;
   limit(records: number): IQueryable<TEntity>;
   offset(records: number): IQueryable<TEntity>;
+  orderBy<TValue extends ColumnType>(column: DataSetColumn<TEntity, TValue>, descending?: boolean): IQueryable<TEntity>;
   observable(): Observable<TEntity[]>;
   toString(): string;
 }

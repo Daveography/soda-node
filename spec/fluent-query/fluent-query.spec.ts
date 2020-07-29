@@ -38,16 +38,39 @@ describe("FluentQuery", () => {
     expect(query.toString()).toEqual("?$select=id,title");
   });
 
+  it("should generate simple query with one order column", () => {
+    const query = new FluentQuery<ITestInterface>(mockResource)
+    .orderBy(x => x.id);
+
+    expect(query.toString()).toEqual("?$order=id");
+  });
+
+  it("should generate simple query with one descending order column", () => {
+    const query = new FluentQuery<ITestInterface>(mockResource)
+    .orderBy(x => x.id, true);
+
+    expect(query.toString()).toEqual("?$order=id DESC");
+  });
+
+  it("should generate simple query with chained order columns", () => {
+    const query = new FluentQuery<ITestInterface>(mockResource)
+    .orderBy(x => x.id)
+    .orderBy(x => x.title, true);
+
+    expect(query.toString()).toEqual("?$order=id,title DESC");
+  });
+
   it("should generate complex query with multiple clauses", () => {
     const query = new FluentQuery<ITestInterface>(mockResource)
       .where(x => x.id).equals(1)
       .limit(10)
       .offset(20)
       .select(x => x.id)
-      .select(x => x.title);
+      .select(x => x.title)
+      .orderBy(x => x.title);
 
     expect(query.toString())
-      .toEqual("?$where=id = '1'&$select=id,title&$limit=10&$offset=20");
+      .toEqual("?$where=id = '1'&$select=id,title&$limit=10&$offset=20&$order=title");
   });
 
   it("should combine mutliple where queries with and", () => {

@@ -2,7 +2,7 @@ import { Geometry } from 'geojson';
 import { Observable } from 'rxjs';
 import { ISodaResource } from '../client/isodaresource';
 import { Location } from '../datatypes/location';
-import { Column } from "../soql-query/clauses";
+import { Column, OrderColumn } from "../soql-query/clauses";
 import { ColumnType } from '../soql-query/clauses/column-types';
 import { WhereFilterType } from '../soql-query/clauses/where/where-filters-type';
 import { SoqlQueryBuilder } from '../soql-query/soql-query-builder';
@@ -58,6 +58,11 @@ export class FluentQuery<TEntity> implements IQueryable<TEntity>, IInternalQuery
 
   public offset(records: number): IQueryable<TEntity> {
     const newBuilder = this.cloneBuilder().offset(records);
+    return this.updateQuery(newBuilder);
+  }
+
+  public orderBy<TValue extends ColumnType>(column: DataSetColumn<TEntity, TValue>, descending?: boolean): IQueryable<TEntity> {
+    const newBuilder = this.cloneBuilder().orderBy(new OrderColumn(Column.of(column).Name, descending));
     return this.updateQuery(newBuilder);
   }
 

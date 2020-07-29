@@ -69,6 +69,10 @@ export class SodaResource<TEntity> implements ISodaResource<TEntity>, IQueryable
     return this.createQuery().offset(records);
   }
 
+  public orderBy<TValue extends ColumnType>(column: DataSetColumn<TEntity, TValue>, descending?: boolean): IQueryable<TEntity> {
+    return this.createQuery().orderBy(column, descending);
+  }
+
   private createQuery(): FluentQuery<TEntity> {
     return new FluentQuery(this);
   }
