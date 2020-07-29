@@ -128,6 +128,7 @@ export class PermitsComponent implements OnInit {
         .greaterThan(new FloatingTimestamp('04/23/2020 GMT'))
       .and(p => p.zoning)
         .not().equals('RF1')
+      .orderBy(p => neighbourhood)
       .observable()
       .subscribe(permits => this.DevelopmentPermits = permits);
 
@@ -260,7 +261,8 @@ const builder = new SoqlQueryBuilder();
     )
   )
   .offset(20)
-  .limit(20);
+  .limit(20)
+  .orderBy(new Column('neighbourhood'));
 
 this.context.developmentPermits
   .get(builder.getQuery())
