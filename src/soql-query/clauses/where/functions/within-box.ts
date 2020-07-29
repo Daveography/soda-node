@@ -5,12 +5,22 @@ import { LocationUtils } from '../../../../utilities/location-utils';
 import { Column } from '../../column';
 import { IWhereComponent } from '../where-component';
 
-export class WithinBox<T extends Location | Point> implements IWhereComponent {
+export class WithinBox<TCoordinate extends Location | Point> implements IWhereComponent {
   public readonly Column: Column;
-  public readonly Start: T;
-  public readonly End: T;
+  public readonly Start: TCoordinate;
+  public readonly End: TCoordinate;
 
-  constructor(column: Column, start: T, end: T) {
+  constructor(column: Column, start: TCoordinate, end: TCoordinate) {
+    if (!column) {
+      throw new Error("Column must be provided");
+    }
+    if (!start) {
+      throw new Error("Start point must be provided");
+    }
+    if (!end) {
+      throw new Error("End point must be provided");
+    }
+    
     this.Column = column;
     this.Start = start;
     this.End = end;

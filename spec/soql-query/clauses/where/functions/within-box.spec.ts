@@ -5,6 +5,33 @@ import { WithinBox } from "../../../../../src/soql-query/clauses/where/functions
 
 describe("Within Box Where Filter", () => {
 
+  it("should throw on null column", () => {
+    const createFunc = () => new WithinBox(
+      null,
+      new Location(12.198599, -68.980986),
+      new Location(12.066738, -68.804505)
+    );
+    expect(createFunc).toThrow();
+  });
+
+  it("should throw on null start point", () => {
+    const createFunc = () => new WithinBox(
+      new Column("col1"),
+      null,
+      new Location(12.066738, -68.804505)
+    );
+    expect(createFunc).toThrow();
+  });
+
+  it("should throw on null end point", () => {
+    const createFunc = () => new WithinBox(
+      new Column("col1"),
+      new Location(12.198599, -68.980986),
+      null
+    );
+    expect(createFunc).toThrow();
+  });
+
   it("should create within_box where filter with Location", () => {
     const filterObj = new WithinBox(
       new Column("col1"),

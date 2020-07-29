@@ -3,10 +3,25 @@ import { Intersects } from "../../../../../src/soql-query/clauses/where/function
 import { GeoJSONUtils } from "../../../../../src/utilities/geojson-utils";
 
 describe("Intersects Where Filter", () => {
+  const point = GeoJSONUtils.point(-68.980986, 12.198599);
+
+  it("should throw on null column", () => {
+    const createFunc = () => new Intersects(
+      null,
+      point
+    );
+    expect(createFunc).toThrow();
+  });
+
+  it("should throw on null point", () => {
+    const createFunc = () => new Intersects(
+      new Column("col1"),
+      null
+    );
+    expect(createFunc).toThrow();
+  });
 
   it("should create intersects where filter for point", () => {
-    const point = GeoJSONUtils.point(-68.980986, 12.198599);
-
     const filterObj = new Intersects(
       new Column("col1"),
       point

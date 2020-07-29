@@ -5,6 +5,10 @@ export class WellKnownType {
   public Geometry: Geometry;
 
   constructor(geometry: Geometry) {
+    if (!geometry) {
+      throw new Error("Geometry must be provided");
+    }
+    
     this.Geometry = geometry;
   }
 

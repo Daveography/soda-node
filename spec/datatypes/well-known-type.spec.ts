@@ -3,6 +3,11 @@ import { WellKnownType } from "../../src/datatypes/well-known-type";
 
 describe("WellKnownType", () => {
 
+  it("should throw on null geometry", () => {
+    const createFunc = () => new WellKnownType(null);
+    expect(createFunc).toThrow();
+  });
+
   it("should create WKT for point", () => {
     const point: Point = {
       type: "Point",

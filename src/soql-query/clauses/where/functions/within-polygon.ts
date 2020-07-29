@@ -8,6 +8,13 @@ export class WithinPolygon implements IWhereComponent {
   public readonly MultiPolygon: MultiPolygon;
 
   constructor(column: Column, multiPolygon: MultiPolygon) {
+    if (!column) {
+      throw new Error("Column must be provided");
+    }
+    if (!multiPolygon) {
+      throw new Error("MultiPolygon must be provided");
+    }
+
     this.Column = column;
     this.MultiPolygon = multiPolygon;
   }

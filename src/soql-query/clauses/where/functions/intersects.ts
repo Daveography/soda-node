@@ -8,6 +8,13 @@ export class Intersects implements IWhereComponent {
   public readonly Geometry: Geometry;
 
   constructor(column: Column, geometry: Geometry) {
+    if (!column) {
+      throw new Error("Column must be provided");
+    }
+    if (!geometry) {
+      throw new Error("Geometry must be provided");
+    }
+    
     this.Column = column;
     this.Geometry = geometry;
   }

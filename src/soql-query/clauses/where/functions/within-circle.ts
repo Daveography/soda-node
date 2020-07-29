@@ -12,6 +12,16 @@ export class WithinCircle implements IWhereComponent {
   public readonly Radius: Meters;
 
   constructor(column: Column, location: Location | Point, radius: Meters) {
+    if (!column) {
+      throw new Error("Column must be provided");
+    }
+    if (!location) {
+      throw new Error("Location point must be provided");
+    }
+    if (!radius) {
+      throw new Error("Radius must be provided");
+    }
+    
     this.Column = column;
     this.Location = location;
     this.Radius = radius;

@@ -5,6 +5,33 @@ import { WithinCircle } from "../../../../../src/soql-query/clauses/where/functi
 
 describe("Within Circle Where Filter", () => {
 
+  it("should throw on null column", () => {
+    const createFunc = () => new WithinCircle(
+      null,
+      new Location(12.198599, -68.980986),
+      500
+    );
+    expect(createFunc).toThrow();
+  });
+
+  it("should throw on null point", () => {
+    const createFunc = () => new WithinCircle(
+      new Column("col1"),
+      null,
+      500
+    );
+    expect(createFunc).toThrow();
+  });
+
+  it("should throw on null radius", () => {
+    const createFunc = () => new WithinCircle(
+      new Column("col1"),
+      new Location(12.198599, -68.980986),
+      null
+    );
+    expect(createFunc).toThrow();
+  });
+
   it("should create within_circle where filter with Location", () => {
     const filterObj = new WithinCircle(
       new Column("col1"),
