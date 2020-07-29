@@ -3,6 +3,8 @@ import { Comparitor } from "../../soql-query/clauses/where/comparitor";
 import { WhereValue } from "../../soql-query/clauses/where/where-value";
 import { IFilteredQueryable } from '../ifilteredqueryable';
 import { BasicWhereFilter } from './basic-where-filter';
+import { IWhereFilter } from './iwherefilter';
+import { OrNotWhereFilter } from './or-not-where-filter';
 
 export class OrWhereFilter<TEntity, TValue> extends BasicWhereFilter<TEntity, TValue> {
 
@@ -41,5 +43,9 @@ export class OrWhereFilter<TEntity, TValue> extends BasicWhereFilter<TEntity, TV
   public isNotNull(): IFilteredQueryable<TEntity> {
     const filter = new WhereFilter(this.column, Comparitor.IsNotNull);
     return this.query.addFilter(new WhereOperator(Operator.Or), filter);
+  }
+
+  public not(): IWhereFilter<TEntity, TValue> {
+    return new OrNotWhereFilter(this.query, this.column);
   }
 }

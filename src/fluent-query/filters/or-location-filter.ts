@@ -13,7 +13,7 @@ export class OrLocationFilter<TEntity> implements ILocationFilter<TEntity> {
 
   public constructor(protected readonly query: IInternalQuery<TEntity>, protected readonly column: Column) {
     if (!query) {
-      throw new Error("queryBuilder must be provided");
+      throw new Error("query must be provided");
     }
     if (!column) {
       throw new Error("column must be provided");

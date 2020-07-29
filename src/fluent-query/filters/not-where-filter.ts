@@ -1,14 +1,12 @@
-import { WhereFilter } from '../../soql-query';
-import { Column } from "../../soql-query/clauses/column";
+import { Column, Operator, WhereFilter, WhereOperator } from '../../soql-query';
 import { Comparitor } from "../../soql-query/clauses/where/comparitor";
 import { WhereValue } from "../../soql-query/clauses/where/where-value";
 import { IFilteredQueryable } from '../ifilteredqueryable';
 import { IInternalQuery } from '../iinternalquery';
 import { IWhereFilter } from './iwherefilter';
-import { NotWhereFilter } from './not-where-filter';
 
-export class BasicWhereFilter<TEntity, TValue> implements IWhereFilter<TEntity, TValue> {
-
+export class NotWhereFilter<TEntity, TValue> implements IWhereFilter<TEntity, TValue> {
+  
   public constructor(protected readonly query: IInternalQuery<TEntity>, protected readonly column: Column) {
     if (!query) {
       throw new Error("query must be provided");
@@ -24,7 +22,7 @@ export class BasicWhereFilter<TEntity, TValue> implements IWhereFilter<TEntity, 
     }
 
     const filter = new WhereFilter(this.column, Comparitor.Equals, new WhereValue(value));
-    return this.query.addFilter(filter);
+    return this.query.addFilter(new WhereOperator(Operator.Not), filter);
   }
 
   public greaterThan(value: TValue): IFilteredQueryable<TEntity> {
@@ -33,7 +31,7 @@ export class BasicWhereFilter<TEntity, TValue> implements IWhereFilter<TEntity, 
     }
 
     const filter = new WhereFilter(this.column, Comparitor.GreaterThan, new WhereValue(value));
-    return this.query.addFilter(filter);
+    return this.query.addFilter(new WhereOperator(Operator.Not), filter);
   }
 
   public lessThan(value: TValue): IFilteredQueryable<TEntity> {
@@ -42,20 +40,20 @@ export class BasicWhereFilter<TEntity, TValue> implements IWhereFilter<TEntity, 
     }
 
     const filter = new WhereFilter(this.column, Comparitor.LessThan, new WhereValue(value));
-    return this.query.addFilter(filter);
+    return this.query.addFilter(new WhereOperator(Operator.Not), filter);
   }
 
   public isNull(): IFilteredQueryable<TEntity> {
     const filter = new WhereFilter(this.column, Comparitor.IsNull);
-    return this.query.addFilter(filter);
+    return this.query.addFilter(new WhereOperator(Operator.Not), filter);
   }
 
   public isNotNull(): IFilteredQueryable<TEntity> {
     const filter = new WhereFilter(this.column, Comparitor.IsNotNull);
-    return this.query.addFilter(filter);
+    return this.query.addFilter(new WhereOperator(Operator.Not), filter);
   }
 
   public not(): IWhereFilter<TEntity, TValue> {
-    return new NotWhereFilter(this.query, this.column);
+    throw new Error('Double negatives are bad and you should feel bad for trying this');
   }
 }

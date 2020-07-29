@@ -126,6 +126,8 @@ export class PermitsComponent implements OnInit {
         .equals('Major Development Permit')
       .and(p => p.permit_date)
         .greaterThan(new FloatingTimestamp('04/23/2020 GMT'))
+      .and(p => p.zoning)
+        .not().equals('RF1')
       .observable()
       .subscribe(permits => this.DevelopmentPermits = permits);
 
@@ -268,7 +270,7 @@ this.context.developmentPermits
 ## Notes
 * This is a work in progress, watch this repository for updates.
 * Heavily inspired by Entity Framework.
-* Filter grouping coming soon and negation (NOT) are coming soon.
+* Filter grouping coming soon.
 * Support for select-based functions are coming.
 
 ## Additional Reading

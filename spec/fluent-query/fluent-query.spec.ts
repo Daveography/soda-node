@@ -67,4 +67,30 @@ describe("FluentQuery", () => {
     expect(query.toString())
       .toEqual("?$where=id = '1' OR title = 'some text'");
   });
+
+  it("should generate simple not query", () => {
+    const query = new FluentQuery<ITestInterface>(mockResource)
+      .where(x => x.id).not().equals(1);
+
+    expect(query.toString())
+      .toEqual("?$where=NOT id = '1'");
+  });
+
+  it("should throw on double not", () => {
+    const createFunc = () => new FluentQuery<ITestInterface>(mockResource)
+      .where(x => x.id).not().not().equals(1);
+
+    expect(createFunc).toThrow();
+  });
+
+  it("should generate complex query with and or and not", () => {
+    const query = new FluentQuery<ITestInterface>(mockResource)
+      .where(x => x.id).equals(1)
+      .or(x => x.id).not().equals(0)
+      .and(x => x.title).not().equals('test')
+      .or(x => x.title).isNotNull();
+
+    expect(query.toString())
+      .toEqual("?$where=id = '1' OR NOT id = '0' AND NOT title = 'test' OR title IS NOT NULL");
+  });
 });

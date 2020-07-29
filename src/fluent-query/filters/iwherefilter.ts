@@ -6,4 +6,5 @@ export interface IWhereFilter<TEntity, TValue> {
   lessThan(value: TValue): IFilteredQueryable<TEntity>;
   isNull(): IFilteredQueryable<TEntity>;
   isNotNull(): IFilteredQueryable<TEntity>;
+  not(): IWhereFilter<TEntity, TValue>;
 }
