@@ -4,13 +4,14 @@ import { WellKnownType } from '../../../../datatypes/well-known-type';
 import { LocationUtils } from '../../../../utilities/location-utils';
 import { Column } from '../../column';
 import { IWhereComponent } from '../where-component';
+import { WhereValue } from '../where-value';
 
 export class WithinBox<TCoordinate extends Location | Point> implements IWhereComponent {
   public readonly Column: Column;
-  public readonly Start: TCoordinate;
-  public readonly End: TCoordinate;
+  public readonly Start: WhereValue<TCoordinate>;
+  public readonly End: WhereValue<TCoordinate>;
 
-  constructor(column: Column, start: TCoordinate, end: TCoordinate) {
+  constructor(column: Column, start: WhereValue<TCoordinate>, end: WhereValue<TCoordinate>) {
     if (!column) {
       throw new Error("Column must be provided");
     }
@@ -27,12 +28,12 @@ export class WithinBox<TCoordinate extends Location | Point> implements IWhereCo
   }
 
   public toString(): string {
-    if (LocationUtils.isLocation(this.Start)) {
-      return `within_box(${this.Column}, ${this.Start}, ${this.End})`;
+    if (LocationUtils.isLocation(this.Start.Value)) {
+      return `within_box(${this.Column}, ${this.Start.Value}, ${this.End.Value})`;
     }
     else {
-      const wktStart = new WellKnownType(this.Start as Point);
-      const wktEnd = new WellKnownType(this.End as Point);
+      const wktStart = new WellKnownType(this.Start.Value as Point);
+      const wktEnd = new WellKnownType(this.End.Value as Point);
       return `within_box(${this.Column}, '${wktStart}', '${wktEnd}')`;
     }
   }

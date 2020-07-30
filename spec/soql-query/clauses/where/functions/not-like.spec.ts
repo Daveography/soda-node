@@ -1,10 +1,11 @@
 import { Column } from "../../../../../src/soql-query/clauses/column";
 import { NotLike } from '../../../../../src/soql-query/clauses/where/functions/not-like';
+import { WhereValue } from '../../../../../src/soql-query/clauses/where/where-value';
 
 describe("NotLike Where Filter", () => {
-  const basicString = "Hello%";
-  const singleWildcardCharacterString = "Hello _orld";
-  const fullWildcardString = "%World%";
+  const basicString = new WhereValue("Hello%");
+  const singleWildcardCharacterString = new WhereValue("Hello _orld");
+  const fullWildcardString = new WhereValue("%World%");
 
   it("should throw on null column", () => {
     const createFunc = () => new NotLike(
@@ -25,7 +26,7 @@ describe("NotLike Where Filter", () => {
   it("should throw on empty value", () => {
     const createFunc = () => new NotLike(
       new Column("col1"),
-      ""
+      new WhereValue("")
     );
     expect(createFunc).toThrow();
   });

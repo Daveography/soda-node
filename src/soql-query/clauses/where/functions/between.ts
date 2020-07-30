@@ -1,13 +1,14 @@
 import { Column } from '../../column';
 import { IWhereComponent } from '../where-component';
 import { BetweenFunctionType } from './between-function-types';
+import { WhereValue } from '../where-value';
 
 export class Between<TValue extends BetweenFunctionType> implements IWhereComponent {
   public readonly Column: Column;
-  public readonly From: TValue;
-  public readonly To: TValue;
+  public readonly From: WhereValue<TValue>;
+  public readonly To: WhereValue<TValue>;
 
-  constructor(column: Column, from: TValue, to: TValue) {
+  constructor(column: Column, from: WhereValue<TValue>, to: WhereValue<TValue>) {
     if (!column) {
       throw new Error("Column must be provided");
     }
@@ -24,6 +25,6 @@ export class Between<TValue extends BetweenFunctionType> implements IWhereCompon
   }
 
   public toString(): string {
-    return `${this.Column} between '${this.From}' and '${this.To}'`;
+    return `${this.Column} between ${this.From} and ${this.To}`;
   }
 }

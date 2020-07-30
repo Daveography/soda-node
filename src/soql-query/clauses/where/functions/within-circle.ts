@@ -5,13 +5,16 @@ import { WellKnownType } from '../../../../datatypes/well-known-type';
 import { LocationUtils } from '../../../../utilities/location-utils';
 import { Column } from '../../column';
 import { IWhereComponent } from '../where-component';
+import { WhereValue } from '../where-value';
+
+type CoordinateType = Location | Point;
 
 export class WithinCircle implements IWhereComponent {
   public readonly Column: Column;
-  public readonly Location: Location | Point;
+  public readonly Location: WhereValue<CoordinateType>;
   public readonly Radius: Meters;
 
-  constructor(column: Column, location: Location | Point, radius: Meters) {
+  constructor(column: Column, location: WhereValue<CoordinateType>, radius: Meters) {
     if (!column) {
       throw new Error("Column must be provided");
     }
@@ -28,11 +31,11 @@ export class WithinCircle implements IWhereComponent {
   }
 
   public toString(): string {
-    if (LocationUtils.isLocation(this.Location)) {
-      return `within_circle(${this.Column}, ${this.Location}, ${this.Radius})`;
+    if (LocationUtils.isLocation(this.Location.Value)) {
+      return `within_circle(${this.Column}, ${this.Location.Value}, ${this.Radius})`;
     }
     else {
-      const wkt = new WellKnownType(this.Location);
+      const wkt = new WellKnownType(this.Location.Value);
       return `within_circle(${this.Column}, '${wkt}', ${this.Radius})`;
     }
   }

@@ -51,7 +51,7 @@ describe("Where Clauses", () => {
     const groupObj = new WhereClause(
       new WithinCircle(
         new Column("col1"),
-        new Location(53.528525, -113.501720),
+        new WhereValue(new Location(53.528525, -113.501720)),
         500,
         )
     );
@@ -69,7 +69,7 @@ describe("Where Clauses", () => {
       new WhereOperator(Operator.Or),
       new WithinCircle(
         new Column("col2"),
-        new Location(57.981640, -3.944209),
+        new WhereValue(new Location(57.981640, -3.944209)),
         2000,
       ),
     );

@@ -1,12 +1,13 @@
 import { Geometry, MultiPolygon, Point } from 'geojson';
-import { IWhereComponent } from 'src/soql-query';
 import { Meters } from '../../datatypes/metres';
 import { Column } from '../../soql-query/clauses/column';
 import { Intersects } from '../../soql-query/clauses/where/functions/intersects';
 import { WithinBox } from '../../soql-query/clauses/where/functions/within-box';
 import { WithinCircle } from '../../soql-query/clauses/where/functions/within-circle';
 import { WithinPolygon } from '../../soql-query/clauses/where/functions/within-polygon';
+import { IWhereComponent } from '../../soql-query/clauses/where/where-component';
 import { WhereOperator } from '../../soql-query/clauses/where/where-operator';
+import { WhereValue } from '../../soql-query/clauses/where/where-value';
 import { IFilteredQueryable } from '../ifilteredqueryable';
 import { IInternalQuery } from '../iinternalquery';
 import { IGeometryFilter } from './igeometryfilter';
@@ -34,7 +35,7 @@ export class GeometryFilter<TEntity> implements IGeometryFilter<TEntity> {
       throw new Error("Geometry must be provided");
     }
 
-    const filter = new Intersects(this.column, geometry);
+    const filter = new Intersects(this.column, new WhereValue(geometry));
     return this.addFilter(filter);
   }
 
@@ -46,7 +47,7 @@ export class GeometryFilter<TEntity> implements IGeometryFilter<TEntity> {
       throw new Error("Radius must be provided");
     }
 
-    const filter = new WithinCircle(this.column, point, radius);
+    const filter = new WithinCircle(this.column, new WhereValue(point), radius);
     return this.addFilter(filter);
   }
 
@@ -58,7 +59,7 @@ export class GeometryFilter<TEntity> implements IGeometryFilter<TEntity> {
       throw new Error("End point must be provided");
     }
 
-    const filter = new WithinBox(this.column, start, end);
+    const filter = new WithinBox(this.column, new WhereValue(start), new WhereValue(end));
     return this.addFilter(filter);
   }
 
@@ -67,7 +68,7 @@ export class GeometryFilter<TEntity> implements IGeometryFilter<TEntity> {
       throw new Error("MultiPolygon must be provided");
     }
 
-    const filter = new WithinPolygon(this.column, multiPolygon);
+    const filter = new WithinPolygon(this.column, new WhereValue(multiPolygon));
     return this.addFilter(filter);
   }
 

@@ -1,12 +1,13 @@
 import { Column } from '../../column';
 import { IWhereComponent } from '../where-component';
 import { InFunctionType } from './in-function-types';
+import { WhereValue } from '../where-value';
 
 export class In<TValue extends InFunctionType> implements IWhereComponent {
   public readonly Column: Column;
-  public readonly Values: TValue[];
+  public readonly Values: WhereValue<TValue>[];
 
-  constructor(column: Column, values: TValue[]) {
+  constructor(column: Column, values: WhereValue<TValue>[]) {
     if (!column) {
       throw new Error("Column must be provided");
     }
@@ -19,7 +20,7 @@ export class In<TValue extends InFunctionType> implements IWhereComponent {
   }
 
   public toString(): string {
-    const valuesList = this.Values.map(v => `'${v}'`).join(', ');
+    const valuesList = this.Values.map(v => v.toString()).join(', ');
     return `${this.Column} in (${valuesList})`;
   }
 }

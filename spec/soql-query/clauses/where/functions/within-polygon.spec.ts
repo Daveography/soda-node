@@ -1,10 +1,11 @@
 import { Column } from "../../../../../src/soql-query/clauses/column";
 import { WithinPolygon } from "../../../../../src/soql-query/clauses/where/functions/within-polygon";
 import { GeoJSONUtils } from "../../../../../src/utilities/geojson-utils";
+import { WhereValue } from '../../../../../src/soql-query/clauses/where/where-value';
 
 describe("WithinPolygon Where Filter", () => {
   
-  const multipolygon = GeoJSONUtils.multipolygon(
+  const multipolygon = new WhereValue(GeoJSONUtils.multipolygon(
   [
     [
       -113.492068121648,
@@ -49,7 +50,7 @@ describe("WithinPolygon Where Filter", () => {
       53.618692548203
     ]
   ]
-);
+));
 
   it("should throw on null column", () => {
     const createFunc = () => new WithinPolygon(

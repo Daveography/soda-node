@@ -3,11 +3,12 @@ import { Meters } from '../../datatypes/metres';
 import { Column } from '../../soql-query/clauses/column';
 import { WithinBox } from '../../soql-query/clauses/where/functions/within-box';
 import { WithinCircle } from '../../soql-query/clauses/where/functions/within-circle';
+import { IWhereComponent } from '../../soql-query/clauses/where/where-component';
+import { WhereOperator } from '../../soql-query/clauses/where/where-operator';
+import { WhereValue } from '../../soql-query/clauses/where/where-value';
 import { IFilteredQueryable } from '../ifilteredqueryable';
 import { IInternalQuery } from '../iinternalquery';
 import { ILocationFilter } from './ilocationfilter';
-import { WhereOperator } from '../../soql-query/clauses/where/where-operator';
-import { IWhereComponent } from 'src/soql-query';
 
 export class LocationFilter<TEntity> implements ILocationFilter<TEntity> {
   private prependOperators: WhereOperator[];
@@ -35,7 +36,7 @@ export class LocationFilter<TEntity> implements ILocationFilter<TEntity> {
       throw new Error("Radius must be provided");
     }
 
-    const filter = new WithinCircle(this.column, location, radius);
+    const filter = new WithinCircle(this.column, new WhereValue(location), radius);
     return this.addFilter(filter);
   }
 
@@ -47,7 +48,7 @@ export class LocationFilter<TEntity> implements ILocationFilter<TEntity> {
       throw new Error("End location must be provided");
     }
 
-    const filter = new WithinBox(this.column, start, end);
+    const filter = new WithinBox(this.column, new WhereValue(start), new WhereValue(end));
     return this.addFilter(filter);
   }
 

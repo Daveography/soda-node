@@ -1,15 +1,24 @@
 import { FloatingTimestamp } from '../../../../../src/datatypes/floating-timestamp';
 import { Column } from "../../../../../src/soql-query/clauses/column";
 import { NotIn } from '../../../../../src/soql-query/clauses/where/functions/not-in';
+import { WhereValue } from '../../../../../src/soql-query/clauses/where/where-value';
 
 describe("NotIn Where Filter", () => {
-  const stringValues = ["RF1", "RF2", "RF3"];
-  const numericValues = [123, 456, 789]
+  const stringValues = [
+    new WhereValue("RF1"),
+    new WhereValue("RF2"),
+    new WhereValue("RF3")
+  ];
+  const numericValues = [
+    new WhereValue(123),
+    new WhereValue(456),
+    new WhereValue(789)
+  ];
   const floatingTimestampValues = [
-    new FloatingTimestamp("04/23/1982"),
-    new FloatingTimestamp("01/15/1999"),
-    new FloatingTimestamp("09/05/2012")
-  ]
+    new WhereValue(new FloatingTimestamp("04/23/1982")),
+    new WhereValue(new FloatingTimestamp("01/15/1999")),
+    new WhereValue(new FloatingTimestamp("09/05/2012"))
+  ];
 
   it("should throw on null column", () => {
     const createFunc = () => new NotIn(
