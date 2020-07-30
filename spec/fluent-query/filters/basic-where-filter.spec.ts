@@ -23,7 +23,7 @@ describe("BasicWhereFilter", () => {
   });
 
   it("should throw if column is null", () => {
-    const createFunc = () => new BasicWhereFilter<ITestInterface, unknown>(query, null);
+    const createFunc = () => new BasicWhereFilter<ITestInterface, any>(query, null);
     expect(createFunc).toThrow();
   });
 
