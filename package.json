@@ -1,7 +1,7 @@
 {
   "name": "soda-angular",
   "description": "Socrata SODA client for Angular",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "author": {
     "name": "Dave Sutherland",
     "email": "dave@daveography.ca",
