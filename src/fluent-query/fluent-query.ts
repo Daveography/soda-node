@@ -2,19 +2,17 @@ import { Geometry } from 'geojson';
 import { Observable } from 'rxjs';
 import { ISodaResource } from '../client/isodaresource';
 import { Location } from '../datatypes/location';
-import { Column, OrderColumn } from "../soql-query/clauses";
+import { Column, OrderColumn, WhereOperator, Operator } from "../soql-query/clauses";
 import { ColumnType } from '../soql-query/clauses/column-types';
 import { WhereFilterType } from '../soql-query/clauses/where/where-filters-type';
 import { SoqlQueryBuilder } from '../soql-query/soql-query-builder';
 import { DataSetColumn } from './dataset-column';
-import { AndWhereFilter } from './filters/and-where-filter';
 import { BasicWhereFilter } from './filters/basic-where-filter';
 import { GeometryFilter } from './filters/geometry-filter';
 import { IGeometryFilter } from './filters/igeometryfilter';
 import { ILocationFilter } from './filters/ilocationfilter';
 import { IWhereFilter } from './filters/iwherefilter';
 import { LocationFilter } from './filters/location-filter';
-import { OrWhereFilter } from './filters/or-where-filter';
 import { IFilteredQueryable } from './ifilteredqueryable';
 import { IInternalQuery } from './iinternalquery';
 import { IQueryable } from './iqueryable';
@@ -77,11 +75,11 @@ export class FluentQuery<TEntity> implements IQueryable<TEntity>, IInternalQuery
 
   //region IFilteredQueryable
   public and<TValue extends ColumnType>(column: DataSetColumn<TEntity, TValue>): IWhereFilter<TEntity, TValue> {
-    return new AndWhereFilter(this, Column.of(column));
+    return new BasicWhereFilter(this, Column.of(column), new WhereOperator(Operator.And));
   }
 
   public or<TValue extends ColumnType>(column: DataSetColumn<TEntity, TValue>): IWhereFilter<TEntity, TValue> {
-    return new OrWhereFilter(this, Column.of(column));
+    return new BasicWhereFilter(this, Column.of(column), new WhereOperator(Operator.Or));
   }
   //endregion
 

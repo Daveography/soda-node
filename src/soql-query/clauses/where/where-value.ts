@@ -1,4 +1,6 @@
-export class WhereValue<TValue> {
+import { ColumnType } from '../column-types';
+
+export class WhereValue<TValue extends ColumnType> {
   public readonly Value: TValue;
 
   constructor(value: TValue) {

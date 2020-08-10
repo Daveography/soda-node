@@ -1,3 +1,4 @@
-import { WhereGroup, WhereFilter, WhereOperator } from '.';
+import { WhereFilter, WhereGroup, WhereOperator } from '.';
+import { ColumnType } from '../column-types';
 
-export type WhereFilterType = WhereGroup | WhereFilter<unknown> | WhereOperator;
+export type WhereFilterType = WhereGroup | WhereFilter<ColumnType> | WhereOperator;

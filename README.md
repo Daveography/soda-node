@@ -273,6 +273,7 @@ this.context.developmentPermits
 * This is a work in progress, watch this repository for updates.
 * Heavily inspired by Entity Framework.
 * Filter grouping coming soon.
+* Support for case-insensitive text matches is coming.
 * Support for select-based functions are coming.
 
 ## Additional Reading
