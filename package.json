@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@angular/common": "7",
-    "@angular/core": "7",
+    "@angular/core": "11",
     "@types/jasmine": "^3.4.0",
     "@typescript-eslint/eslint-plugin": "^3.6.1",
     "@typescript-eslint/parser": "^3.6.1",
