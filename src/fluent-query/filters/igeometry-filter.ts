@@ -1,6 +1,6 @@
 import { Geometry, MultiPolygon, Point } from 'geojson';
 import { Meters } from '../../datatypes/metres';
-import { IFilteredQueryable } from '../ifilteredqueryable';
+import { IFilteredQueryable } from '../ifiltered-queryable';
 
 export interface IGeometryFilter<TEntity> {
   intersects(geometry: Geometry): IFilteredQueryable<TEntity>;

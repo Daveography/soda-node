@@ -2,7 +2,6 @@ import { FloatingTimestamp } from "../../../src/datatypes/floating-timestamp";
 import { Column } from "../../../src/soql-query/clauses/column";
 
 describe("Column", () => {
-
   it("should create column with valid name", () => {
     const columnName = "my_column1";
     const columnObj = new Column(columnName);
@@ -20,6 +19,7 @@ describe("Column", () => {
   });
 
   it("should not allow null name", () => {
+    // @ts-ignore TS2345
     const createFunc = () => new Column(null);
     expect(createFunc).toThrow();
   });
@@ -31,13 +31,13 @@ describe("Column", () => {
       published: FloatingTimestamp;
     }
 
-    let result = Column.of<ITestInterface>(x => x.id);
+    let result = Column.of<ITestInterface>((x) => x.id);
     expect(result.Name).toEqual("id");
 
-    result = Column.of<ITestInterface>(x => x.title);
+    result = Column.of<ITestInterface>((x) => x.title);
     expect(result.Name).toEqual("title");
 
-    result = Column.of<ITestInterface>(x => x.published);
+    result = Column.of<ITestInterface>((x) => x.published);
     expect(result.Name).toEqual("published");
   });
 });

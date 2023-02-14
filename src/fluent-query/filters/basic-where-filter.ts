@@ -15,9 +15,9 @@ import { IWhereComponent } from '../../soql-query/clauses/where/where-component'
 import { WhereFilter } from '../../soql-query/clauses/where/where-filter';
 import { WhereOperator } from '../../soql-query/clauses/where/where-operator';
 import { WhereValue } from "../../soql-query/clauses/where/where-value";
-import { IFilteredQueryable } from '../ifilteredqueryable';
-import { IInternalQuery } from '../iinternalquery';
-import { IWhereFilter } from './iwherefilter';
+import { IFilteredQueryable } from '../ifiltered-queryable';
+import { IInternalQuery } from '../iinternal-query';
+import { IWhereFilter } from './where-filter';
 
 export class BasicWhereFilter<TEntity, TValue extends ColumnType> implements IWhereFilter<TEntity, TValue> {
   private prependOperators: WhereOperator[];

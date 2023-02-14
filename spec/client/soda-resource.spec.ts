@@ -1,22 +1,21 @@
-import { SodaResource } from "../../src/client";
-import { SodaDataset } from "../../src/client/soda-dataset-decorator";
+import { createMock } from "ts-auto-mock";
+import { SodaContext, SodaDataset, SodaResource } from "../../src/client";
 
 describe("SodaResource", () => {
-
   @SodaDataset("abcd-efgh")
-  class SampleDataset { }
+  class SampleDataset {}
 
-  class BadDataset { }
+  class BadDataset {}
 
   it("should set resource id from decorated dataset class", () => {
-    const res = new SodaResource(SampleDataset, null);
+    const res = new SodaResource(SampleDataset, createMock<SodaContext>());
     expect(res.Id.toString()).toEqual("abcd-efgh");
   });
 
   it("should throw if creating resource with undecorated dataset class", () => {
     const createFunc = () =>
-      new SodaResource(BadDataset, null);
+      new SodaResource(BadDataset, createMock<SodaContext>());
 
-      expect(createFunc).toThrow();
+    expect(createFunc).toThrow();
   });
 });

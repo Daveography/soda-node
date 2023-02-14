@@ -7,7 +7,7 @@ import { WhereValue } from "./where-value";
 export class WhereFilter<TValue extends ColumnType> implements IWhereComponent {
   public readonly Column: Column;
   public readonly Comparitor: Comparitor;
-  public readonly Value: WhereValue<TValue>;
+  public readonly Value?: WhereValue<TValue>;
 
   constructor(column: Column, comparitor: Comparitor, value?: WhereValue<TValue>) {
     if (value && Comparitor.isCheckingNull(comparitor)) {

@@ -1,6 +1,6 @@
 import { Geometry } from 'geojson';
 import { createMock } from 'ts-auto-mock';
-import { ISodaResource } from "../../src/client/isodaresource";
+import { ISodaResource } from "../../src/client/isoda-resource";
 import { Location } from '../../src/datatypes/location';
 import { FluentQuery } from "../../src/fluent-query/fluent-query";
 import { GeoJSONUtils } from '../../src/utilities/geojson-utils';

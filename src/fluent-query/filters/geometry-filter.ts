@@ -8,9 +8,9 @@ import { WithinPolygon } from '../../soql-query/clauses/where/functions/within-p
 import { IWhereComponent } from '../../soql-query/clauses/where/where-component';
 import { WhereOperator } from '../../soql-query/clauses/where/where-operator';
 import { WhereValue } from '../../soql-query/clauses/where/where-value';
-import { IFilteredQueryable } from '../ifilteredqueryable';
-import { IInternalQuery } from '../iinternalquery';
-import { IGeometryFilter } from './igeometryfilter';
+import { IFilteredQueryable } from '../ifiltered-queryable';
+import { IInternalQuery } from '../iinternal-query';
+import { IGeometryFilter } from './igeometry-filter';
 
 export class GeometryFilter<TEntity> implements IGeometryFilter<TEntity> {
   private prependOperators: WhereOperator[];
@@ -40,7 +40,7 @@ export class GeometryFilter<TEntity> implements IGeometryFilter<TEntity> {
   }
 
   public withinCircle(point: Point, radius: Meters): IFilteredQueryable<TEntity> {
-    if (!location) {
+    if (!point) {
       throw new Error("Point must be provided");
     }
     if (!radius) {

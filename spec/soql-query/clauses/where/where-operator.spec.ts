@@ -2,7 +2,6 @@ import { Operator } from "../../../../src/soql-query/clauses/where/operator";
 import { WhereOperator } from "../../../../src/soql-query/clauses/where/where-operator";
 
 describe("Where Operators", () => {
-
   it("should create AND where operator", () => {
     const valueObj = new WhereOperator(Operator.And);
     expect(valueObj.toString()).toEqual("AND");
@@ -19,6 +18,7 @@ describe("Where Operators", () => {
   });
 
   it("should not allow null value", () => {
+    // @ts-ignore TS2345
     const createFunc = () => new WhereOperator(null);
     expect(createFunc).toThrow();
   });

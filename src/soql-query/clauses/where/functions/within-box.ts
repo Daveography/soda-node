@@ -28,7 +28,7 @@ export class WithinBox<TCoordinate extends Location | Point> implements IWhereCo
   }
 
   public toString(): string {
-    if (LocationUtils.isLocation(this.Start.Value)) {
+    if (LocationUtils.isLocation(this.Start.Value) && LocationUtils.isLocation(this.End.Value)) {
       return `within_box(${this.Column}, ${this.Start.Value}, ${this.End.Value})`;
     }
     else {

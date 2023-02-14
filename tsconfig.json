@@ -1,23 +1,20 @@
 {
+  "extends": "ts-node/node16/tsconfig.json",
   "compileOnSave": true,
   "compilerOptions": {
-    "baseUrl": "./",
-    "outDir": "./out",
+    "baseUrl": "src",
+    "outDir": "out",
     "sourceMap": false,
     "declaration": true,
-    "module": "ES6",
-    "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "ES6",
     "typeRoots": [
       "node_modules/@types"
     ],
+    "types": [],
     "lib": [
-      "ES2018",
-      "ES2019.Array",
-      "DOM"
+      "ES2019"
     ],
     "plugins": [
       {
@@ -25,9 +22,7 @@
       }
     ]
   },
-  "exclude": [
-    "node_modules",
-    "dist",
-    "out"
+  "include": [
+    "src"
   ]
 }

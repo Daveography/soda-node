@@ -1,11 +1,12 @@
 import { SodaHostUrl } from "./soda-host-url";
-import { SodaClient } from './soda-client';
+import { ISodaClient } from './isoda-client';
+import { AxiosSodaClient } from "./axios-client";
 
 export abstract class SodaContext {
-  readonly Host: SodaHostUrl;
-  readonly Client: SodaClient;
+  readonly Host!: SodaHostUrl;
+  readonly Client!: ISodaClient;
 
-  constructor(client: SodaClient) {
+  constructor(client: ISodaClient = new AxiosSodaClient()) {
     this.Client = client;
   }
 }

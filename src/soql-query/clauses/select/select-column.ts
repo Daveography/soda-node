@@ -1,7 +1,7 @@
 import { Column } from "../column";
 
 export class SelectColumn extends Column {
-  public readonly As: string;
+  public readonly As?: string;
 
   constructor(columnName: string, as?: string) {
     super(columnName);

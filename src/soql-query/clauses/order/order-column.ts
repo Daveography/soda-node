@@ -1,7 +1,7 @@
 import { Column } from "../column";
 
 export class OrderColumn extends Column {
-  public readonly Descending: boolean;
+  public readonly Descending: boolean = false;
 
   constructor(columnName: string, descending?: boolean) {
     super(columnName);

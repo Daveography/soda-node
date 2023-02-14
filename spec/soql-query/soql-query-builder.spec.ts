@@ -1,8 +1,18 @@
-import { Column, LimitClause, OffsetClause, SelectClause, WhereFilter, Comparitor, WhereValue, WhereClause, OrderClause, OrderColumn } from "../../src/soql-query";
-import { SoqlQueryBuilder } from "../../src/soql-query/soql-query-builder";
+import {
+  Column,
+  LimitClause,
+  OffsetClause,
+  SelectClause,
+  WhereFilter,
+  Comparitor,
+  WhereValue,
+  WhereClause,
+  OrderClause,
+  OrderColumn,
+  SoqlQueryBuilder,
+} from "../../src/soql-query";
 
 describe("SoqlQueryBuilder", () => {
-
   it("should set limit clause", () => {
     const builder = new SoqlQueryBuilder();
     builder.limit(20);
@@ -33,7 +43,7 @@ describe("SoqlQueryBuilder", () => {
   it("should clear limit clause", () => {
     const builder = new SoqlQueryBuilder();
     builder.limit(20);
-    
+
     const expected = new LimitClause(20);
 
     expect(builder.LimitClause).toEqual(expected);
@@ -57,7 +67,7 @@ describe("SoqlQueryBuilder", () => {
   it("should reset offset clause", () => {
     const builder = new SoqlQueryBuilder();
     builder.offset(20);
-    
+
     const expected = new OffsetClause(20);
 
     expect(builder.OffsetClause).toEqual(expected);
@@ -88,7 +98,7 @@ describe("SoqlQueryBuilder", () => {
 
   it("should set select clause", () => {
     const builder = new SoqlQueryBuilder();
-    const col1 = new Column('col1');
+    const col1 = new Column("col1");
     builder.select(col1);
 
     const expected = new SelectClause(col1);
@@ -99,8 +109,8 @@ describe("SoqlQueryBuilder", () => {
 
   it("should set select clause with multiple columns", () => {
     const builder = new SoqlQueryBuilder();
-    const col1 = new Column('col1');
-    const col2 = new Column('col2');
+    const col1 = new Column("col1");
+    const col2 = new Column("col2");
     builder.select(col1, col2);
 
     const expected = new SelectClause(col1, col2);
@@ -111,8 +121,8 @@ describe("SoqlQueryBuilder", () => {
 
   it("should append to select clause", () => {
     const builder = new SoqlQueryBuilder();
-    const col1 = new Column('col1');
-    const col2 = new Column('col2');
+    const col1 = new Column("col1");
+    const col2 = new Column("col2");
     builder.select(col1);
 
     const expected = new SelectClause(col1);
@@ -130,7 +140,7 @@ describe("SoqlQueryBuilder", () => {
 
   it("should clear select clause", () => {
     const builder = new SoqlQueryBuilder();
-    const col1 = new Column('col1');
+    const col1 = new Column("col1");
     builder.select(col1);
 
     const expected = new SelectClause(col1);
@@ -146,8 +156,8 @@ describe("SoqlQueryBuilder", () => {
 
   it("should set where clause", () => {
     const builder = new SoqlQueryBuilder();
-    const col1 = new Column('col1');
-    const value = new WhereValue('test');
+    const col1 = new Column("col1");
+    const value = new WhereValue("test");
     const filter = new WhereFilter(col1, Comparitor.Equals, value);
     builder.filter(filter);
 
@@ -159,9 +169,9 @@ describe("SoqlQueryBuilder", () => {
 
   it("should set where clause with multiple filters", () => {
     const builder = new SoqlQueryBuilder();
-    const col1 = new Column('col1');
-    const col2 = new Column('col2');
-    const value = new WhereValue('test');
+    const col1 = new Column("col1");
+    const col2 = new Column("col2");
+    const value = new WhereValue("test");
 
     const filter1 = new WhereFilter(col1, Comparitor.Equals, value);
     const filter2 = new WhereFilter(col2, Comparitor.Equals, value);
@@ -176,9 +186,9 @@ describe("SoqlQueryBuilder", () => {
 
   it("should append new filter to where clause", () => {
     const builder = new SoqlQueryBuilder();
-    const col1 = new Column('col1');
-    const col2 = new Column('col2');
-    const value = new WhereValue('test');
+    const col1 = new Column("col1");
+    const col2 = new Column("col2");
+    const value = new WhereValue("test");
 
     const filter1 = new WhereFilter(col1, Comparitor.Equals, value);
     const filter2 = new WhereFilter(col2, Comparitor.Equals, value);
@@ -201,8 +211,8 @@ describe("SoqlQueryBuilder", () => {
 
   it("should clear where clause", () => {
     const builder = new SoqlQueryBuilder();
-    const col1 = new Column('col1');
-    const value = new WhereValue('test');
+    const col1 = new Column("col1");
+    const value = new WhereValue("test");
     const filter = new WhereFilter(col1, Comparitor.Equals, value);
     builder.filter(filter);
 
@@ -216,10 +226,10 @@ describe("SoqlQueryBuilder", () => {
     expect(builder.WhereClause).toBeUndefined();
     expect(builder.getQuery().Clauses).not.toContain(expected);
   });
-  
+
   it("should set order clause", () => {
     const builder = new SoqlQueryBuilder();
-    const col1 = new Column('col1');
+    const col1 = new Column("col1");
     builder.orderBy(col1);
 
     const expected = new OrderClause(col1);
@@ -230,8 +240,8 @@ describe("SoqlQueryBuilder", () => {
 
   it("should set order clause with multiple columns", () => {
     const builder = new SoqlQueryBuilder();
-    const col1 = new Column('col1');
-    const col2 = new OrderColumn('col2', true);
+    const col1 = new Column("col1");
+    const col2 = new OrderColumn("col2", true);
     builder.orderBy(col1, col2);
 
     const expected = new OrderClause(col1, col2);
@@ -242,8 +252,8 @@ describe("SoqlQueryBuilder", () => {
 
   it("should append to order clause", () => {
     const builder = new SoqlQueryBuilder();
-    const col1 = new Column('col1');
-    const col2 = new OrderColumn('col2', true);
+    const col1 = new Column("col1");
+    const col2 = new OrderColumn("col2", true);
     builder.orderBy(col1);
 
     const expected = new OrderClause(col1);
@@ -261,7 +271,7 @@ describe("SoqlQueryBuilder", () => {
 
   it("should clear order clause", () => {
     const builder = new SoqlQueryBuilder();
-    const col1 = new Column('col1');
+    const col1 = new Column("col1");
     builder.orderBy(col1);
 
     const expected = new OrderClause(col1);
@@ -274,5 +284,4 @@ describe("SoqlQueryBuilder", () => {
     expect(builder.OrderClause).toBeUndefined();
     expect(builder.getQuery().Clauses).not.toContain(expected);
   });
-
 });

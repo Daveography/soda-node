@@ -1,7 +1,15 @@
-import { Column, Comparitor, LimitClause, OffsetClause, SoqlQuery, WhereClause, WhereFilter, WhereValue } from "../../src/soql-query";
+import {
+  Column,
+  Comparitor,
+  LimitClause,
+  OffsetClause,
+  SoqlQuery,
+  WhereClause,
+  WhereFilter,
+  WhereValue,
+} from "../../src/soql-query";
 
 describe("SoqlQuery", () => {
-
   it("should create empty query with no params", () => {
     const query = new SoqlQuery();
 
@@ -23,8 +31,8 @@ describe("SoqlQuery", () => {
       new WhereFilter(
         new Column("col1"),
         Comparitor.Equals,
-        new WhereValue("test"),
-      ),
+        new WhereValue("test")
+      )
     );
 
     const query = new SoqlQuery(limitClause, offsetClause, whereClause);
@@ -32,6 +40,8 @@ describe("SoqlQuery", () => {
     expect(query.Clauses).toContain(limitClause);
     expect(query.Clauses).toContain(offsetClause);
     expect(query.Clauses).toContain(whereClause);
-    expect(query.toString()).toEqual("?$limit=20&$offset=20&$where=col1 = 'test'");
+    expect(query.toString()).toEqual(
+      "?$limit=20&$offset=20&$where=col1 = 'test'"
+    );
   });
 });

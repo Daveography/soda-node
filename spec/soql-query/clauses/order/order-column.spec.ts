@@ -1,7 +1,6 @@
-import { OrderColumn } from '../../../../src/soql-query/clauses/order/order-column';
+import { OrderColumn } from "../../../../src/soql-query/clauses/order/order-column";
 
 describe("OrderColumn", () => {
-
   it("should create basic column", () => {
     const columnName = "my_column";
     const columnObj = new OrderColumn(columnName);
@@ -20,6 +19,7 @@ describe("OrderColumn", () => {
   });
 
   it("should not allow null column name", () => {
+    // @ts-ignore TS2345
     const createFunc = () => new OrderColumn(null);
     expect(createFunc).toThrow();
   });

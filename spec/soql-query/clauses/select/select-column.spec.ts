@@ -1,7 +1,6 @@
 import { SelectColumn } from "../../../../src/soql-query/clauses/select/select-column";
 
 describe("Select Columns", () => {
-
   it("should create basic column", () => {
     const columnName = "my_column";
     const columnObj = new SelectColumn(columnName);
@@ -21,6 +20,7 @@ describe("Select Columns", () => {
   });
 
   it("should not allow null column name", () => {
+    // @ts-ignore TS2345
     const createFunc = () => new SelectColumn(null);
     expect(createFunc).toThrow();
   });
@@ -28,6 +28,7 @@ describe("Select Columns", () => {
   it("should ignore null alias", () => {
     const columnName = "my_column";
     const alias = null;
+    // @ts-ignore TS2345
     const columnObj = new SelectColumn(columnName, alias);
     expect(columnObj.toString()).toEqual(columnName);
   });

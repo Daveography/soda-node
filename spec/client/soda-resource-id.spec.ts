@@ -1,24 +1,22 @@
 import { SodaResourceId } from "../../src/client/soda-resource-id";
 
 describe("SodaResourceId", () => {
-
   it("should throw if resource id is null", () => {
     const createFunc = () =>
+      // @ts-ignore TS2345
       new SodaResourceId(null);
 
     expect(createFunc).toThrow();
   });
 
   it("should throw if resource id is empty", () => {
-    const createFunc = () =>
-      new SodaResourceId("");
+    const createFunc = () => new SodaResourceId("");
 
     expect(createFunc).toThrow();
   });
 
   it("should throw if not a valid resource id", () => {
-    const createFunc = () =>
-      new SodaResourceId("random string");
+    const createFunc = () => new SodaResourceId("random string");
 
     expect(createFunc).toThrow();
   });

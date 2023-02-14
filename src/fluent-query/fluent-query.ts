@@ -1,6 +1,6 @@
 import { Geometry } from 'geojson';
 import { Observable } from 'rxjs';
-import { ISodaResource } from '../client/isodaresource';
+import { ISodaResource } from '../client/isoda-resource';
 import { Location } from '../datatypes/location';
 import { Column, OrderColumn, WhereOperator, Operator } from "../soql-query/clauses";
 import { ColumnType } from '../soql-query/clauses/column-types';
@@ -9,23 +9,19 @@ import { SoqlQueryBuilder } from '../soql-query/soql-query-builder';
 import { DataSetColumn } from './dataset-column';
 import { BasicWhereFilter } from './filters/basic-where-filter';
 import { GeometryFilter } from './filters/geometry-filter';
-import { IGeometryFilter } from './filters/igeometryfilter';
-import { ILocationFilter } from './filters/ilocationfilter';
-import { IWhereFilter } from './filters/iwherefilter';
+import { IGeometryFilter } from './filters/igeometry-filter';
+import { ILocationFilter } from './filters/ilocation-filter';
+import { IWhereFilter } from './filters/where-filter';
 import { LocationFilter } from './filters/location-filter';
-import { IFilteredQueryable } from './ifilteredqueryable';
-import { IInternalQuery } from './iinternalquery';
+import { IFilteredQueryable } from './ifiltered-queryable';
+import { IInternalQuery } from './iinternal-query';
 import { IQueryable } from './iqueryable';
 
 export class FluentQuery<TEntity> implements IQueryable<TEntity>, IInternalQuery<TEntity> {
 
-  constructor(readonly sodaResource: ISodaResource<TEntity>, private readonly queryBuilder?: SoqlQueryBuilder) {
+  constructor(readonly sodaResource: ISodaResource<TEntity>, private readonly queryBuilder: SoqlQueryBuilder = new SoqlQueryBuilder()) {
     if (!sodaResource) {
       throw new Error("resource must be provided");
-    }
-
-    if (!queryBuilder) {
-      this.queryBuilder = new SoqlQueryBuilder();
     }
   }
 

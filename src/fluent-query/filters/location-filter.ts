@@ -6,9 +6,9 @@ import { WithinCircle } from '../../soql-query/clauses/where/functions/within-ci
 import { IWhereComponent } from '../../soql-query/clauses/where/where-component';
 import { WhereOperator } from '../../soql-query/clauses/where/where-operator';
 import { WhereValue } from '../../soql-query/clauses/where/where-value';
-import { IFilteredQueryable } from '../ifilteredqueryable';
-import { IInternalQuery } from '../iinternalquery';
-import { ILocationFilter } from './ilocationfilter';
+import { IFilteredQueryable } from '../ifiltered-queryable';
+import { IInternalQuery } from '../iinternal-query';
+import { ILocationFilter } from './ilocation-filter';
 
 export class LocationFilter<TEntity> implements ILocationFilter<TEntity> {
   private prependOperators: WhereOperator[];

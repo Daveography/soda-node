@@ -1,34 +1,32 @@
 import { Location } from "../../src/datatypes/location";
 
 describe("Location", () => {
-
   it("should throw if missing latitude", () => {
-    const createFunc = () => new Location(null, -113.501720);
+    // @ts-ignore TS2345
+    const createFunc = () => new Location(null, -113.50172);
     expect(createFunc).toThrow();
   });
 
   it("should throw if missing longitude", () => {
+    // @ts-ignore TS2345
     const createFunc = () => new Location(53.528525, null);
     expect(createFunc).toThrow();
   });
 
   it("should output coordinate pair on toString", () => {
-    const loc = new Location(53.528525, -113.501720);
+    const loc = new Location(53.528525, -113.50172);
 
-    expect(loc.toString())
-      .toEqual("53.528525, -113.501720");
+    expect(loc.toString()).toEqual("53.528525, -113.501720");
   });
 
   it("should set precision to six digits on toString", () => {
     let loc = new Location(3.942386342, 13.368620378);
 
-    expect(loc.toString())
-      .toEqual("3.942386, 13.368620");
+    expect(loc.toString()).toEqual("3.942386, 13.368620");
 
-    loc = new Location(-33.871, 151.200);
+    loc = new Location(-33.871, 151.2);
 
-    expect(loc.toString())
-      .toEqual("-33.871000, 151.200000");
+    expect(loc.toString()).toEqual("-33.871000, 151.200000");
   });
 
   it("should throw on latitudes beyond 90 degress", () => {

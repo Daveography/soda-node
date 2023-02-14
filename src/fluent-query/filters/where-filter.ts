@@ -1,7 +1,7 @@
 import { ColumnType } from '../../soql-query/clauses/column-types';
 import { BetweenFunctionType } from '../../soql-query/clauses/where/functions/between-function-types';
 import { InFunctionType } from '../../soql-query/clauses/where/functions/in-function-types';
-import { IFilteredQueryable } from '../ifilteredqueryable';
+import { IFilteredQueryable } from '../ifiltered-queryable';
 
 export interface IWhereFilter<TEntity, TValue extends ColumnType> {
   equals(value: TValue): IFilteredQueryable<TEntity>;

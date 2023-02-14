@@ -5,17 +5,17 @@ import { SoqlQuery } from './soql-query';
 
 export class SoqlQueryBuilder {
 
-  private limitClause: LimitClause;
-  private offsetClause: OffsetClause;
-  private selectClause: SelectClause;
-  private whereClause: WhereClause;
-  private orderClause: OrderClause;
+  private limitClause?: LimitClause;
+  private offsetClause?: OffsetClause;
+  private selectClause?: SelectClause;
+  private whereClause?: WhereClause;
+  private orderClause?: OrderClause;
 
-  public get LimitClause(): LimitClause { return this.limitClause };
-  public get OffsetClause(): OffsetClause { return this.offsetClause };
-  public get SelectClause(): SelectClause { return this.selectClause };
-  public get WhereClause(): WhereClause { return this.whereClause };
-  public get OrderClause(): OrderClause { return this.orderClause };
+  public get LimitClause(): LimitClause | undefined { return this.limitClause };
+  public get OffsetClause(): OffsetClause | undefined { return this.offsetClause };
+  public get SelectClause(): SelectClause | undefined { return this.selectClause };
+  public get WhereClause(): WhereClause | undefined { return this.whereClause };
+  public get OrderClause(): OrderClause | undefined { return this.orderClause };
 
   public limit(maxRows: number): this {
     this.limitClause = new LimitClause(maxRows);

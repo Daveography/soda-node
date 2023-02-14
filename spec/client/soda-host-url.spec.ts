@@ -1,24 +1,22 @@
 import { SodaHostUrl } from "../../src/client/soda-host-url";
 
 describe("SodaHostUrl", () => {
-
   it("should throw if host url is null", () => {
     const createFunc = () =>
+      // @ts-ignore TS2345
       new SodaHostUrl(null);
 
     expect(createFunc).toThrow();
   });
 
   it("should throw if host url is empty", () => {
-    const createFunc = () =>
-      new SodaHostUrl("");
+    const createFunc = () => new SodaHostUrl("");
 
     expect(createFunc).toThrow();
   });
 
   it("should throw if not a valid url", () => {
-    const createFunc = () =>
-      new SodaHostUrl("random string");
+    const createFunc = () => new SodaHostUrl("random string");
 
     expect(createFunc).toThrow();
   });
@@ -40,5 +38,4 @@ describe("SodaHostUrl", () => {
 
     expect(host.toString()).toEqual("https://data.opendata.org/");
   });
-
 });

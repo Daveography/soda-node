@@ -1,6 +1,6 @@
 import { Polygon } from 'geojson';
 import { createMock } from 'ts-auto-mock';
-import { ISodaResource } from "../../../src/client/isodaresource";
+import { ISodaResource } from "../../../src/client/isoda-resource";
 import { FluentQuery } from "../../../src/fluent-query/fluent-query";
 import { IQueryable } from '../../../src/fluent-query/iqueryable';
 import { GeoJSONUtils } from '../../../src/utilities/geojson-utils';
