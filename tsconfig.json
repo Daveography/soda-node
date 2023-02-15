@@ -3,7 +3,7 @@
   "compileOnSave": true,
   "compilerOptions": {
     "baseUrl": "src",
-    "outDir": "out",
+    "outDir": "dist",
     "sourceMap": false,
     "declaration": true,
     "emitDecoratorMetadata": true,
