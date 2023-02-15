@@ -15,11 +15,6 @@
     "types": [],
     "lib": [
       "ES2019"
-    ],
-    "plugins": [
-      {
-        "transform": "ts-auto-mock/transformer"
-      }
     ]
   },
   "include": [

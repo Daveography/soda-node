@@ -6,7 +6,10 @@
     {
       "type": "npm",
       "script": "test",
-      "group": "test",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
       "problemMatcher": [
         "$jasmine"
       ]
@@ -14,6 +17,10 @@
     {
       "type": "npm",
       "script": "lint",
+      "group": {
+        "kind": "test",
+        "isDefault": false
+      },
       "problemMatcher": [
         "$eslint-stylish"
       ]
@@ -23,7 +30,7 @@
       "script": "build",
       "group": {
         "kind": "build",
-        "isDefault": true
+        "isDefault": false
       },
       "problemMatcher": [
         "$tsc-watch"
@@ -31,8 +38,17 @@
     },
     {
       "type": "npm",
-      "script": "dist",
-      "problemMatcher": []
+      "label": "Full Build",
+      "script": "prepublishOnly",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [
+        "$tsc-watch",
+        "$jasmine",
+        "$eslint-stylish"
+      ]
     }
   ]
 }

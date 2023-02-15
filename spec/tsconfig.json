@@ -1,10 +1,14 @@
 {
   "extends": "../tsconfig.json",
-  "experimentalDecorators": true,
   "compilerOptions": {
     "types": [
       "jasmine",
       "node"
+    ],
+    "plugins": [
+      {
+        "transform": "ts-auto-mock/transformer"
+      }
     ]
   },
   "include": [
