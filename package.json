@@ -23,7 +23,7 @@
   "scripts": {
     "clean": "rimraf dist",
     "build": "tsc",
-    "test": "ts-node --project spec/tsconfig.json node_modules/jasmine/bin/jasmine",
+    "test": "ts-patch install -s && ts-node --project spec/tsconfig.json node_modules/jasmine/bin/jasmine",
     "lint": "eslint",
     "prepublishOnly": "npm run clean && npm run build && npm test && npm run lint",
     "prepublish": "npm run clean",
@@ -51,7 +51,6 @@
     "eslint-plugin-jsdoc": ">=39.8.0",
     "eslint-plugin-prefer-arrow": "^1.2.1",
     "jasmine": ">=4.5.0",
-    "jasmine-core": ">=4.5.0",
     "npm": ">=6.11.3",
     "prettier-eslint": ">=15.0.1",
     "ts-auto-mock": ">=3.6.4",
