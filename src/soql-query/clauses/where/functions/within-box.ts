@@ -1,7 +1,6 @@
 import { Point } from 'geojson';
 import { Location } from '../../../../datatypes/location';
 import { WellKnownType } from '../../../../datatypes/well-known-type';
-import { LocationUtils } from '../../../../utilities/location-utils';
 import { Column } from '../../column';
 import { IWhereComponent } from '../where-component';
 import { WhereValue } from '../where-value';
@@ -28,7 +27,7 @@ export class WithinBox<TCoordinate extends Location | Point> implements IWhereCo
   }
 
   public toString(): string {
-    if (LocationUtils.isLocation(this.Start.Value) && LocationUtils.isLocation(this.End.Value)) {
+    if (Location.isLocation(this.Start.Value) && Location.isLocation(this.End.Value)) {
       return `within_box(${this.Column}, ${this.Start.Value}, ${this.End.Value})`;
     }
     else {

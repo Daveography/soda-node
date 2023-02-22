@@ -1,9 +1,8 @@
-import { Geometry } from 'geojson';
-import { createMock } from 'ts-auto-mock';
+import { Geometry } from "geojson";
+import { createMock } from "ts-auto-mock";
 import { ISodaResource } from "../../src/client/isoda-resource";
-import { Location } from '../../src/datatypes/location';
+import { Location } from "../../src/datatypes/location";
 import { FluentQuery } from "../../src/fluent-query/fluent-query";
-import { GeoJSONUtils } from '../../src/utilities/geojson-utils';
 
 describe("FluentQuery", () => {
   interface ITestInterface {
@@ -13,7 +12,8 @@ describe("FluentQuery", () => {
     geometry: Geometry;
   }
 
-  const mockResource: ISodaResource<ITestInterface> = createMock<ISodaResource<ITestInterface>>();
+  const mockResource: ISodaResource<ITestInterface> =
+    createMock<ISodaResource<ITestInterface>>();
 
   it("should generate simple query with limit and offset", () => {
     const query = new FluentQuery<ITestInterface>(mockResource)
@@ -24,96 +24,118 @@ describe("FluentQuery", () => {
   });
 
   it("should generate simple query with one selected column", () => {
-    const query = new FluentQuery<ITestInterface>(mockResource)
-    .select(x => x.id);
+    const query = new FluentQuery<ITestInterface>(mockResource).select(
+      (x) => x.id
+    );
 
     expect(query.toString()).toEqual("?$select=id");
   });
 
   it("should generate simple query with chained selected columns", () => {
     const query = new FluentQuery<ITestInterface>(mockResource)
-    .select(x => x.id)
-    .select(x => x.title);
+      .select((x) => x.id)
+      .select((x) => x.title);
 
     expect(query.toString()).toEqual("?$select=id,title");
   });
 
   it("should generate simple query with one order column", () => {
-    const query = new FluentQuery<ITestInterface>(mockResource)
-    .orderBy(x => x.id);
+    const query = new FluentQuery<ITestInterface>(mockResource).orderBy(
+      (x) => x.id
+    );
 
     expect(query.toString()).toEqual("?$order=id");
   });
 
   it("should generate simple query with one descending order column", () => {
-    const query = new FluentQuery<ITestInterface>(mockResource)
-    .orderBy(x => x.id, true);
+    const query = new FluentQuery<ITestInterface>(mockResource).orderBy(
+      (x) => x.id,
+      true
+    );
 
     expect(query.toString()).toEqual("?$order=id DESC");
   });
 
   it("should generate simple query with chained order columns", () => {
     const query = new FluentQuery<ITestInterface>(mockResource)
-    .orderBy(x => x.id)
-    .orderBy(x => x.title, true);
+      .orderBy((x) => x.id)
+      .orderBy((x) => x.title, true);
 
     expect(query.toString()).toEqual("?$order=id,title DESC");
   });
 
   it("should generate complex query with multiple clauses", () => {
     const query = new FluentQuery<ITestInterface>(mockResource)
-      .where(x => x.id).equals(1)
+      .where((x) => x.id)
+      .equals(1)
       .limit(10)
       .offset(20)
-      .select(x => x.id)
-      .select(x => x.title)
-      .orderBy(x => x.title);
+      .select((x) => x.id)
+      .select((x) => x.title)
+      .orderBy((x) => x.title);
 
-    expect(query.toString())
-      .toEqual("?$where=id = '1'&$select=id,title&$limit=10&$offset=20&$order=title");
+    expect(query.toString()).toEqual(
+      "?$where=id = '1'&$select=id,title&$limit=10&$offset=20&$order=title"
+    );
   });
 
   it("should combine mutliple where queries with and", () => {
     const query = new FluentQuery<ITestInterface>(mockResource)
-      .where(x => x.id).equals(1)
-      .and(x => x.title).equals("some text");
+      .where((x) => x.id)
+      .equals(1)
+      .and((x) => x.title)
+      .equals("some text");
 
-    expect(query.toString())
-      .toEqual("?$where=id = '1' AND title = 'some text'");
+    expect(query.toString()).toEqual(
+      "?$where=id = '1' AND title = 'some text'"
+    );
   });
 
   it("should combine mutliple where queries with or", () => {
     const query = new FluentQuery<ITestInterface>(mockResource)
-      .where(x => x.id).equals(1)
-      .or(x => x.title).equals("some text");
+      .where((x) => x.id)
+      .equals(1)
+      .or((x) => x.title)
+      .equals("some text");
 
-    expect(query.toString())
-      .toEqual("?$where=id = '1' OR title = 'some text'");
+    expect(query.toString()).toEqual("?$where=id = '1' OR title = 'some text'");
   });
 
   it("should generate simple not query", () => {
     const query = new FluentQuery<ITestInterface>(mockResource)
-      .where(x => x.id).not().equals(1);
+      .where((x) => x.id)
+      .not()
+      .equals(1);
 
-    expect(query.toString())
-      .toEqual("?$where=NOT id = '1'");
+    expect(query.toString()).toEqual("?$where=NOT id = '1'");
   });
 
   it("should throw on double not", () => {
-    const createFunc = () => new FluentQuery<ITestInterface>(mockResource)
-      .where(x => x.id).not().not().equals(1);
+    const createFunc = () =>
+      new FluentQuery<ITestInterface>(mockResource)
+        .where((x) => x.id)
+        .not()
+        .not()
+        .equals(1);
 
     expect(createFunc).toThrow();
   });
 
   it("should generate complex query with and or and not", () => {
     const query = new FluentQuery<ITestInterface>(mockResource)
-      .where(x => x.id).equals(1)
-      .or(x => x.id).not().equals(0)
-      .and(x => x.title).not().equals('test')
-      .or(x => x.title).isNotNull();
+      .where((x) => x.id)
+      .equals(1)
+      .or((x) => x.id)
+      .not()
+      .equals(0)
+      .and((x) => x.title)
+      .not()
+      .equals("test")
+      .or((x) => x.title)
+      .isNotNull();
 
-    expect(query.toString())
-      .toEqual("?$where=id = '1' OR NOT id = '0' AND NOT title = 'test' OR title IS NOT NULL");
+    expect(query.toString()).toEqual(
+      "?$where=id = '1' OR NOT id = '0' AND NOT title = 'test' OR title IS NOT NULL"
+    );
   });
 });

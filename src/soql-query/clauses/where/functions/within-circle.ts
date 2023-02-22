@@ -2,7 +2,6 @@ import { Point } from 'geojson';
 import { Location } from '../../../../datatypes/location';
 import { Meters } from '../../../../datatypes/metres';
 import { WellKnownType } from '../../../../datatypes/well-known-type';
-import { LocationUtils } from '../../../../utilities/location-utils';
 import { Column } from '../../column';
 import { IWhereComponent } from '../where-component';
 import { WhereValue } from '../where-value';
@@ -31,7 +30,7 @@ export class WithinCircle implements IWhereComponent {
   }
 
   public toString(): string {
-    if (LocationUtils.isLocation(this.Location.Value)) {
+    if (Location.isLocation(this.Location.Value)) {
       return `within_circle(${this.Column}, ${this.Location.Value}, ${this.Radius})`;
     }
     else {

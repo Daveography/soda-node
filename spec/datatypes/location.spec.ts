@@ -1,4 +1,5 @@
 import { Location } from "../../src/datatypes/location";
+import { Point } from "geojson";
 
 describe("Location", () => {
   it("should throw if missing latitude", () => {
@@ -29,7 +30,7 @@ describe("Location", () => {
     expect(loc.toString()).toEqual("-33.871000, 151.200000");
   });
 
-  it("should throw on latitudes beyond 90 degress", () => {
+  it("should throw on latitudes beyond 90 degrees", () => {
     let createFunc = () => new Location(90.5, 0);
     expect(createFunc).toThrow();
 
@@ -37,11 +38,27 @@ describe("Location", () => {
     expect(createFunc).toThrow();
   });
 
-  it("should throw on longitudes beyond 180 degress", () => {
+  it("should throw on longitudes beyond 180 degrees", () => {
     let createFunc = () => new Location(0, -180.5);
     expect(createFunc).toThrow();
 
     createFunc = () => new Location(0, 180.1);
     expect(createFunc).toThrow();
+  });
+
+  it("should return true for Location type", () => {
+    const loc = new Location(53.528525, -113.50172);
+    const isLoc = Location.isLocation(loc);
+    expect(isLoc).toEqual(true);
+  });
+
+  it("should return false for Point type", () => {
+    const loc: Point = {
+      type: "Point",
+      coordinates: [-68.980986, 12.198599],
+    };
+
+    const isLoc = Location.isLocation(loc);
+    expect(isLoc).toEqual(false);
   });
 });

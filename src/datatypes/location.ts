@@ -1,9 +1,9 @@
-import { Coordinate } from './coordinate';
+import { Point } from "geojson";
+import { Coordinate } from "./coordinate";
 
 const PRECISION_DIGITS = 6;
 
 export class Location {
-
   public readonly Latitude: Coordinate;
   public readonly Longitude: Coordinate;
 
@@ -18,7 +18,9 @@ export class Location {
       throw new Error("Latitude must be a valid value between -90.0 and 90.0");
     }
     if (longitude > 180 || longitude < -180) {
-      throw new Error("Longitude must be a valid value between -180.0 and 180.0");
+      throw new Error(
+        "Longitude must be a valid value between -180.0 and 180.0"
+      );
     }
 
     this.Latitude = latitude;
@@ -26,6 +28,12 @@ export class Location {
   }
 
   toString(): string {
-    return `${this.Latitude.toFixed(PRECISION_DIGITS)}, ${this.Longitude.toFixed(PRECISION_DIGITS)}`
+    return `${this.Latitude.toFixed(
+      PRECISION_DIGITS
+    )}, ${this.Longitude.toFixed(PRECISION_DIGITS)}`;
+  }
+
+  public static isLocation(spot: Location | Point): spot is Location {
+    return (spot as Location).Latitude !== undefined;
   }
 }

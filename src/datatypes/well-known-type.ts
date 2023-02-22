@@ -1,5 +1,5 @@
-import { Geometry } from 'geojson';
-import * as WKT from 'terraformer-wkt-parser';
+import { Geometry } from "geojson";
+import { geojsonToWKT } from "@terraformer/wkt";
 
 export class WellKnownType {
   public Geometry: Geometry;
@@ -8,11 +8,11 @@ export class WellKnownType {
     if (!geometry) {
       throw new Error("Geometry must be provided");
     }
-    
+
     this.Geometry = geometry;
   }
 
   toString(): string {
-    return WKT.convert(this.Geometry);
+    return geojsonToWKT(this.Geometry);
   }
 }
