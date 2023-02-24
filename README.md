@@ -23,7 +23,7 @@ import { SodaDataset } from "soda-node";
 
 // https://data.edmonton.ca/Urban-Planning-Economy/Development-Permits/2ccn-pwtu
 @SodaDataset("2ccn-pwtu")
-class DevelopmentPermit {
+export class DevelopmentPermit {
   city_file_number!: string;
   permit_type!: string;
   permit_class?: string;
@@ -55,7 +55,7 @@ and create your `SodaResource` objects with the dataset models:
 import { SodaContext, SodaHost, SodaResource } from "soda-node";
 
 @SodaHost("https://data.edmonton.ca/")
-class EdmontonContext extends SodaContext {
+export class EdmontonContext extends SodaContext {
   public readonly developmentPermits = new SodaResource(DevelopmentPermit, this);
   public readonly buildingFootprints = new SodaResource(BuildingFootprint, this);
 }
@@ -64,7 +64,7 @@ class EdmontonContext extends SodaContext {
 3. Instantiate your Context and query against it using fluent querying:
 
 ```js
-import { FloatingTimestamp, Location } from "soda-angular";
+import { FloatingTimestamp, Location } from "soda-node";
 
 const context = new EdmontonContext();
 
@@ -75,7 +75,7 @@ context.developmentPermits
     .greaterThan(new FloatingTimestamp("04/23/2020 GMT"))
   .and(p => p.zoning)
     .not().equals("RF1")
-  .orderBy(p => neighbourhood)
+  .orderBy(p => p.neighbourhood)
   .limit(10)
   .observable()
   .subscribe(permits => console.info(permits));
@@ -100,7 +100,7 @@ context.developmentPermits
 
 ```js
 import { MultiPolygon, Point } from "geojson";
-import { GeoJSONUtils } from "soda-angular";
+import { GeoJSONUtils } from "soda-node";
 
 context.buildingFootprints
   .geometry(p => p.the_geom)
@@ -136,7 +136,7 @@ context.developmentPermits
 You can also use query builders for more control (including OR queries):
 
 ```js
-import { SoqlQueryBuilder } from "soda-angular";
+import { SoqlQueryBuilder } from "soda-node";
 
 const builder = new SoqlQueryBuilder();
   .filter(
