@@ -70,7 +70,7 @@ describe("BasicWhereFilter", () => {
   it("should create grater than where filter with FloatingTimestamp value", () => {
     const generatedQuery = query
       .where((x) => x.published)
-      .greaterThan(new FloatingTimestamp("04/23/1982 GMT"))
+      .greaterThan(new FloatingTimestamp("04/23/1982"))
       .toString();
 
     expect(generatedQuery).toEqual(

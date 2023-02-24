@@ -1,7 +1,7 @@
 {
   "name": "soda-node",
   "description": "Socrata SODA client for Node",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "author": {
     "name": "Dave Sutherland",
     "email": "dave@daveography.ca",

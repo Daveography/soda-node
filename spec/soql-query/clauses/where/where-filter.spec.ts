@@ -37,7 +37,7 @@ describe("Where Filters", () => {
   });
 
   it("should create greater than where filter with FloatingTimestamp value", () => {
-    const now = new FloatingTimestamp("04/23/1982 GMT");
+    const now = new FloatingTimestamp("04/23/1982");
     const filterObj = new WhereFilter(
       new Column("col1"),
       Comparitor.GreaterThan,
