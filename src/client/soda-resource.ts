@@ -1,49 +1,44 @@
-import { Geometry } from 'geojson';
-import { Observable } from "rxjs";
-import { Location } from '../datatypes/location';
-import { DataSetColumn } from '../fluent-query/dataset-column';
-import { IGeometryFilter } from '../fluent-query/filters/igeometry-filter';
-import { ILocationFilter } from '../fluent-query/filters/ilocation-filter';
-import { IWhereFilter } from '../fluent-query/filters/where-filter';
-import { FluentQuery } from '../fluent-query/fluent-query';
-import { IQueryable } from '../fluent-query/iqueryable';
-import { SoqlQuery, SoqlQueryBuilder } from '../soql-query';
-import { ColumnType } from '../soql-query/clauses/column-types';
-import { ISodaResource } from './isoda-resource';
+import { Geometry } from "geojson";
+import { Location } from "../datatypes/location";
+import { DataSetColumn } from "../fluent-query/dataset-column";
+import { IGeometryFilter } from "../fluent-query/filters/igeometry-filter";
+import { ILocationFilter } from "../fluent-query/filters/ilocation-filter";
+import { IWhereFilter } from "../fluent-query/filters/where-filter";
+import { FluentQuery } from "../fluent-query/fluent-query";
+import { IQueryable } from "../fluent-query/iqueryable";
+import { SoqlQuery, SoqlQueryBuilder } from "../soql-query";
+import { ColumnType } from "../soql-query/clauses/column-types";
+import { ISodaResource } from "./isoda-resource";
 import { SodaContext } from "./soda-context";
-import { resourceMetadataKey } from './soda-dataset-decorator';
+import { resourceMetadataKey } from "./soda-dataset-decorator";
 import { SodaResourceId } from "./soda-resource-id";
 
 export class SodaResource<TEntity> implements ISodaResource<TEntity>, IQueryable<TEntity> {
-
   public readonly Id: SodaResourceId;
   public readonly Context: SodaContext;
 
-  constructor(
-    TDatasetClass: new (...args: unknown[]) => TEntity,
-    context: SodaContext
-  ) {
-      const resourceIdMetadata = Reflect.getMetadata(resourceMetadataKey, TDatasetClass) as SodaResourceId
+  constructor(TDatasetClass: new (...args: unknown[]) => TEntity, context: SodaContext) {
+    const resourceIdMetadata = Reflect.getMetadata(resourceMetadataKey, TDatasetClass) as SodaResourceId;
 
-      if (!resourceIdMetadata) {
-        throw new Error(`Class '${TDatasetClass.name}' must have a SodaDatasetId decorator`);
-      }
+    if (!resourceIdMetadata) {
+      throw new Error(`Class '${TDatasetClass.name}' must have a SodaDatasetId decorator`);
+    }
 
-      this.Id = resourceIdMetadata;
-      this.Context = context;
+    this.Id = resourceIdMetadata;
+    this.Context = context;
   }
 
   public getUrl(): string {
     return `${this.Context.Host}resource/${this.Id}.json`;
   }
 
-  public observable(): Observable<TEntity[]> {
+  public promise(): Promise<TEntity[]> {
     return this.Context.Client.getResource(this);
   }
 
-  public get(query: SoqlQuery | SoqlQueryBuilder): Observable<TEntity[]> {
+  public get(query: SoqlQuery | SoqlQueryBuilder): Promise<TEntity[]> {
     if (query instanceof SoqlQueryBuilder) {
-      query = query.getQuery()
+      query = query.getQuery();
     }
 
     return this.Context.Client.getResource(this, query);
@@ -73,7 +68,10 @@ export class SodaResource<TEntity> implements ISodaResource<TEntity>, IQueryable
     return this.createQuery().offset(records);
   }
 
-  public orderBy<TValue extends ColumnType>(column: DataSetColumn<TEntity, TValue>, descending?: boolean): IQueryable<TEntity> {
+  public orderBy<TValue extends ColumnType>(
+    column: DataSetColumn<TEntity, TValue>,
+    descending?: boolean
+  ): IQueryable<TEntity> {
     return this.createQuery().orderBy(column, descending);
   }
 

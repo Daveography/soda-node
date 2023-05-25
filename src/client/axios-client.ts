@@ -1,5 +1,4 @@
-import { Axios } from "axios-observable";
-import { map, Observable } from "rxjs";
+import { Axios } from "axios";
 import { IQueryable } from "../fluent-query/iqueryable";
 import { SoqlQuery } from "../soql-query";
 import { ISodaClient } from "./isoda-client";
@@ -9,15 +8,14 @@ export class AxiosSodaClient implements ISodaClient {
   public getResource<TEntity>(
     resource: ISodaResource<TEntity>,
     query?: IQueryable<TEntity> | SoqlQuery
-  ): Observable<TEntity[]> {
+  ): Promise<TEntity[]> {
     let getQuery = resource.getUrl();
 
     if (query) {
       getQuery += query.toString();
     }
 
-    return Axios.get<TEntity[]>(getQuery).pipe(
-      map((axiosResponse) => axiosResponse.data)
-    );
+    return new Axios().get<TEntity[]>(getQuery)
+      .then(res => res.data);
   }
 }
