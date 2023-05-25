@@ -18,4 +18,22 @@ describe("FloatingTimestamp", () => {
 
     expect(ts.toString()).toEqual(ts.toISOString());
   });
+
+  it("should create the equivalent of new Date()", () => {
+    const ts = new FloatingTimestamp();
+    const d = new Date();
+
+    // Omit ms from comparison
+    ts.setMilliseconds(0);
+    d.setMilliseconds(0)
+
+    expect(d).toEqual(ts);
+  });
+
+  it("should strip time component", () => {
+    const ts = new FloatingTimestamp("04/23/1982 12:04:54");
+    const stripedTs = ts.stripTime();
+
+    expect(stripedTs.toString()).toEqual("1982-04-23T00:00:00.000");
+  });
 });

@@ -1,4 +1,10 @@
 export class FloatingTimestamp extends Date {
+  public stripTime(): FloatingTimestamp {
+    const ts = new FloatingTimestamp(this);
+    ts.setHours(0, 0, 0, 0);
+    return ts;
+  }
+
   public toString(): string {
     return this.toISOString();
   }
